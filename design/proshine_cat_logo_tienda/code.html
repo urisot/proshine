@@ -1,0 +1,984 @@
+<!DOCTYPE html><html class="dark overflow-x-hidden" lang="es" data-stitch-anim-opacity="true" style="opacity: 0;"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-secondary":"#003642","secondary-fixed":"#b4ebff","on-primary-fixed-variant":"#004397","primary-fixed":"#d8e2ff","secondary":"#a2e7ff","tertiary-container":"#007fac","on-background":"#dae2fd","on-primary-container":"#ffffff","inverse-surface":"#dae2fd","surface-container":"#171f33","on-secondary-fixed":"#001f27","error-container":"#93000a","outline-variant":"#414754","tertiary-fixed":"#c4e7ff","on-secondary-container":"#005669","surface":"#0b1326","error":"#ffb4ab","inverse-primary":"#0059c5","outline":"#8b90a0","surface-container-highest":"#2d3449","inverse-on-surface":"#283044","primary-container":"#0070f3","on-tertiary-fixed":"#001e2c","surface-dim":"#0b1326","on-tertiary-container":"#ffffff","on-primary-fixed":"#001a43","tertiary-fixed-dim":"#7bd0ff","on-error":"#690005","tertiary":"#7bd0ff","on-surface":"#dae2fd","on-surface-variant":"#c1c6d7","on-tertiary-fixed-variant":"#004c69","surface-bright":"#31394d","on-tertiary":"#00354a","on-primary":"#002e6b","surface-container-high":"#222a3d","background":"#0b1326","on-secondary-fixed-variant":"#004e5f","primary-fixed-dim":"#aec6ff","surface-variant":"#2d3449","secondary-container":"#00d2fd","surface-container-lowest":"#060e20","primary":"#aec6ff","on-error-container":"#ffdad6","surface-tint":"#aec6ff","surface-container-low":"#131b2e","secondary-fixed-dim":"#3cd7ff"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"2rem","margin-mobile":"1rem","space-md":"1rem","space-lg":"1.5rem","gutter-mobile":"1rem","gutter":"1.5rem","space-xl":"2.5rem","space-xs":"0.25rem","space-sm":"0.5rem"},"fontFamily":{"headline-sm":["Space Grotesk"],"body-md":["Plus Jakarta Sans"],"label-sm":["Space Grotesk"],"label-lg":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"title-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Space Grotesk"],"headline-xl":["Space Grotesk"],"headline-lg":["Space Grotesk"],"headline-xl-mobile":["Space Grotesk"],"label-md":["Plus Jakarta Sans"],"headline-md":["Space Grotesk"],"body-lg":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"]},"fontSize":{"headline-sm":["20px",{"lineHeight":"28px","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"22px","fontWeight":"400"}],"label-sm":["10px",{"lineHeight":"14px","letterSpacing":"0.08em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"title-lg":["18px",{"lineHeight":"26px","fontWeight":"600"}],"headline-lg-mobile":["26px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-xl":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-xl-mobile":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.03em","fontWeight":"600"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"26px","fontWeight":"400"}],"title-md":["16px",{"lineHeight":"24px","fontWeight":"600"}]}}}};</script></head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen overflow-y-auto overflow-x-hidden"><header class="fixed top-0 left-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.35)]"><div class="h-20 w-full px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><a class="flex items-center gap-space-sm" data-path="catalogo-tienda" href="#"><div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]"><span class="material-symbols-outlined text-secondary">science</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight uppercase leading-none">ProShine</span><span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase">Chemical Lab</span></div></a><div class="hidden xl:inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container-low"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Distribución Industrial &amp; Doméstica</span></div></div><nav class="hidden lg:flex items-center gap-space-xs p-1 rounded-xl bg-surface-container-lowest" data-active-classes="bg-primary-container text-on-primary-container font-label-lg text-label-lg rounded-lg shadow-[0_0_16px_rgba(0,212,255,0.3)]"><a class="px-space-md py-space-sm font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface rounded-lg transition-colors" data-path="catalogo-tienda" href="#">Catálogo &amp; Tienda</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface rounded-lg transition-colors" data-path="pedidos-carrito" href="#">Mis Pedidos / Carrito</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface rounded-lg transition-colors" data-path="panel-admin" href="#">Panel Admin</a><a class="px-space-md py-space-sm font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface rounded-lg transition-colors" data-path="fichas-seguridad-sds" href="#">Fichas Técnicas (SDS)</a></nav><div class="flex items-center gap-space-md"><a class="hidden sm:flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-secondary hover:text-secondary-fixed transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]" href="https://wa.me/" rel="noopener" target="_blank"><span class="material-symbols-outlined text-title-md">chat</span><span class="font-label-md text-label-md">WhatsApp Ventas</span></a><div class="flex items-center gap-space-sm pl-space-sm"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-high"><span class="font-label-sm text-label-sm text-primary uppercase">Rol:</span><select class="bg-transparent text-secondary font-label-sm text-label-sm focus:outline-none cursor-pointer pr-1"><option class="bg-surface-container-high text-on-surface" value="admin">Admin</option><option class="bg-surface-container-high text-on-surface" value="cliente">Cliente</option><option class="bg-surface-container-high text-on-surface" value="distribuidor">Distribuidor</option></select></div><div class="flex items-center gap-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VI1AK_V7VFNvJIcndTzdDF8zmElT4H2aQbKEwVRYGjTGM7mXL7ysHcKAQ_RV2qLBALdoqCJTgpbdX737J1l6fvn0Bw7m4b_0JT6UfwnxrnSjJgOZnihWFWhwtAuRXZIxKDO7w8d57tAhPoVTA8vhoxuJfPRrIRA1G_a34rMa2hFJH9YZRXb0fR7VCMwiFvFc4lfF8Z-ZaeQHYuejida0UHv6leGOsvl8kpQ9falZqJVARiilDBAD5Qt8ducpHkdP9CuGPs3wSG-s0"><a class="hidden md:inline-flex px-space-sm py-1 rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="login-auth" href="#">Cerrar Sesión</a></div></div></div></div></header><main class="w-full pt-20 bg-surface min-h-[calc(100vh-280px)] pb-16"><div class="flex flex-col w-full">
+<!-- HERO BRANDING BANNER (matching inspiration visual identity) -->
+<section class="relative overflow-hidden bg-surface-container-lowest -mt-20 pt-28 pb-16 px-margin">
+<!-- Atmospheric Ambient Glows -->
+<div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-primary-container/15 blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-secondary-container/10 blur-3xl pointer-events-none"></div>
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-surface-container-high/40 via-surface-container-lowest/80 to-surface-container-lowest pointer-events-none"></div>
+<div class="relative max-w-7xl mx-auto flex flex-col items-center text-center">
+<!-- Metallic Brand Badge -->
+<div class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container-high shadow-sm mb-space-md">
+<span class="material-symbols-outlined text-secondary text-title-md">auto_awesome</span>
+<span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase">Fórmulas Químicas Certificadas COFEPRIS</span>
+</div>
+<!-- Hero Wordmark & Logo Emulation -->
+<div class="flex flex-col items-center justify-center mb-space-sm">
+<div class="flex items-center justify-center gap-space-sm sm:gap-space-md">
+<div class="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-secondary via-primary-container to-surface-container-lowest flex items-center justify-center shadow-xl">
+<span class="material-symbols-outlined text-on-primary text-headline-xl">clean_hands</span>
+</div>
+<div class="text-left">
+<span class="font-headline-xl text-headline-xl tracking-tight text-on-surface uppercase block font-bold leading-none">
+              Pro<span class="bg-gradient-to-r from-secondary via-primary-container to-secondary-container bg-clip-text text-transparent">Shine</span>
+</span>
+<span class="font-label-sm text-label-sm text-secondary tracking-[0.35em] uppercase block pl-1">Chemicals Industrial Lab</span>
+</div>
+</div>
+</div>
+<p class="font-headline-sm text-headline-sm text-secondary tracking-wide uppercase mt-space-xs mb-space-lg">
+        Limpieza Profesional <span class="text-primary-container mx-1">•</span> Resultados que Brillan
+      </p>
+<!-- Sector Pills Row (Hogar, Hoteles, Escuelas, Empresas, Industria) -->
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-space-sm w-full max-w-4xl pt-space-xs">
+<button class="sector-pill group flex flex-col items-center p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-all text-center" onclick="filterBySector('hogar')">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary group-hover:text-secondary-fixed mb-space-xs shadow-sm">
+<span class="material-symbols-outlined text-title-lg">home_pin</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">Hogar</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Desinfección &amp; Cuidado</span>
+</button>
+<button class="sector-pill group flex flex-col items-center p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-all text-center" onclick="filterBySector('hoteles')">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary group-hover:text-secondary-fixed mb-space-xs shadow-sm">
+<span class="material-symbols-outlined text-title-lg">hotel</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">Hoteles</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Blancos &amp; Aromatización</span>
+</button>
+<button class="sector-pill group flex flex-col items-center p-space-md rounded-xl hover:bg-surface-container-high transition-all text-center bg-surface-container-high shadow-xl" onclick="filterBySector('escuelas')">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary group-hover:text-secondary-fixed mb-space-xs shadow-sm">
+<span class="material-symbols-outlined text-title-lg">school</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">Escuelas</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Sanitización Segura</span>
+</button>
+<button class="sector-pill group flex flex-col items-center p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-all text-center" onclick="filterBySector('empresas')">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary group-hover:text-secondary-fixed mb-space-xs shadow-sm">
+<span class="material-symbols-outlined text-title-lg">domain</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">Empresas</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Corporativo &amp; Pisos</span>
+</button>
+<button class="sector-pill col-span-2 sm:col-span-1 group flex flex-col items-center p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-all text-center" onclick="filterBySector('industria')">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary group-hover:text-secondary-fixed mb-space-xs shadow-sm">
+<span class="material-symbols-outlined text-title-lg">precision_manufacturing</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">Industria</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Desengrase de Maquinaria</span>
+</button>
+</div>
+</div>
+</section>
+<!-- SEARCH & CATEGORY BAR TIER -->
+<section class="w-full px-margin py-space-md bg-surface-container-low shadow-sm">
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-space-md">
+<!-- Search Input Container -->
+<div class="relative flex-1 w-full flex items-center bg-surface-container-lowest rounded-xl px-space-md py-space-xs shadow-sm">
+<span class="material-symbols-outlined text-secondary mr-space-sm text-title-lg">search</span>
+<input class="w-full bg-transparent text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none py-space-xs" id="searchInput" oninput="applyFilters()" placeholder="Buscar cloro concentrado, amonio cuaternario, mopas..." type="text">
+<button class="text-outline hover:text-on-surface p-1" id="clearSearchBtn" onclick="document.getElementById('searchInput').value=''; applyFilters();">
+<span class="material-symbols-outlined text-body-lg">close</span>
+</button>
+</div>
+<!-- Quick Category Select -->
+<div class="flex items-center gap-space-xs w-full lg:w-auto overflow-x-auto pb-1 lg:pb-0">
+<select class="bg-surface-container-highest text-on-surface font-label-md text-label-md px-space-md py-2.5 rounded-xl focus:outline-none cursor-pointer" id="categorySelector" onchange="applyFilters()">
+<option value="todos">Todas las Familias</option>
+<option value="quimicos-domesticos">Químicos Domésticos</option>
+<option value="hospitalario">Desinfectantes Grado Hospitalario</option>
+<option value="industrial">Desengrasantes &amp; Industria</option>
+<option value="jarcieria">Jarciería Profesional</option>
+<option value="envases">Envases &amp; Dosificadores</option>
+</select>
+<select class="bg-surface-container-highest text-on-surface font-label-md text-label-md px-space-md py-2.5 rounded-xl focus:outline-none cursor-pointer" id="sortSelector" onchange="applyFilters()">
+<option value="relevancia">Ordenar: Mayor Demanda</option>
+<option value="menor-precio">Menor Precio</option>
+<option value="mayor-precio">Mayor Precio</option>
+<option value="oferta">Solo en Oferta (-20%)</option>
+</select>
+</div>
+</div>
+</section>
+<!-- HIGHLIGHTED OFFERS BANNER -->
+<section class="w-full px-margin py-space-lg">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Promo Card 1 -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-surface-container to-surface-container-low p-space-md shadow-md flex items-center gap-space-md">
+<div class="w-16 h-16 rounded-xl bg-primary-container/20 flex-shrink-0 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-headline-md">percent</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-bold">Lote Semanal</span>
+<span class="font-title-md text-title-md text-on-surface">20% OFF en Porrones 20L</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Aplica para Desengrasante y Cloro</span>
+</div>
+</div>
+<!-- Promo Card 2 -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-surface-container to-surface-container-low p-space-md shadow-md flex items-center gap-space-md">
+<div class="w-16 h-16 rounded-xl bg-secondary/15 flex-shrink-0 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-headline-md">local_shipping</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-bold">Flete Corporativo</span>
+<span class="font-title-md text-title-md text-on-surface">Envío Gratis en +$1,500 MXN</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Entrega inmediata en 24 horas</span>
+</div>
+</div>
+<!-- Promo Card 3 -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-surface-container to-surface-container-low p-space-md shadow-md flex items-center gap-space-md">
+<div class="w-16 h-16 rounded-xl bg-tertiary-container/30 flex-shrink-0 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-headline-md">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-bold">Soporte Técnico</span>
+<span class="font-title-md text-title-md text-on-surface">Fichas Técnicas SDS Gratis</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Descarga directa en cada producto</span>
+</div>
+</div>
+</div>
+</section>
+<!-- MAIN CATALOG SPLIT: FILTERS & PRODUCT GRID -->
+<section class="w-full px-margin pb-space-xl">
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-space-lg items-start">
+<!-- LEFT ASIDE FILTERS -->
+<aside class="w-full lg:w-72 flex-shrink-0 flex flex-col gap-space-md bg-surface-container-low p-space-md rounded-xl shadow-sm">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-title-md">tune</span>
+<span class="font-title-md text-title-md text-on-surface">Filtrar Catálogo</span>
+</div>
+<button class="font-label-sm text-label-sm text-secondary hover:text-on-surface uppercase" onclick="resetFilters()">Limpiar</button>
+</div>
+<!-- Filter: Disponibilidad -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Disponibilidad</span>
+<label class="flex items-center gap-space-xs cursor-pointer text-body-sm text-on-surface">
+<input checked="" class="rounded text-primary-container focus:ring-0" id="filterInStock" onchange="applyFilters()" type="checkbox">
+<span class="">En existencia inmediata</span>
+</label>
+<label class="flex items-center gap-space-xs cursor-pointer text-body-sm text-on-surface">
+<input class="rounded text-primary-container focus:ring-0" id="filterSaleOnly" onchange="applyFilters()" type="checkbox">
+<span class="">Con descuento activo</span>
+</label>
+</div>
+<!-- Filter: Sector Destino -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Sector de Aplicación</span>
+<div class="flex flex-wrap gap-1">
+<button class="sector-filter-btn px-space-sm py-1 rounded bg-surface-container-high text-body-sm text-on-surface-variant hover:text-on-surface" onclick="toggleSectorFilter('hogar')">Hogar</button>
+<button class="sector-filter-btn px-space-sm py-1 rounded bg-surface-container-high text-body-sm text-on-surface-variant hover:text-on-surface" onclick="toggleSectorFilter('hoteles')">Hoteles</button>
+<button class="sector-filter-btn px-space-sm py-1 rounded bg-surface-container-high text-body-sm text-on-surface-variant hover:text-on-surface" onclick="toggleSectorFilter('escuelas')">Escuelas</button>
+<button class="sector-filter-btn px-space-sm py-1 rounded bg-surface-container-high text-body-sm text-on-surface-variant hover:text-on-surface" onclick="toggleSectorFilter('empresas')">Empresas</button>
+<button class="sector-filter-btn px-space-sm py-1 rounded bg-surface-container-high text-body-sm text-on-surface-variant hover:text-on-surface" onclick="toggleSectorFilter('industria')">Industria</button>
+</div>
+</div>
+<!-- Filter: Concentración / pH -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Tipo de Acción Química</span>
+<label class="flex items-center gap-space-xs cursor-pointer text-body-sm text-on-surface">
+<input class="rounded text-primary-container focus:ring-0" name="chemAction" onchange="applyFilters()" type="checkbox" value="desinfectante">
+<span class="">Bactericida / Virucida (Amonio, Cloro)</span>
+</label>
+<label class="flex items-center gap-space-xs cursor-pointer text-body-sm text-on-surface">
+<input class="rounded text-primary-container focus:ring-0" name="chemAction" onchange="applyFilters()" type="checkbox" value="desengrasante">
+<span class="">Alcalino Desengrasante Pesado</span>
+</label>
+<label class="flex items-center gap-space-xs cursor-pointer text-body-sm text-on-surface">
+<input class="rounded text-primary-container focus:ring-0" name="chemAction" onchange="applyFilters()" type="checkbox" value="neutro">
+<span class="">pH Neutro / Superficies Delicadas</span>
+</label>
+<label class="flex items-center gap-space-xs cursor-pointer text-body-sm text-on-surface">
+<input class="rounded text-primary-container focus:ring-0" name="chemAction" onchange="applyFilters()" type="checkbox" value="accesorio">
+<span class="">Utensilios &amp; Herramientas</span>
+</label>
+</div>
+<!-- Direct WhatsApp Consult Card -->
+<div class="mt-space-md p-space-md rounded-xl bg-surface-container flex flex-col gap-space-xs">
+<span class="font-title-md text-title-md text-on-surface">¿Requieres pipa o contenedor IBC de 1000L?</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Atendemos licitaciones industriales y pedidos masivos con precio mayorista.</p>
+<a class="mt-space-xs inline-flex items-center justify-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-high hover:bg-surface-bright text-secondary font-label-md text-label-md transition-colors" href="https://wa.me/?text=Hola%20ProShine,%20solicito%20cotizaci%C3%B3n%20para%20volumen%20industrial%20IBC%201000L." rel="noopener" target="_blank">
+<span class="material-symbols-outlined text-title-md">support_agent</span>
+<span class="">Hablar con un Químico</span>
+</a>
+</div>
+</aside>
+<!-- RIGHT PRODUCT GRID -->
+<main class="flex-1 w-full">
+<!-- Results count & Quick Filter Tags -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm mb-space-md bg-surface-container-low px-space-md py-space-sm rounded-xl">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm">
+<span class="">Mostrando:</span>
+<strong class="text-on-surface font-label-md text-label-md" id="productCount">4 productos</strong>
+<span class="">en catálogo activo</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-secondary uppercase">Precios en Pesos Mexicanos (MXN) + IVA</span>
+</div>
+</div>
+<!-- Dynamic Product Cards Container -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-space-md sm:grid-cols-2" id="productsGrid">
+<!-- PRODUCT 1: CLORO CONCENTRADO -->
+<div class="product-card group flex flex-col bg-surface-container-low rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300" data-action="desinfectante" data-category="quimicos-domesticos" data-demand="high" data-id="1" data-name="Cloro Concentrado al 13%" data-price-1="35" data-price-20="420" data-price-4="110" data-sale="true" data-sectors="hogar,hoteles,escuelas,empresas" data-stock="185">
+<div class="relative w-full h-52 bg-surface-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High tech chemical packaging 3D render of a heavy duty translucent blue gallon container with concentrated sodium hypochlorite, laboratory clean background with cyan reflections, ProShine branding emblem on bottle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR5D3YrwtcElrcpSluuoq_syZeRkfrUpbWY0dlhFanhPr9kx8vLoUGtolLmxbRFS1Ti1DkiZ5LKat-XoS0QSs-3bl_PkSmY-3-9FvoKaqqaXyNbuv6ZJTYMF1HW50gmZy3GOMGzXcCmnmzI0J1GFhubtx_SuK6qqCRUzmtSrhUyG5hJzxFHF47AvDb5aMTlRgUj2Pmd2fXqMBImiYgp5WplfrRmfmO-k2KIt56IURbfw5JHEp4Qb_niA">
+<!-- Badges -->
+<div class="absolute top-space-sm left-space-sm flex flex-col gap-1">
+<span class="px-space-sm py-0.5 rounded-md bg-primary-container text-on-primary-container font-label-sm text-label-sm uppercase font-bold shadow-sm">-20% OFERTA</span>
+<span class="px-space-sm py-0.5 rounded-md bg-secondary text-on-secondary font-label-sm text-label-sm uppercase font-bold shadow-sm">MÁS VENDIDO</span>
+</div>
+<div class="absolute top-space-sm right-space-sm">
+<span class="px-space-sm py-0.5 rounded-md bg-surface-container-lowest/80 backdrop-blur-md text-on-surface font-label-sm text-label-sm">pH 11.5 • Alcalino</span>
+</div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div>
+<div class="flex items-center justify-between gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase mb-1">
+<span class="">Desinfección &amp; Blanqueo</span>
+<span class="text-secondary flex items-center gap-0.5"><span class="material-symbols-outlined text-label-md">check_circle</span> 185 disp.</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface group-hover:text-secondary transition-colors font-bold">Cloro Concentrado 13% Grado Químico</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Hipoclorito activo de máxima pureza. Acción bactericida para sanitización de pisos, baños y depósitos de agua.</p>
+</div>
+<!-- Size Presentation Selector -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Seleccionar Envase:</span>
+<div class="grid grid-cols-3 gap-1">
+<button class="pres-btn active px-1 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold text-center transition-all" onclick="selectPresentation(1, '1L', 35, this)" type="button">1L Botella</button>
+<button class="pres-btn px-1 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm text-center hover:bg-surface-container-high transition-all" onclick="selectPresentation(1, '4L', 110, this)" type="button">4L Galón</button>
+<button class="pres-btn px-1 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm text-center hover:bg-surface-container-high transition-all" onclick="selectPresentation(1, '20L', 420, this)" type="button">20L Porrón</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-sm bg-surface-container/40 p-space-sm rounded-lg mt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Precio Unitario</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold" id="price-display-1">$35.00 <span class="text-body-sm font-normal text-on-surface-variant">MXN</span></span>
+</div>
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-primary-container hover:bg-inverse-primary text-on-primary-container font-label-md text-label-md transition-all shadow-sm" onclick="addToCart(1, 'Cloro Concentrado 13%', getSelectedSize(1), getSelectedPrice(1))">
+<span class="material-symbols-outlined text-title-md">add_shopping_cart</span>
+<span class="">Agregar</span>
+</button>
+</div>
+</div>
+</div>
+<!-- PRODUCT 2: DESENGRAASANTE CÍTRICO INDUSTRIAL -->
+<div class="product-card group flex flex-col bg-surface-container-low rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hidden" data-action="desengrasante" data-category="industrial" data-demand="high" data-id="2" data-name="Desengrasante Cítrico Heavy-Duty" data-price-1="65" data-price-20="890" data-price-4="210" data-sale="false" data-sectors="industria,empresas,hoteles" data-stock="92">
+<div class="relative w-full h-52 bg-surface-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Industrial heavy degreaser chemical container bottle with vibrant amber liquid, labeled ProShine Citrus Degreaser on polished stainless steel workshop floor with technical machinery in background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6keAdK7TnrBzviJWhvkrKh6x2B4A2IuOR3QALtLHVpjWqZxSDBpLNtZ5Q261VzHTQVUBxdfxFQpu8LtCJL_WUW_W3AiIiwM8iYg45R9GT8yOhReYVh3yDwzMrd6cgiA3T4IVPkfFR8DCplIP1YbYSiZWhJuvOcvD3u9wGIRqcudy8QT-mqIKRX_oGaMw7zk-9rwf2IpgqMBS0qj5kyASbFAal7gA6XytuNLO9Ah8n0rj0g61ZEtmi5w">
+<div class="absolute top-space-sm left-space-sm flex flex-col gap-1">
+<span class="px-space-sm py-0.5 rounded-md bg-secondary text-on-secondary font-label-sm text-label-sm uppercase font-bold shadow-sm">MÁS VENDIDO</span>
+</div>
+<div class="absolute top-space-sm right-space-sm">
+<span class="px-space-sm py-0.5 rounded-md bg-surface-container-lowest/80 backdrop-blur-md text-secondary font-label-sm text-label-sm">D-Limoneno 100% Biodegradable</span>
+</div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div>
+<div class="flex items-center justify-between gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase mb-1">
+<span class="">Disolvente de Grasa Pesada</span>
+<span class="text-secondary flex items-center gap-0.5"><span class="material-symbols-outlined text-label-md">check_circle</span> 92 disp.</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface group-hover:text-secondary transition-colors font-bold">Desengrasante Cítrico Industrial</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Formulación emulsionante para motores, cocinas industriales, pisos de taller y campanas de extracción.</p>
+</div>
+<!-- Size Presentation Selector -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Seleccionar Envase:</span>
+<div class="grid grid-cols-3 gap-1">
+<button class="pres-btn active px-1 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold text-center transition-all" onclick="selectPresentation(2, '1L', 65, this)" type="button">1L Botella</button>
+<button class="pres-btn px-1 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm text-center hover:bg-surface-container-high transition-all" onclick="selectPresentation(2, '4L', 210, this)" type="button">4L Galón</button>
+<button class="pres-btn px-1 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm text-center hover:bg-surface-container-high transition-all" onclick="selectPresentation(2, '20L', 890, this)" type="button">20L Porrón</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-sm bg-surface-container/40 p-space-sm rounded-lg mt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Precio Unitario</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold" id="price-display-2">$65.00 <span class="text-body-sm font-normal text-on-surface-variant">MXN</span></span>
+</div>
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-primary-container hover:bg-inverse-primary text-on-primary-container font-label-md text-label-md transition-all shadow-sm" onclick="addToCart(2, 'Desengrasante Cítrico Industrial', getSelectedSize(2), getSelectedPrice(2))">
+<span class="material-symbols-outlined text-title-md">add_shopping_cart</span>
+<span class="">Agregar</span>
+</button>
+</div>
+</div>
+</div>
+<!-- PRODUCT 3: SANITIZANTE AMONIO CUATERNARIO -->
+<div class="product-card group flex flex-col bg-surface-container-low rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300" data-action="desinfectante" data-category="hospitalario" data-demand="high" data-id="3" data-name="Sanitizante Amonio Cuaternario 5ta Gen" data-price-1="55" data-price-20="720" data-price-4="175" data-sale="true" data-sectors="escuelas,hoteles,empresas" data-stock="64">
+<div class="relative w-full h-52 bg-surface-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Sterile laboratory medical gallon jug of quaternary ammonium disinfectant with crystal clear blue solution, sleek reflective surface, certified laboratory test tubes in blurred depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi6p01B1-J6NyllDYZYeaQco8Tn2VJD6d_v5m3CqmTvaKOdBLVM12CGMgMIe_pcXGYmg-A1BUU2GzzhAOUVPhx0Vs5Zfe1FHpbGGel5k5BgIDXRBePIaN3--2OojP_z93h2HqBRSleTeViBoMx7P88cNQ01CRsDn229obK-TwlfKBIoanAAuv-Zdzmgb3LNdI3P08Hz707E1zVhGdbjI4_-o875wA_NkiF_aqtZaBNFacV-Cw1oVcPQA">
+<div class="absolute top-space-sm left-space-sm flex flex-col gap-1">
+<span class="px-space-sm py-0.5 rounded-md bg-primary-container text-on-primary-container font-label-sm text-label-sm uppercase font-bold shadow-sm">-20% OFERTA</span>
+</div>
+<div class="absolute top-space-sm right-space-sm">
+<span class="px-space-sm py-0.5 rounded-md bg-surface-container-lowest/80 backdrop-blur-md text-secondary font-label-sm text-label-sm">Grado Hospitalario</span>
+</div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div>
+<div class="flex items-center justify-between gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase mb-1">
+<span class="">Virucida &amp; Residual</span>
+<span class="text-secondary flex items-center gap-0.5"><span class="material-symbols-outlined text-label-md">check_circle</span> 64 disp.</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface group-hover:text-secondary transition-colors font-bold">Sanitizante Amonio 5ta Gen</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Elimina 99.999% de patógenos sin corroer metales. Seguro para áreas de contacto en colegios y quirófanos.</p>
+</div>
+<!-- Size Presentation Selector -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Seleccionar Envase:</span>
+<div class="grid grid-cols-3 gap-1">
+<button class="pres-btn active px-1 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold text-center transition-all" onclick="selectPresentation(3, '1L', 55, this)" type="button">1L Botella</button>
+<button class="pres-btn px-1 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm text-center hover:bg-surface-container-high transition-all" onclick="selectPresentation(3, '4L', 175, this)" type="button">4L Galón</button>
+<button class="pres-btn px-1 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm text-center hover:bg-surface-container-high transition-all" onclick="selectPresentation(3, '20L', 720, this)" type="button">20L Porrón</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-sm bg-surface-container/40 p-space-sm rounded-lg mt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Precio Unitario</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold" id="price-display-3">$55.00 <span class="text-body-sm font-normal text-on-surface-variant">MXN</span></span>
+</div>
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-primary-container hover:bg-inverse-primary text-on-primary-container font-label-md text-label-md transition-all shadow-sm" onclick="addToCart(3, 'Sanitizante Amonio 5ta Gen', getSelectedSize(3), getSelectedPrice(3))">
+<span class="material-symbols-outlined text-title-md">add_shopping_cart</span>
+<span class="">Agregar</span>
+</button>
+</div>
+</div>
+</div>
+<!-- PRODUCT 4: DETERGENTE LÍQUIDO PARA ROPA -->
+<div class="product-card group flex flex-col bg-surface-container-low rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hidden" data-action="neutro" data-category="quimicos-domesticos" data-demand="normal" data-id="4" data-name="Detergente Líquido Activo Institucional" data-price-1="42" data-price-20="590" data-price-4="145" data-sale="false" data-sectors="hogar,hoteles" data-stock="120">
+<div class="relative w-full h-52 bg-surface-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Blue translucent laundry detergent liquid bottle with ProShine institutional branding, neat clean modern textile laundry background with folded white cotton towels." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPOTrPfHQj3YT-5fzFLCFrWn_hzHHwOXQfIRp_8ZyeH9tqGEXW0Lmj0BheYNOFY8D3QFUFVvl-jytTihV5wQ9UhtvZFekgcfNy0BfxXyaZfjO3w0b-vzXcVvDoSDDDgIy53pe-7F5yGBetOlzC_vgqy_LqJofuF27anErfLDuyGhrry1-aKgrzOdZtUoSTMLlhpOnBT49yraD6jaF0jIXgtMsccbnmhkhPg0I3M3SlX--I8H1T2xVjvA">
+<div class="absolute top-space-sm right-space-sm">
+<span class="px-space-sm py-0.5 rounded-md bg-surface-container-lowest/80 backdrop-blur-md text-on-surface font-label-sm text-label-sm">Baja Espuma HE</span>
+</div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div>
+<div class="flex items-center justify-between gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase mb-1">
+<span class="">Lavandería &amp; Textiles</span>
+<span class="text-secondary flex items-center gap-0.5"><span class="material-symbols-outlined text-label-md">check_circle</span> 120 disp.</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface group-hover:text-secondary transition-colors font-bold">Detergente Líquido Ultra Activo</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Con enzimas quita-manchas y protectores de color. Diseñado para blancos de hotelería y ropa delicada.</p>
+</div>
+<!-- Size Presentation Selector -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Seleccionar Envase:</span>
+<div class="grid grid-cols-3 gap-1">
+<button class="pres-btn active px-1 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold text-center transition-all" onclick="selectPresentation(4, '1L', 42, this)" type="button">1L Botella</button>
+<button class="pres-btn px-1 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm text-center hover:bg-surface-container-high transition-all" onclick="selectPresentation(4, '4L', 145, this)" type="button">4L Galón</button>
+<button class="pres-btn px-1 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm text-center hover:bg-surface-container-high transition-all" onclick="selectPresentation(4, '20L', 590, this)" type="button">20L Porrón</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-sm bg-surface-container/40 p-space-sm rounded-lg mt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Precio Unitario</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold" id="price-display-4">$42.00 <span class="text-body-sm font-normal text-on-surface-variant">MXN</span></span>
+</div>
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-primary-container hover:bg-inverse-primary text-on-primary-container font-label-md text-label-md transition-all shadow-sm" onclick="addToCart(4, 'Detergente Líquido Ultra Activo', getSelectedSize(4), getSelectedPrice(4))">
+<span class="material-symbols-outlined text-title-md">add_shopping_cart</span>
+<span class="">Agregar</span>
+</button>
+</div>
+</div>
+</div>
+<!-- PRODUCT 5: AROMATIZANTE MULTIUSOS LAVANDA -->
+<div class="product-card group flex flex-col bg-surface-container-low rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hidden" data-action="neutro" data-category="quimicos-domesticos" data-demand="normal" data-id="5" data-name="Aromatizante Multiusos Lavanda Francesa" data-price-1="32" data-price-20="390" data-price-4="98" data-sale="false" data-sectors="hogar,hoteles,empresas" data-stock="210">
+<div class="relative w-full h-52 bg-surface-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Purple scented floor cleaner in a crystal clean plastic jug container on a pristine marble floor reflecting ambient cyan lighting with fresh lavender sprigs nearby." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYH8rwb8Ek2MIRhHa_gRT9isE4DHRdEbZPBNO9n79reB-ZyRIY8xYRRyvdFcLCvlzpxg1NzKgOKoVFdjKoDRgIbPNs4M9ZVqpqJmo_0hN2OVOrv4tq_-nrkvqXBN686JlUqlbDlZBpqFDi3et1GekU6qPfk7UafWHY865GmvjNCBlMm_prZMlxkZkGicS-4kwVSeToVxN2xPRJDDuuKmZZhV2q_BHabD_FFOZFrJqD3fWOoCg7lx4acw">
+<div class="absolute top-space-sm right-space-sm">
+<span class="px-space-sm py-0.5 rounded-md bg-surface-container-lowest/80 backdrop-blur-md text-on-surface font-label-sm text-label-sm">Aceites Esenciales 100%</span>
+</div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div>
+<div class="flex items-center justify-between gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase mb-1">
+<span class="">Limpiador Aromático</span>
+<span class="text-secondary flex items-center gap-0.5"><span class="material-symbols-outlined text-label-md">check_circle</span> 210 disp.</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface group-hover:text-secondary transition-colors font-bold">Aromatizante Multiusos Lavanda</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Fragancia microencapsulada de larga permanencia (hasta 48 horas). Abrillanta porcelanatos y losetas.</p>
+</div>
+<!-- Size Presentation Selector -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Seleccionar Envase:</span>
+<div class="grid grid-cols-3 gap-1">
+<button class="pres-btn active px-1 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold text-center transition-all" onclick="selectPresentation(5, '1L', 32, this)" type="button">1L Botella</button>
+<button class="pres-btn px-1 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm text-center hover:bg-surface-container-high transition-all" onclick="selectPresentation(5, '4L', 98, this)" type="button">4L Galón</button>
+<button class="pres-btn px-1 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm text-center hover:bg-surface-container-high transition-all" onclick="selectPresentation(5, '20L', 390, this)" type="button">20L Porrón</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-sm bg-surface-container/40 p-space-sm rounded-lg mt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Precio Unitario</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold" id="price-display-5">$32.00 <span class="text-body-sm font-normal text-on-surface-variant">MXN</span></span>
+</div>
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-primary-container hover:bg-inverse-primary text-on-primary-container font-label-md text-label-md transition-all shadow-sm" onclick="addToCart(5, 'Aromatizante Multiusos Lavanda', getSelectedSize(5), getSelectedPrice(5))">
+<span class="material-symbols-outlined text-title-md">add_shopping_cart</span>
+<span class="">Agregar</span>
+</button>
+</div>
+</div>
+</div>
+<!-- PRODUCT 6: MOPAS DE MICROFIBRA INDUSTRIAL -->
+<div class="product-card group flex flex-col bg-surface-container-low rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300" data-action="accesorio" data-category="jarcieria" data-demand="normal" data-id="6" data-name="Mopa de Microfibra Anti-Estática 60cm" data-price-1="125" data-price-20="125" data-price-4="125" data-sale="false" data-sectors="hoteles,escuelas,empresas,industria" data-stock="48">
+<div class="relative w-full h-52 bg-surface-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Commercial microfiber flat floor mop with heavy-duty aluminum handle and electrostatic blue fiber pad in high-tech warehouse floor setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHzvlwuOOCDot7-7s-dD_8nv0MlI5ETkgt3K9o2jQDvDoCg1-fl_cIwPbYsJkfvsgMnzGom2o2XIdx3EFBIrXVwPFcAnKvQh-IjsqKrjyoYYTZ5ZlObT7dAYmrODCswVphLS3EFweUZnKph-6-pGCdgvoEHBh8RAlVU9uRpQrEkval2jrlxo_d_5XDErcHwq9KM1IDPQE4UOtWtU7oAUTpHcTGnL-6OhQ4UIUM46EURIIps5eolEfROw">
+<div class="absolute top-space-sm right-space-sm">
+<span class="px-space-sm py-0.5 rounded-md bg-surface-container-lowest/80 backdrop-blur-md text-on-surface font-label-sm text-label-sm">Uso Rudo 60cm</span>
+</div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div>
+<div class="flex items-center justify-between gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase mb-1">
+<span class="">Jarciería de Precisión</span>
+<span class="text-secondary flex items-center gap-0.5"><span class="material-symbols-outlined text-label-md">check_circle</span> 48 disp.</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface group-hover:text-secondary transition-colors font-bold">Mopa Microfibra Industrial 60cm</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Armazón de aluminio giratorio 360°. Retiene partículas y polvo fino sin levantar alérgenos.</p>
+</div>
+<!-- Size Presentation Selector (Piezas) -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Presentación / Formato:</span>
+<div class="grid grid-cols-2 gap-1">
+<button class="pres-btn active px-1 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold text-center transition-all" onclick="selectPresentation(6, '1 Pza', 125, this)" type="button">Unidad Completa</button>
+<button class="pres-btn px-1 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm text-center hover:bg-surface-container-high transition-all" onclick="selectPresentation(6, 'Repuesto x3', 190, this)" type="button">Kit 3 Repuestos</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-sm bg-surface-container/40 p-space-sm rounded-lg mt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Precio Unitario</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold" id="price-display-6">$125.00 <span class="text-body-sm font-normal text-on-surface-variant">MXN</span></span>
+</div>
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-primary-container hover:bg-inverse-primary text-on-primary-container font-label-md text-label-md transition-all shadow-sm" onclick="addToCart(6, 'Mopa Microfibra Industrial', getSelectedSize(6), getSelectedPrice(6))">
+<span class="material-symbols-outlined text-title-md">add_shopping_cart</span>
+<span class="">Agregar</span>
+</button>
+</div>
+</div>
+</div>
+<!-- PRODUCT 7: ATOMIZADORES INDUSTRIALES DE GATILLO -->
+<div class="product-card group flex flex-col bg-surface-container-low rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300" data-action="accesorio" data-category="envases" data-demand="normal" data-id="7" data-name="Atomizador Industrial Resistente a Químicos" data-price-1="28" data-price-20="120" data-price-4="120" data-sale="false" data-sectors="hogar,hoteles,escuelas,empresas,industria" data-stock="310">
+<div class="relative w-full h-52 bg-surface-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Heavy duty chemical spray bottle with ergonomic blue and silver trigger sprayer, metric graduation marks on side, technical clean dark ambient studio photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuLsyD7wAmgVlxVCWlllncikNh2ByHecQhw0Ee5DJRAvwK5P6z4Xg3rEPWwCxucrGvzg1SFzoTgG4nf4MrTds8kCwzxoQpW6BdkHFcOKkOGwG5zb66a28KplIdgdeiV2aLaFC_btun2k_RwXAOwD2zv4srtM0wwVXPaCjkhUCO-mx6QqhRdWOTvYeLfbdoEpX2BVrhB-PVQKMmri_6yYtnV19MlSkurjwOoaWxFxci8mw3jzX1m5Dlrg">
+<div class="absolute top-space-sm right-space-sm">
+<span class="px-space-sm py-0.5 rounded-md bg-surface-container-lowest/80 backdrop-blur-md text-on-surface font-label-sm text-label-sm">Boquilla Ajustable</span>
+</div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div>
+<div class="flex items-center justify-between gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase mb-1">
+<span class="">Envase Graduado</span>
+<span class="text-secondary flex items-center gap-0.5"><span class="material-symbols-outlined text-label-md">check_circle</span> 310 disp.</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface group-hover:text-secondary transition-colors font-bold">Atomizador Industrial Pro-Vent 1L</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Gatillo reforzado anti-fatiga con sellos Viton resistentes a solventes, ácidos y álcalis fuertes.</p>
+</div>
+<!-- Size Presentation Selector -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Presentación / Formato:</span>
+<div class="grid grid-cols-2 gap-1">
+<button class="pres-btn active px-1 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold text-center transition-all" onclick="selectPresentation(7, '1 Pza (1L)', 28, this)" type="button">Individual</button>
+<button class="pres-btn px-1 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm text-center hover:bg-surface-container-high transition-all" onclick="selectPresentation(7, 'Pack x5', 120, this)" type="button">Paquete 5 Pzas</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-sm bg-surface-container/40 p-space-sm rounded-lg mt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Precio Unitario</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-bold" id="price-display-7">$28.00 <span class="text-body-sm font-normal text-on-surface-variant">MXN</span></span>
+</div>
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-primary-container hover:bg-inverse-primary text-on-primary-container font-label-md text-label-md transition-all shadow-sm" onclick="addToCart(7, 'Atomizador Industrial Pro-Vent', getSelectedSize(7), getSelectedPrice(7))">
+<span class="material-symbols-outlined text-title-md">add_shopping_cart</span>
+<span class="">Agregar</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- No Results Fallback (hidden by default) -->
+<div class="hidden flex-col items-center justify-center p-space-xl bg-surface-container-low rounded-xl text-center mt-space-md" id="noResults">
+<span class="material-symbols-outlined text-outline text-headline-xl">search_off</span>
+<span class="font-title-md text-title-md text-on-surface mt-space-xs">No se encontraron productos con estos criterios</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Prueba seleccionando otra categoría o limpiando la barra de búsqueda.</p>
+<button class="mt-space-md px-space-md py-2 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md" onclick="resetFilters()">Restablecer Filtros</button>
+</div>
+</main>
+</div>
+</section>
+<!-- FLOATING CART BUTTON (Always accessible) -->
+<button class="fixed bottom-6 right-6 z-40 flex items-center gap-space-sm px-space-lg py-3 rounded-full bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-headline-sm text-headline-sm shadow-xl hover:scale-105 transition-transform duration-200" id="cartFloatBtn" onclick="toggleCartDrawer()">
+<div class="relative flex items-center justify-center">
+<span class="material-symbols-outlined text-headline-md">shopping_bag</span>
+<span class="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-surface-container-lowest text-secondary font-label-sm text-label-sm font-bold flex items-center justify-center" id="cartCountBadge">0</span>
+</div>
+<span class="font-label-lg text-label-lg font-bold">Carrito (<span id="cartTotalHeader" class="">$0.00</span>)</span>
+</button>
+<!-- SLIDE-OVER / FLYOUT CART DRAWER -->
+<div class="fixed inset-0 bg-surface-container-lowest/70 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" id="cartBackdrop" onclick="toggleCartDrawer()"></div>
+<aside class="fixed top-0 right-0 h-full w-full max-w-md bg-surface-container-low shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between" id="cartDrawer">
+<!-- Cart Header -->
+<div class="p-space-md bg-surface-container flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-title-lg">shopping_cart</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Tu Pedido ProShine</span>
+<span class="font-label-sm text-label-sm text-secondary tracking-wider uppercase">Directo a Producción / Bodega</span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface p-1 rounded-lg" onclick="toggleCartDrawer()">
+<span class="material-symbols-outlined text-headline-sm">close</span>
+</button>
+</div>
+<!-- Cart Body: Items List -->
+<div class="flex-1 overflow-y-auto p-space-md flex flex-col gap-space-sm divide-y-0" id="cartItemsContainer">
+<!-- Will be populated dynamically by JS -->
+<div class="h-full flex flex-col items-center justify-center text-center p-space-lg" id="emptyCartView">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-outline mb-space-sm">
+<span class="material-symbols-outlined text-headline-md">production_quantity_limits</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface">El carrito está vacío</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Selecciona productos del catálogo industrial o doméstico para generar tu orden.</p>
+</div>
+</div>
+<!-- Cart Footer: Totals, Coupon & Checkout Trigger -->
+<div class="p-space-md bg-surface-container flex flex-col gap-space-sm shadow-[0_-4px_12px_rgba(0,0,0,0.3)]">
+<!-- Coupon Section -->
+<div class="flex items-center gap-space-xs">
+<input class="flex-1 bg-surface-container-lowest px-space-sm py-1.5 rounded-lg text-body-sm text-on-surface placeholder:text-outline focus:outline-none uppercase" id="couponInput" placeholder="Código de Descuento (Ej: PROSHINE10)" type="text">
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-bright text-secondary font-label-sm text-label-sm uppercase font-bold" onclick="applyCoupon()">Aplicar</button>
+</div>
+<div class="hidden text-secondary font-label-sm text-label-sm" id="couponMessage">Cupón aplicado: 10% de descuento adicional.</div>
+<!-- Financial Calculations -->
+<div class="flex flex-col gap-1 pt-space-xs text-body-sm text-on-surface-variant">
+<div class="flex justify-between">
+<span class="">Subtotal Químicos:</span>
+<span class="text-on-surface font-label-md text-label-md" id="cartSubtotal">$0.00 MXN</span>
+</div>
+<div class="hidden flex justify-between text-secondary" id="discountRow">
+<span class="">Descuento aplicado:</span>
+<span class="font-label-md text-label-md" id="cartDiscount">-$0.00 MXN</span>
+</div>
+<div class="flex justify-between">
+<span class="">Envío estimado:</span>
+<span class="text-secondary font-label-sm text-label-sm" id="cartShipping">Calculado en entrega</span>
+</div>
+<div class="flex justify-between font-bold text-title-md text-on-surface pt-1 border-t-0">
+<span class="">Total a Confirmar:</span>
+<span class="text-secondary font-headline-sm text-headline-sm" id="cartFinalTotal">$0.00 MXN</span>
+</div>
+</div>
+<!-- Primary Action: Proceed to WhatsApp Order Confirmation -->
+<button class="w-full mt-space-xs py-3 rounded-xl bg-gradient-to-r from-primary-container to-secondary-container hover:opacity-95 disabled:opacity-40 disabled:cursor-not-allowed text-on-primary-container font-headline-sm text-headline-sm flex items-center justify-center gap-space-xs shadow-md" disabled="" id="checkoutBtn" onclick="openOrderModal()">
+<span class="material-symbols-outlined text-headline-sm">chat</span>
+<span class="">Realizar Pedido vía WhatsApp</span>
+</button>
+</div>
+</aside>
+<!-- MODAL: ORDER CONFIRMATION & WHATSAPP DISPATCH -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-margin-mobile opacity-0 pointer-events-none transition-opacity duration-300" id="orderModal">
+<div class="absolute inset-0 bg-surface-container-lowest/80 backdrop-blur-md" onclick="closeOrderModal()"></div>
+<div class="relative w-full max-w-xl bg-surface-container-low rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+<!-- Modal Header -->
+<div class="p-space-md bg-surface-container flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-xs">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-title-lg">local_shipping</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Confirmar Envío y Contacto</h3>
+<span class="font-label-sm text-label-sm text-secondary uppercase">Mesa de Despacho Inmediato</span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface p-1 rounded-lg" onclick="closeOrderModal()">
+<span class="material-symbols-outlined text-title-lg">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-space-md overflow-y-auto flex flex-col gap-space-md">
+<!-- Order Summary Pillbox -->
+<div class="p-space-sm rounded-xl bg-surface-container flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-secondary uppercase">Resumen de Productos Seleccionados:</span>
+<div class="text-body-sm text-on-surface divide-y-0 max-h-36 overflow-y-auto pr-1" id="modalOrderSummary">
+<!-- Dynamically populated -->
+</div>
+<div class="flex justify-between items-center pt-2 font-bold text-on-surface text-body-md">
+<span class="">Importe Total:</span>
+<span class="text-secondary font-headline-sm text-headline-sm" id="modalFinalTotal">$0.00 MXN</span>
+</div>
+</div>
+<!-- Customer Data Form -->
+<form class="flex flex-col gap-space-sm" id="orderForm" onsubmit="dispatchWhatsApp(event)">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Nombre Completo / Empresa *</label>
+<input class="bg-surface-container-lowest px-space-md py-2 rounded-lg text-body-md text-on-surface placeholder:text-outline focus:outline-none" id="clientName" placeholder="Ej. Roberto Sánchez (Hotel Real)" required="" type="text">
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Teléfono de Contacto (WhatsApp) *</label>
+<input class="bg-surface-container-lowest px-space-md py-2 rounded-lg text-body-md text-on-surface placeholder:text-outline focus:outline-none" id="clientPhone" placeholder="Ej. 5512345678" required="" type="tel">
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Dirección de Entrega Completa *</label>
+<input class="bg-surface-container-lowest px-space-md py-2 rounded-lg text-body-md text-on-surface placeholder:text-outline focus:outline-none" id="clientAddress" placeholder="Calle, Número, Colonia, Código Postal, Ciudad" required="" type="text">
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Notas Especiales / Facturación</label>
+<textarea class="bg-surface-container-lowest px-space-md py-2 rounded-lg text-body-md text-on-surface placeholder:text-outline focus:outline-none" id="clientNotes" placeholder="Ej. Requiero factura CFDI 4.0, entregar en horario de 9am a 2pm con rampa de descarga." rows="2"></textarea>
+</div>
+<!-- Compliance Notice -->
+<div class="flex items-start gap-space-xs p-space-sm rounded-lg bg-surface-container text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-title-md flex-shrink-0">info</span>
+<span class="">Al presionar el botón se abrirá WhatsApp con el mensaje estructurado de tu pedido para asignarte un ejecutivo de cuenta y coordinar el despacho.</span>
+</div>
+<button class="w-full mt-space-xs py-3 rounded-xl bg-gradient-to-r from-primary-container via-secondary-container to-secondary text-on-primary-container font-headline-sm text-headline-sm flex items-center justify-center gap-space-xs shadow-xl hover:opacity-95 transition-opacity" type="submit">
+<span class="material-symbols-outlined text-headline-md">send</span>
+<span class="">Enviar Pedido a WhatsApp</span>
+</button>
+</form>
+</div>
+</div>
+</div>
+<!-- INTERACTIVE CLIENT-SIDE ENGINE -->
+<script>
+    // State Management
+    let cart = [];
+    let activeCouponDiscount = 0;
+    const selectedSizes = { 1: '1L', 2: '1L', 3: '1L', 4: '1L', 5: '1L', 6: '1 Pza', 7: '1 Pza (1L)' };
+    const selectedPrices = { 1: 35, 2: 65, 3: 55, 4: 42, 5: 32, 6: 125, 7: 28 };
+    let activeSector = null;
+
+    function selectPresentation(productId, size, price, element) {
+      selectedSizes[productId] = size;
+      selectedPrices[productId] = price;
+      
+      const parent = element.parentElement;
+      parent.querySelectorAll('.pres-btn').forEach(btn => {
+        btn.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold');
+        btn.classList.add('bg-surface-container', 'text-on-surface');
+      });
+      element.classList.remove('bg-surface-container', 'text-on-surface');
+      element.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold');
+
+      const priceDisplay = document.getElementById(`price-display-${productId}`);
+      if (priceDisplay) {
+        priceDisplay.innerHTML = `$${price}.00 <span class="text-body-sm font-normal text-on-surface-variant">MXN</span>`;
+      }
+    }
+
+    function getSelectedSize(id) {
+      return selectedSizes[id] || '1L';
+    }
+
+    function getSelectedPrice(id) {
+      return selectedPrices[id] || 0;
+    }
+
+    function addToCart(productId, name, size, unitPrice) {
+      const existing = cart.find(item => item.id === productId && item.size === size);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ id: productId, name, size, price: unitPrice, qty: 1 });
+      }
+      renderCart();
+      triggerCartBounce();
+    }
+
+    function updateCartQty(index, change) {
+      cart[index].qty += change;
+      if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+      }
+      renderCart();
+    }
+
+    function removeCartItem(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cartItemsContainer');
+      const countBadge = document.getElementById('cartCountBadge');
+      const cartTotalHeader = document.getElementById('cartTotalHeader');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+
+      countBadge.innerText = totalItems;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="h-full flex flex-col items-center justify-center text-center p-space-lg">
+            <div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-outline mb-space-sm">
+              <span class="material-symbols-outlined text-headline-md">production_quantity_limits</span>
+            </div>
+            <span class="font-title-md text-title-md text-on-surface">El carrito está vacío</span>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Selecciona productos del catálogo para generar tu orden.</p>
+          </div>
+        `;
+        document.getElementById('cartSubtotal').innerText = '$0.00 MXN';
+        document.getElementById('cartFinalTotal').innerText = '$0.00 MXN';
+        cartTotalHeader.innerText = '$0.00';
+        checkoutBtn.disabled = true;
+        return;
+      }
+
+      checkoutBtn.disabled = false;
+      let subtotal = 0;
+
+      let html = '<div class="flex flex-col gap-space-sm">';
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.qty;
+        subtotal += itemTotal;
+        html += `
+          <div class="flex items-center justify-between p-space-sm bg-surface-container rounded-xl gap-space-xs">
+            <div class="flex flex-col flex-1 min-w-0">
+              <span class="font-label-lg text-label-lg text-on-surface truncate">${item.name}</span>
+              <div class="flex items-center gap-space-xs text-body-sm text-on-surface-variant">
+                <span class="px-1.5 py-0.5 rounded bg-surface-container-highest font-label-sm text-label-sm text-secondary">${item.size}</span>
+                <span>$${item.price} c/u</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-1">
+              <button onclick="updateCartQty(${index}, -1)" class="w-7 h-7 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface flex items-center justify-center">-</button>
+              <span class="w-6 text-center font-label-md text-label-md text-on-surface">${item.qty}</span>
+              <button onclick="updateCartQty(${index}, 1)" class="w-7 h-7 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface flex items-center justify-center">+</button>
+            </div>
+            <div class="text-right min-w-[70px]">
+              <span class="font-title-md text-title-md text-secondary block">$${itemTotal}</span>
+              <button onclick="removeCartItem(${index})" class="text-outline hover:text-error text-body-sm">Quitar</button>
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+      container.innerHTML = html;
+
+      // Totals
+      const discount = subtotal * activeCouponDiscount;
+      const finalTotal = subtotal - discount;
+
+      document.getElementById('cartSubtotal').innerText = `$${subtotal.toFixed(2)} MXN`;
+      document.getElementById('cartFinalTotal').innerText = `$${finalTotal.toFixed(2)} MXN`;
+      cartTotalHeader.innerText = `$${finalTotal.toFixed(2)}`;
+
+      const discountRow = document.getElementById('discountRow');
+      if (activeCouponDiscount > 0) {
+        discountRow.classList.remove('hidden');
+        document.getElementById('cartDiscount').innerText = `-$${discount.toFixed(2)} MXN`;
+      } else {
+        discountRow.classList.add('hidden');
+      }
+    }
+
+    function applyCoupon() {
+      const code = document.getElementById('couponInput').value.trim().toUpperCase();
+      const msg = document.getElementById('couponMessage');
+      if (code === 'PROSHINE10' || code === 'BRINDA2024') {
+        activeCouponDiscount = 0.10;
+        msg.classList.remove('hidden');
+        msg.innerText = '¡Cupón aplicado exitosamente! (10% de descuento)';
+        renderCart();
+      } else {
+        alert('Código de cupón no válido. Intenta con PROSHINE10');
+      }
+    }
+
+    function toggleCartDrawer() {
+      const drawer = document.getElementById('cartDrawer');
+      const backdrop = document.getElementById('cartBackdrop');
+      const isOpen = !drawer.classList.contains('translate-x-full');
+
+      if (isOpen) {
+        drawer.classList.add('translate-x-full');
+        backdrop.classList.add('opacity-0', 'pointer-events-none');
+        backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+      } else {
+        drawer.classList.remove('translate-x-full');
+        backdrop.classList.remove('opacity-0', 'pointer-events-none');
+        backdrop.classList.add('opacity-100', 'pointer-events-auto');
+      }
+    }
+
+    function triggerCartBounce() {
+      const btn = document.getElementById('cartFloatBtn');
+      btn.classList.add('scale-110');
+      setTimeout(() => btn.classList.remove('scale-110'), 250);
+    }
+
+    // Modal Confirmation Controls
+    function openOrderModal() {
+      if (cart.length === 0) return;
+      toggleCartDrawer(); // Close drawer
+      const modal = document.getElementById('orderModal');
+      const summaryContainer = document.getElementById('modalOrderSummary');
+
+      let summaryHtml = '';
+      let subtotal = 0;
+      cart.forEach(item => {
+        const itemTotal = item.price * item.qty;
+        subtotal += itemTotal;
+        summaryHtml += `
+          <div class="flex justify-between items-center py-1">
+            <span>${item.qty}x ${item.name} (${item.size})</span>
+            <span class="font-bold">$${itemTotal}.00</span>
+          </div>
+        `;
+      });
+      const discount = subtotal * activeCouponDiscount;
+      const finalTotal = subtotal - discount;
+
+      summaryContainer.innerHTML = summaryHtml;
+      document.getElementById('modalFinalTotal').innerText = `$${finalTotal.toFixed(2)} MXN`;
+
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100', 'pointer-events-auto');
+    }
+
+    function closeOrderModal() {
+      const modal = document.getElementById('orderModal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.classList.remove('opacity-100', 'pointer-events-auto');
+    }
+
+    function dispatchWhatsApp(event) {
+      event.preventDefault();
+      const name = document.getElementById('clientName').value.trim();
+      const phone = document.getElementById('clientPhone').value.trim();
+      const address = document.getElementById('clientAddress').value.trim();
+      const notes = document.getElementById('clientNotes').value.trim() || 'Sin observaciones.';
+
+      let itemsText = '';
+      let subtotal = 0;
+      cart.forEach((i, idx) => {
+        const lineTotal = i.price * i.qty;
+        subtotal += lineTotal;
+        itemsText += `  ${idx + 1}. ${i.name} [${i.size}] x ${i.qty} unidad(es) = $${lineTotal} MXN%0A`;
+      });
+      const discount = subtotal * activeCouponDiscount;
+      const total = subtotal - discount;
+
+      const message = 
+        `🧪 *NUEVO PEDIDO PROSHINE CHEMICALS*%0A%0A` +
+        `👤 *Cliente / Empresa:* ${encodeURIComponent(name)}%0A` +
+        `📞 *Teléfono:* ${encodeURIComponent(phone)}%0A` +
+        `📍 *Dirección de Entrega:* ${encodeURIComponent(address)}%0A` +
+        `📝 *Notas / Facturación:* ${encodeURIComponent(notes)}%0A%0A` +
+        `📦 *PRODUCTOS SOLICITADOS:*%0A${itemsText}%0A` +
+        `💵 *Subtotal:* $${subtotal.toFixed(2)} MXN%0A` +
+        (discount > 0 ? `🎟️ *Descuento:* -$${discount.toFixed(2)} MXN%0A` : '') +
+        `💰 *TOTAL FINAL:* $${total.toFixed(2)} MXN%0A%0A` +
+        `Solicito confirmación de inventario y datos de transferencia para despacho.`;
+
+      const whatsappUrl = `https://wa.me/525589204100?text=${message}`;
+      window.open(whatsappUrl, '_blank');
+      closeOrderModal();
+    }
+
+    // Filter Logic
+    function applyFilters() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+      const category = document.getElementById('categorySelector').value;
+      const sort = document.getElementById('sortSelector').value;
+      const inStockOnly = document.getElementById('filterInStock').checked;
+      const saleOnly = document.getElementById('filterSaleOnly').checked;
+
+      const checkedActions = Array.from(document.querySelectorAll('input[name="chemAction"]:checked')).map(el => el.value);
+
+      const cards = Array.from(document.querySelectorAll('.product-card'));
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const name = card.dataset.name.toLowerCase();
+        const cardCat = card.dataset.category;
+        const cardAction = card.dataset.action;
+        const cardSectors = card.dataset.sectors.split(',');
+        const cardStock = parseInt(card.dataset.stock, 10);
+        const cardSale = card.dataset.sale === 'true';
+
+        let matchesSearch = !searchTerm || name.includes(searchTerm);
+        let matchesCat = category === 'todos' || cardCat === category;
+        let matchesAction = checkedActions.length === 0 || checkedActions.includes(cardAction);
+        let matchesSector = !activeSector || cardSectors.includes(activeSector);
+        let matchesStock = !inStockOnly || cardStock > 0;
+        let matchesSale = !saleOnly || cardSale;
+
+        if (matchesSearch && matchesCat && matchesAction && matchesSector && matchesStock && matchesSale) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // Sorting
+      const grid = document.getElementById('productsGrid');
+      const visibleCards = cards.filter(c => !c.classList.contains('hidden'));
+
+      if (sort === 'menor-precio') {
+        visibleCards.sort((a, b) => parseFloat(a.dataset.price1) - parseFloat(b.dataset.price1));
+        visibleCards.forEach(c => grid.appendChild(c));
+      } else if (sort === 'mayor-precio') {
+        visibleCards.sort((a, b) => parseFloat(b.dataset.price1) - parseFloat(a.dataset.price1));
+        visibleCards.forEach(c => grid.appendChild(c));
+      } else if (sort === 'oferta') {
+        visibleCards.sort((a, b) => (b.dataset.sale === 'true' ? 1 : 0) - (a.dataset.sale === 'true' ? 1 : 0));
+        visibleCards.forEach(c => grid.appendChild(c));
+      }
+
+      // Update counters & empty states
+      document.getElementById('productCount').innerText = `${visibleCount} producto${visibleCount === 1 ? '' : 's'}`;
+      const noResults = document.getElementById('noResults');
+      if (visibleCount === 0) {
+        noResults.classList.remove('hidden');
+        noResults.classList.add('flex');
+      } else {
+        noResults.classList.add('hidden');
+        noResults.classList.remove('flex');
+      }
+    }
+
+    function filterBySector(sectorKey) {
+      if (activeSector === sectorKey) {
+        activeSector = null;
+      } else {
+        activeSector = sectorKey;
+      }
+
+      document.querySelectorAll('.sector-pill').forEach(btn => {
+        btn.classList.remove('bg-surface-container-high', 'shadow-xl');
+        btn.classList.add('bg-surface-container');
+      });
+
+      if (activeSector) {
+        const activeBtn = Array.from(document.querySelectorAll('.sector-pill')).find(b => b.innerText.toLowerCase().includes(sectorKey));
+        if (activeBtn) {
+          activeBtn.classList.add('bg-surface-container-high', 'shadow-xl');
+          activeBtn.classList.remove('bg-surface-container');
+        }
+      }
+      applyFilters();
+    }
+
+    function toggleSectorFilter(sector) {
+      filterBySector(sector);
+    }
+
+    function resetFilters() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('categorySelector').value = 'todos';
+      document.getElementById('sortSelector').value = 'relevancia';
+      document.getElementById('filterInStock').checked = true;
+      document.getElementById('filterSaleOnly').checked = false;
+      document.querySelectorAll('input[name="chemAction"]').forEach(cb => cb.checked = false);
+      activeSector = null;
+      document.querySelectorAll('.sector-pill').forEach(btn => {
+        btn.classList.remove('bg-surface-container-high', 'shadow-xl');
+        btn.classList.add('bg-surface-container');
+      });
+      applyFilters();
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest"><div class="w-full px-margin py-space-xl flex flex-col gap-space-xl"><div class="flex flex-wrap items-center justify-between gap-space-md pb-space-lg bg-surface-container-low p-space-lg rounded-xl"><div class="flex flex-col gap-1"><span class="font-title-md text-title-md text-on-surface">Cobertura Especializada &amp; Dosificación Técnica</span><span class="font-body-sm text-body-sm text-on-surface-variant">Abastecemos con formulaciones de grado industrial, institucional y doméstico certificado.</span></div><div class="flex flex-wrap items-center gap-space-xs"><span class="px-space-md py-space-xs rounded-full bg-surface-container-highest text-secondary font-label-sm text-label-sm">Hogar</span><span class="px-space-md py-space-xs rounded-full bg-surface-container-highest text-secondary font-label-sm text-label-sm">Hoteles</span><span class="px-space-md py-space-xs rounded-full bg-surface-container-highest text-secondary font-label-sm text-label-sm">Escuelas</span><span class="px-space-md py-space-xs rounded-full bg-surface-container-highest text-secondary font-label-sm text-label-sm">Empresas</span><span class="px-space-md py-space-xs rounded-full bg-surface-container-highest text-secondary font-label-sm text-label-sm">Industria Pesada</span></div></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-lg"><div class="flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-secondary text-title-lg">verified_user</span><span class="font-headline-sm text-headline-sm text-on-surface uppercase">ProShine</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Líder en síntesis, formulación y distribución de químicos de desinfección, surfactantes neutros y biodegradables con cumplimiento normativo estricto.</p><span class="font-label-sm text-label-sm text-secondary">LAB CERTIFICADO ISO-9001:2015</span></div><div class="flex flex-col gap-space-sm"><span class="font-title-md text-title-md text-on-surface uppercase tracking-wide">Soporte &amp; Asistencia</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="soporte-tecnico" href="#">Mesa de Ayuda Química</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="fichas-seguridad-sds" href="#">Descarga de Fichas SDS &amp; Hojas Técnicas</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="pedidos-carrito" href="#">Seguimiento de Embarques / Pipas</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="calculadora-dilucion" href="#">Calculadora de Dilución y pH</a></div><div class="flex flex-col gap-space-sm"><span class="font-title-md text-title-md text-on-surface uppercase tracking-wide">Políticas &amp; Cumplimiento</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="politica-venta-quimicos" href="#">Política de Venta de Químicos Controlados</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="politica-venta-quimicos" href="#">Protocolos de Manejo Seguro (SGA)</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="politica-venta-quimicos" href="#">Garantía de Concentración Activa</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" data-path="politica-venta-quimicos" href="#">Devolución de Envases &amp; Reciclaje</a></div><div class="flex flex-col gap-space-sm"><span class="font-title-md text-title-md text-on-surface uppercase tracking-wide">Contacto Directo</span><div class="flex items-center gap-space-xs text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-title-md">call</span><span class="font-body-sm text-body-sm">+52 (55) 8920-4100</span></div><div class="flex items-center gap-space-xs text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-title-md">mail</span><span class="font-body-sm text-body-sm">contacto@proshine-chem.com</span></div><div class="flex items-center gap-space-xs text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-title-md">location_on</span><span class="font-body-sm text-body-sm">Parque Industrial Química Norte, Nave 4B</span></div></div></div><div class="pt-space-md flex flex-col md:flex-row items-center justify-between gap-space-sm text-on-surface-variant"><span class="font-body-sm text-body-sm">© 2024 ProShine Químicos de Limpieza. Todos los derechos reservados.</span><span class="font-label-sm text-label-sm text-outline">SISTEMA SEGURO DE REGISTRO COFEPRIS / STPS</span></div></div></footer>
+
+</body></html>
