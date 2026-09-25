@@ -1,0 +1,67 @@
+name: Claude Issue Triage
+
+on:
+  issues:
+    types: [opened, edited]
+
+concurrency:
+  group: issue-triage-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  triage:
+    # Ignorar ediciones que solo cambian el título y issues creados por bots
+    if: |
+      github.event.issue.user.type != 'Bot' &&
+      (github.event.action == 'opened' || github.event.changes.body != null)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Analizar issue con Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            REPO: ${{ github.repository }}
+            ISSUE: #${{ github.event.issue.number }}
+            ACCIÓN: ${{ github.event.action }}
+
+            Eres el encargado de triage del proyecto ProShine (React + Vite + Tailwind, datos en localStorage).
+            Lee CLAUDE.md para conocer los requisitos y reglas del proyecto.
+
+            Pasos:
+            1. Lee el issue: `gh issue view ${{ github.event.issue.number }} --json title,body,labels,author`.
+            2. Obtén los labels disponibles: `gh label list`. Usa SOLO labels existentes, no crees nuevos.
+            3. Explora el código (Glob/Grep/Read, principalmente en src/) para ubicar los archivos relacionados.
+            4. Aplica los labels apropiados: `gh issue edit ${{ github.event.issue.number }} --add-label "..."`.
+               Si ACCIÓN es "edited", quita con `--remove-label` los labels que ya no apliquen.
+            5. Publica el diagnóstico en español usando:
+               `gh issue comment ${{ github.event.issue.number }} --edit-last --create-if-none --body "..."`
+               (así, al editar el issue, se actualiza el mismo comentario en lugar de duplicarlo).
+
+            Formato del comentario:
+            ## 🔍 Diagnóstico automático
+            **Tipo:** ...
+            **Labels asignados:** ...
+            ### Resumen del problema
+            ### Posible causa / análisis
+            ### Archivos probablemente afectados
+            (rutas `src/...` con una breve explicación)
+            ### Propuesta de solución
+            (pasos concretos, respetando las reglas de CLAUDE.md)
+            ### Información faltante
+            (solo si el issue no tiene datos suficientes; si no, omite esta sección)
+
+            Restricciones: no modifiques código, no crees ramas ni pull requests. Solo labels y el comentario.
+          claude_args: |
+            --allowed-tools "Bash(gh issue view:*),Bash(gh issue edit:*),Bash(gh issue comment:*),Bash(gh label list:*),Bash(gh search issues:*),Read,Glob,Grep"
