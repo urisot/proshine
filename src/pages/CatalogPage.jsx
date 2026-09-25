@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getAll as getAllProducts } from '../services/productService.js';
 import { getAll as getAllCategories } from '../services/categoryService.js';
 import { get as getSettings } from '../services/settingsService.js';
@@ -33,7 +33,6 @@ function CatalogPage() {
   const [detailProduct, setDetailProduct] = useState(null);
   const [areFiltersOpen, setAreFiltersOpen] = useState(false);
 
-  const { openCart } = useOutletContext();
   const { isAuthenticated, isAdmin } = useAuth();
   const { addItem } = useCart();
   const { showToast } = useToast();
@@ -100,7 +99,6 @@ function CatalogPage() {
     }
     addItem(product, product.unit, quantity, unitPrice);
     showToast(`${product.name} agregado al carrito.`);
-    openCart();
   }
 
   return (
