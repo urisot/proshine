@@ -9,7 +9,7 @@ function PublicLayout() {
   return (
     <div className="min-h-screen bg-surface">
       <PublicHeader onOpenCart={() => setIsCartOpen(true)} />
-      <Outlet context={{ openCart: () => setIsCartOpen(true) }} />
+      <Outlet />
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
