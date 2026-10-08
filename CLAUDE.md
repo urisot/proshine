@@ -21,7 +21,7 @@ Funcionalidades de la aplicación:
 - Los clientes se pueden registrar para hacer compras
 - Los cliente tienen un rol "cliente" con acceso para poder visualizar el catalogo de productos donde tambien se le ofreceran los productos que se encuentran en promocion o los que tienen mayor demanda
 - Y los usuarios de la base de datos que tengan un rol "admin" (rol asignado manualmente), podrán entrar al panel de administración donde al entrar te mostrara un dasboard con un resumen general de ventas, pedidos en estatus (pendiente, confirmado, en transito, terminado, cancelado) .
-- la informacion se guarda en el localstorage
+- La información (categorías, productos, usuarios, pedidos, carritos y configuración de tienda) se guarda en Supabase (Postgres). Solo la sesión del usuario autenticado (quién está logeado ahora mismo en este navegador) se guarda en localStorage.
 
 
 - Panel de aministración privado
@@ -54,7 +54,7 @@ Stack de tecnologia:
 - CSS3 (con tailwind)
 - JavaScript
 - React
-- Base datos LocalStorage 
+- Base de datos Supabase (Postgres), accedida desde el cliente vía la API REST de Supabase (fetch nativo, sin SDK externo). RLS habilitado en todas las tablas con políticas abiertas temporales (sin Supabase Auth todavía); ver nota de seguridad en la migración `proshine_initial_schema`.
 
 
 Preferencias generales:

@@ -19,7 +19,7 @@ const STATUS_COLORS = {
   cancelado: 'bg-[#450a0a] text-[#fca5a5]',
 };
 
-function OrdersTable({ orders, onStatusChange, onViewDetail, onDownloadRemision }) {
+function OrdersTable({ orders, taxRate, onStatusChange, onViewDetail, onDownloadRemision }) {
   if (orders.length === 0) {
     return (
       <div className="glass-panel rounded-xl">
@@ -87,7 +87,7 @@ function OrdersTable({ orders, onStatusChange, onViewDetail, onDownloadRemision 
                 })}
               </td>
               <td className="py-space-md px-space-md text-right font-display text-headline-sm text-on-surface font-semibold whitespace-nowrap">
-                ${getTotals(order).total.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                ${getTotals(order, taxRate).total.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </td>
               <td className="py-space-md px-space-md">
                 <select

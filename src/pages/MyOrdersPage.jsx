@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useToast } from '../context/ToastContext.jsx';
@@ -6,6 +6,7 @@ import ConfirmDialog from '../components/common/ConfirmDialog.jsx';
 import EmptyState from '../components/common/EmptyState.jsx';
 import Icon from '../components/common/Icon.jsx';
 import * as orderService from '../services/orderService.js';
+import * as settingsService from '../services/settingsService.js';
 import { printRemision, getFolio } from '../services/remisionService.js';
 
 const STATUS_META = {
@@ -22,22 +23,28 @@ function MyOrdersPage() {
   const { session } = useAuth();
   const { showToast } = useToast();
   const navigate = useNavigate();
-  const [orders, setOrders] = useState(() => orderService.getByUser(session.id));
+  const [orders, setOrders] = useState([]);
+  const [taxRate, setTaxRate] = useState(16);
   const [orderToCancel, setOrderToCancel] = useState(null);
   const [statusFilter, setStatusFilter] = useState('all');
 
-  function handleDownloadRemision(order) {
-    printRemision(order);
+  useEffect(() => {
+    orderService.getByUser(session.id).then(setOrders);
+    settingsService.get().then((settings) => setTaxRate(settings.taxRate));
+  }, [session.id]);
+
+  async function handleDownloadRemision(order) {
+    await printRemision(order);
     showToast(`Nota de venta ${getFolio(order)} lista. Imprímela o elige "Guardar como PDF".`);
   }
 
-  function handleCancelConfirm() {
-    const result = orderService.cancel(orderToCancel.id);
+  async function handleCancelConfirm() {
+    const result = await orderService.cancel(orderToCancel.id);
     if (!result.success) {
       showToast(result.message, 'error');
     } else {
       showToast(`Pedido ${orderToCancel.id} cancelado.`);
-      setOrders(orderService.getByUser(session.id));
+      setOrders(await orderService.getByUser(session.id));
     }
     setOrderToCancel(null);
   }
@@ -104,7 +111,7 @@ function MyOrdersPage() {
           {filteredOrders.map((order) => {
             const meta = STATUS_META[order.status];
             const isCancelled = order.status === 'cancelado';
-            const totals = orderService.getTotals(order);
+            const totals = orderService.getTotals(order, taxRate);
 
             return (
               <article key={order.id} className="flex flex-col gap-space-sm glass-panel p-space-md rounded-xl lift-hover">

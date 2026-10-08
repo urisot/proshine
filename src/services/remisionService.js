@@ -208,9 +208,8 @@ function createFooter(doc, settings, totals) {
   return footer;
 }
 
-function buildNote(doc, order) {
-  const settings = getSettings();
-  const totals = getTotals(order);
+function buildNote(doc, order, settings) {
+  const totals = getTotals(order, settings.taxRate);
 
   const note = createElement(doc, 'main', 'note');
   note.appendChild(createHeader(doc, order));
@@ -226,7 +225,8 @@ function buildNote(doc, order) {
 
 // Arma la nota en un iframe oculto y abre el diálogo de impresión,
 // donde el usuario puede imprimirla o elegir "Guardar como PDF".
-function printRemision(order) {
+async function printRemision(order) {
+  const settings = await getSettings();
   const frame = document.createElement('iframe');
   frame.style.position = 'fixed';
   frame.style.width = '0';
@@ -247,7 +247,7 @@ function printRemision(order) {
   const style = doc.createElement('style');
   style.textContent = NOTE_STYLES;
   doc.head.appendChild(style);
-  doc.body.appendChild(buildNote(doc, order));
+  doc.body.appendChild(buildNote(doc, order, settings));
 
   frameWindow.addEventListener('afterprint', () => {
     document.title = previousTitle;
@@ -265,7 +265,8 @@ function printRemision(order) {
   }
 }
 
-function downloadOrdersReport(orders) {
+async function downloadOrdersReport(orders) {
+  const settings = await getSettings();
   const headers = ['Folio', 'Cliente', 'Teléfono', 'RFC', 'Domicilio', 'Fecha', 'Estatus', 'Artículos', 'Total MXN'];
   const rows = orders.map((order) => [
     getFolio(order),
@@ -276,7 +277,7 @@ function downloadOrdersReport(orders) {
     new Date(order.createdAt).toLocaleString('es-MX'),
     STATUS_LABELS[order.status],
     order.items.reduce((sum, item) => sum + item.quantity, 0),
-    getTotals(order).total.toFixed(2),
+    getTotals(order, settings.taxRate).total.toFixed(2),
   ]);
 
   downloadCsv(`Reporte_Pedidos_${new Date().toISOString().slice(0, 10)}.csv`, headers, rows);

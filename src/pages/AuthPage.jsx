@@ -63,9 +63,9 @@ function AuthPage() {
     setRegisterForm((current) => ({ ...current, [name]: value }));
   }
 
-  function handleLoginSubmit(event) {
+  async function handleLoginSubmit(event) {
     event.preventDefault();
-    const result = login(loginForm);
+    const result = await login(loginForm);
     if (!result.success) {
       showToast(result.message, 'error');
       return;
@@ -78,7 +78,7 @@ function AuthPage() {
     setRegisterForm((current) => ({ ...current, address }));
   }
 
-  function handleRegisterSubmit(event) {
+  async function handleRegisterSubmit(event) {
     event.preventDefault();
 
     const missingAddress = getMissingRequired(registerForm.address);
@@ -95,7 +95,7 @@ function AuthPage() {
       return;
     }
 
-    const result = register(registerForm);
+    const result = await register(registerForm);
     if (!result.success) {
       showToast(result.message, 'error');
       return;

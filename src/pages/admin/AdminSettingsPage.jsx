@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as settingsService from '../../services/settingsService.js';
 import { useToast } from '../../context/ToastContext.jsx';
 import Logo from '../../components/common/Logo.jsx';
@@ -6,18 +6,33 @@ import Icon from '../../components/common/Icon.jsx';
 
 const INPUT_CLASS = 'w-full px-space-md py-space-sm rounded-lg bg-surface text-on-surface focus:outline-none focus:bg-surface-container-high';
 
+const EMPTY_FORM = {
+  whatsappNumber: '',
+  storeName: '',
+  storeEmail: '',
+  storePhone: '',
+  storeAddress: '',
+  storeCity: '',
+  taxRate: 0,
+  freeShippingThreshold: 0,
+};
+
 function AdminSettingsPage() {
-  const [form, setForm] = useState(() => settingsService.get());
+  const [form, setForm] = useState(EMPTY_FORM);
   const { showToast } = useToast();
+
+  useEffect(() => {
+    settingsService.get().then(setForm);
+  }, []);
 
   function handleChange(event) {
     const { name, value } = event.target;
     setForm((current) => ({ ...current, [name]: value }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    settingsService.save(form);
+    await settingsService.save(form);
     showToast('Preferencias de la tienda guardadas con éxito.');
   }
 

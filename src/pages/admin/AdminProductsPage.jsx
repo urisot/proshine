@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import * as productService from '../../services/productService.js';
 import * as categoryService from '../../services/categoryService.js';
 import { useToast } from '../../context/ToastContext.jsx';
@@ -13,9 +13,13 @@ import * as bulkDataService from '../../services/bulkDataService.js';
 
 function AdminProductsPage() {
   const [activeTab, setActiveTab] = useState('products');
-  const [products, setProducts] = useState(() => productService.getAll());
-  const [categories, setCategories] = useState(() => categoryService.getAll());
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const { showToast } = useToast();
+
+  useEffect(() => {
+    refreshAll();
+  }, []);
 
   const [productModal, setProductModal] = useState({ isOpen: false, data: null });
   const [categoryModal, setCategoryModal] = useState({ isOpen: false, data: null });
@@ -47,47 +51,47 @@ function AdminProductsPage() {
 
   const criticalCount = products.filter((product) => productService.getStockLevel(product) === 'Crítico').length;
 
-  function refreshAll() {
-    setProducts(productService.getAll());
-    setCategories(categoryService.getAll());
+  async function refreshAll() {
+    setProducts(await productService.getAll());
+    setCategories(await categoryService.getAll());
   }
 
-  function handleProductSubmit(formData) {
+  async function handleProductSubmit(formData) {
     const result = productModal.data
-      ? productService.update(productModal.data.id, formData)
-      : productService.create(formData);
+      ? await productService.update(productModal.data.id, formData)
+      : await productService.create(formData);
 
     if (!result.success) {
       showToast(result.message, 'error');
       return;
     }
 
-    setProducts(productService.getAll());
+    setProducts(await productService.getAll());
     setProductModal({ isOpen: false, data: null });
     showToast('Producto guardado con éxito.');
   }
 
-  function handleProductDelete() {
-    productService.remove(productToDelete.id);
-    setProducts(productService.getAll());
+  async function handleProductDelete() {
+    await productService.remove(productToDelete.id);
+    setProducts(await productService.getAll());
     setProductToDelete(null);
     showToast('Producto eliminado.');
   }
 
-  function handleCategorySubmit(formData) {
+  async function handleCategorySubmit(formData) {
     if (categoryModal.data) {
-      categoryService.update(categoryModal.data.id, formData);
+      await categoryService.update(categoryModal.data.id, formData);
     } else {
-      categoryService.create(formData);
+      await categoryService.create(formData);
     }
-    setCategories(categoryService.getAll());
+    setCategories(await categoryService.getAll());
     setCategoryModal({ isOpen: false, data: null });
     showToast('Categoría guardada con éxito.');
   }
 
-  function handleCategoryDelete() {
-    categoryService.remove(categoryToDelete.id);
-    setCategories(categoryService.getAll());
+  async function handleCategoryDelete() {
+    await categoryService.remove(categoryToDelete.id);
+    setCategories(await categoryService.getAll());
     setCategoryToDelete(null);
     showToast('Categoría eliminada.');
   }

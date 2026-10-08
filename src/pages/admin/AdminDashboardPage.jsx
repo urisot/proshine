@@ -1,9 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAll as getAllOrders, getSalesSummary, getTotals } from '../../services/orderService.js';
 import { getAll as getAllProducts, getStockLevel } from '../../services/productService.js';
 import { getAll as getAllCategories } from '../../services/categoryService.js';
 import { getAll as getAllUsers } from '../../services/userService.js';
+import { get as getSettings } from '../../services/settingsService.js';
 import { downloadOrdersReport } from '../../services/remisionService.js';
 import { useToast } from '../../context/ToastContext.jsx';
 import Icon from '../../components/common/Icon.jsx';
@@ -41,13 +42,29 @@ function KpiCard({ label, icon, tone, value, caption, footer }) {
   );
 }
 
+const EMPTY_SUMMARY = {
+  totalSales: 0,
+  totalOrders: 0,
+  byStatus: { pendiente: 0, confirmado: 0, en_transito: 0, terminado: 0, cancelado: 0 },
+};
+
 function AdminDashboardPage() {
-  const [orders] = useState(() => getAllOrders());
-  const [products] = useState(() => getAllProducts());
-  const [categories] = useState(() => getAllCategories());
-  const [users] = useState(() => getAllUsers());
-  const summary = useMemo(() => getSalesSummary(), []);
+  const [orders, setOrders] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [taxRate, setTaxRate] = useState(16);
+  const [summary, setSummary] = useState(EMPTY_SUMMARY);
   const { showToast } = useToast();
+
+  useEffect(() => {
+    getAllOrders().then(setOrders);
+    getAllProducts().then(setProducts);
+    getAllCategories().then(setCategories);
+    getAllUsers().then(setUsers);
+    getSettings().then((settings) => setTaxRate(settings.taxRate));
+    getSalesSummary().then(setSummary);
+  }, []);
 
   const criticalProducts = products.filter((product) => getStockLevel(product) === 'Crítico');
   const clientCount = users.filter((user) => user.role === 'cliente').length;
@@ -59,12 +76,12 @@ function AdminDashboardPage() {
     orders
       .filter((order) => order.status !== 'cancelado' && new Date(order.createdAt).getTime() >= weekAgo)
       .forEach((order) => {
-        buckets[new Date(order.createdAt).getDay()].total += getTotals(order).total;
+        buckets[new Date(order.createdAt).getDay()].total += getTotals(order, taxRate).total;
       });
 
     const max = Math.max(...buckets.map((bucket) => bucket.total), 1);
     return buckets.map((bucket) => ({ ...bucket, percent: Math.round((bucket.total / max) * 100) }));
-  }, [orders]);
+  }, [orders, taxRate]);
 
   const bestDay = weeklySales.reduce((best, bucket) => (bucket.total > best.total ? bucket : best), weeklySales[0]);
 
@@ -93,9 +110,9 @@ function AdminDashboardPage() {
 
   const maxStatusCount = Math.max(...Object.values(summary.byStatus), 1);
 
-  function handleExport(event) {
+  async function handleExport(event) {
     event.preventDefault();
-    downloadOrdersReport(orders);
+    await downloadOrdersReport(orders);
     showToast('Reporte de pedidos descargado en formato CSV.');
   }
 
@@ -295,7 +312,7 @@ function AdminDashboardPage() {
                     <span className="font-body-sm text-body-sm text-on-surface-variant truncate">{order.customerName}</span>
                   </div>
                   <span className="font-title-md text-title-md text-on-surface font-semibold shrink-0">
-                    {formatCurrency(getTotals(order).total)}
+                    {formatCurrency(getTotals(order, taxRate).total)}
                   </span>
                 </div>
               ))}

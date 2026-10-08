@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAll as getAllProducts } from '../services/productService.js';
 import { getAll as getAllCategories } from '../services/categoryService.js';
@@ -20,10 +20,18 @@ const SECTORS = [
   { key: 'Industria', icon: 'factory', caption: 'Desengrase de Maquinaria' },
 ];
 
+const EMPTY_SETTINGS = {
+  whatsappNumber: '',
+  storeName: '',
+  storeEmail: '',
+  storePhone: '',
+  storeAddress: '',
+};
+
 function CatalogPage() {
-  const [products] = useState(() => getAllProducts());
-  const [categories] = useState(() => getAllCategories());
-  const [settings] = useState(() => getSettings());
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [settings, setSettings] = useState(EMPTY_SETTINGS);
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
   const [sectorFilter, setSectorFilter] = useState('');
@@ -37,6 +45,12 @@ function CatalogPage() {
   const { addItem } = useCart();
   const { showToast } = useToast();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getAllProducts().then(setProducts);
+    getAllCategories().then(setCategories);
+    getSettings().then(setSettings);
+  }, []);
 
   const categoryById = useMemo(() => {
     const map = {};

@@ -1,23 +1,24 @@
-import { KEYS, readList, writeList, readObject, writeObject, removeKey, generateId } from './storage.js';
+import { selectAll, insertRow } from './supabaseClient.js';
+import { readSession, writeSession, clearSession } from './storage.js';
+import { generateId } from './idService.js';
 import { normalizeAddress } from './addressService.js';
 
 function normalizeEmail(email) {
   return email.trim().toLowerCase();
 }
 
-function findUserByEmail(email) {
-  const users = readList(KEYS.USERS);
-  const normalized = normalizeEmail(email);
-  return users.find((user) => normalizeEmail(user.email) === normalized) || null;
+async function findUserByEmail(email) {
+  const rows = await selectAll('users', { filters: { email: normalizeEmail(email) } });
+  return rows[0] || null;
 }
 
-function register({ name, phone, email, address, rfc, password }) {
-  const existing = findUserByEmail(email);
+async function register({ name, phone, email, address, rfc, password }) {
+  const existing = await findUserByEmail(email);
   if (existing) {
     return { success: false, message: 'Ya existe una cuenta registrada con este correo electrónico.' };
   }
 
-  const newUser = {
+  const row = await insertRow('users', {
     id: generateId('user'),
     name: name.trim(),
     phone: phone.trim(),
@@ -26,37 +27,32 @@ function register({ name, phone, email, address, rfc, password }) {
     rfc: (rfc || '').trim().toUpperCase(),
     password,
     role: 'cliente',
-    createdAt: new Date().toISOString(),
-  };
+  });
 
-  const users = readList(KEYS.USERS);
-  users.push(newUser);
-  writeList(KEYS.USERS, users);
+  const session = { id: row.id, name: row.name, email: row.email, role: row.role };
+  writeSession(session);
 
-  const session = { id: newUser.id, name: newUser.name, email: newUser.email, role: newUser.role };
-  writeObject(KEYS.SESSION, session);
-
-  return { success: true, user: newUser };
+  return { success: true, user: row };
 }
 
-function login({ email, password }) {
-  const user = findUserByEmail(email);
+async function login({ email, password }) {
+  const user = await findUserByEmail(email);
   if (!user || user.password !== password) {
     return { success: false, message: 'Correo o contraseña incorrectos.' };
   }
 
   const session = { id: user.id, name: user.name, email: user.email, role: user.role };
-  writeObject(KEYS.SESSION, session);
+  writeSession(session);
 
   return { success: true, user };
 }
 
 function logout() {
-  removeKey(KEYS.SESSION);
+  clearSession();
 }
 
 function getSession() {
-  return readObject(KEYS.SESSION);
+  return readSession();
 }
 
 export { register, login, logout, getSession };

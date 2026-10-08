@@ -133,17 +133,17 @@ async function importProducts(file) {
     return { success: false, message: parsed.message };
   }
 
-  const categories = categoryService.getAll();
+  const categories = await categoryService.getAll();
   const errors = [];
   let created = 0;
   let updated = 0;
 
-  parsed.records.forEach((record, index) => {
+  for (const [index, record] of parsed.records.entries()) {
     const line = index + 2;
 
     if (!record.sku || !record.name) {
       errors.push(`Fila ${line}: SKU y Nombre son obligatorios.`);
-      return;
+      continue;
     }
 
     const category = categories.find(
@@ -151,17 +151,17 @@ async function importProducts(file) {
     );
     if (!category) {
       errors.push(`Fila ${line}: la categoría "${record.categoryName}" no existe.`);
-      return;
+      continue;
     }
 
     if (!VALID_UNITS.includes(record.unit)) {
       errors.push(`Fila ${line}: presentación "${record.unit}" no válida.`);
-      return;
+      continue;
     }
 
     if (Number.isNaN(Number(record.priceRetail)) || Number.isNaN(Number(record.priceWholesale))) {
       errors.push(`Fila ${line}: los precios deben ser numéricos.`);
-      return;
+      continue;
     }
 
     const payload = {
@@ -181,15 +181,17 @@ async function importProducts(file) {
     };
 
     // Un SKU existente actualiza el producto en lugar de duplicarlo.
-    const existing = productService
-      .getAll()
-      .find((product) => product.sku.trim().toLowerCase() === record.sku.trim().toLowerCase());
+    const existing = (await productService.getAll()).find(
+      (product) => product.sku.trim().toLowerCase() === record.sku.trim().toLowerCase()
+    );
 
-    const result = existing ? productService.update(existing.id, payload) : productService.create(payload);
+    const result = existing
+      ? await productService.update(existing.id, payload)
+      : await productService.create(payload);
 
     if (!result.success) {
       errors.push(`Fila ${line}: ${result.message}`);
-      return;
+      continue;
     }
 
     if (existing) {
@@ -197,7 +199,7 @@ async function importProducts(file) {
     } else {
       created += 1;
     }
-  });
+  }
 
   return buildReport(created, updated, errors);
 }
@@ -213,32 +215,32 @@ async function importCategories(file) {
   let created = 0;
   let updated = 0;
 
-  parsed.records.forEach((record, index) => {
+  for (const [index, record] of parsed.records.entries()) {
     const line = index + 2;
 
     if (!record.name) {
       errors.push(`Fila ${line}: el Nombre es obligatorio.`);
-      return;
+      continue;
     }
 
     if (!VALID_SECTORS.includes(record.sector)) {
       errors.push(`Fila ${line}: sector "${record.sector}" no válido. Use: ${VALID_SECTORS.join(', ')}.`);
-      return;
+      continue;
     }
 
     const payload = { name: record.name, sector: record.sector, description: record.description };
-    const existing = categoryService
-      .getAll()
-      .find((category) => category.name.trim().toLowerCase() === record.name.trim().toLowerCase());
+    const existing = (await categoryService.getAll()).find(
+      (category) => category.name.trim().toLowerCase() === record.name.trim().toLowerCase()
+    );
 
     if (existing) {
-      categoryService.update(existing.id, payload);
+      await categoryService.update(existing.id, payload);
       updated += 1;
     } else {
-      categoryService.create(payload);
+      await categoryService.create(payload);
       created += 1;
     }
-  });
+  }
 
   return buildReport(created, updated, errors);
 }
@@ -254,23 +256,23 @@ async function importUsers(file) {
   let created = 0;
   let updated = 0;
 
-  parsed.records.forEach((record, index) => {
+  for (const [index, record] of parsed.records.entries()) {
     const line = index + 2;
 
     if (!record.name || !record.email) {
       errors.push(`Fila ${line}: Nombre y Correo son obligatorios.`);
-      return;
+      continue;
     }
 
     const role = record.role.trim().toLowerCase();
     if (role !== 'cliente' && role !== 'admin') {
       errors.push(`Fila ${line}: rol "${record.role}" no válido. Use: cliente o admin.`);
-      return;
+      continue;
     }
 
     if (!record.password || record.password.length < 6) {
       errors.push(`Fila ${line}: la contraseña debe tener al menos 6 caracteres.`);
-      return;
+      continue;
     }
 
     const address = {
@@ -286,7 +288,7 @@ async function importUsers(file) {
     const missingAddress = getMissingRequired(address);
     if (missingAddress.length > 0) {
       errors.push(`Fila ${line}: faltan datos de dirección: ${missingAddress.join(', ')}.`);
-      return;
+      continue;
     }
 
     const payload = {
@@ -299,15 +301,17 @@ async function importUsers(file) {
       role,
     };
 
-    const existing = userService
-      .getAll()
-      .find((user) => user.email.trim().toLowerCase() === record.email.trim().toLowerCase());
+    const existing = (await userService.getAll()).find(
+      (user) => user.email.trim().toLowerCase() === record.email.trim().toLowerCase()
+    );
 
-    const result = existing ? userService.update(existing.id, payload) : userService.create(payload);
+    const result = existing
+      ? await userService.update(existing.id, payload)
+      : await userService.create(payload);
 
     if (!result.success) {
       errors.push(`Fila ${line}: ${result.message}`);
-      return;
+      continue;
     }
 
     if (existing) {
@@ -315,7 +319,7 @@ async function importUsers(file) {
     } else {
       created += 1;
     }
-  });
+  }
 
   return buildReport(created, updated, errors);
 }

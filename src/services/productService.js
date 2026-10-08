@@ -1,81 +1,84 @@
-import { KEYS, readList, writeList, generateId } from './storage.js';
+import { selectAll, insertRow, updateRows, deleteRows } from './supabaseClient.js';
+import { generateId } from './idService.js';
 
-function getAll() {
-  return readList(KEYS.PRODUCTS);
+function fromRow(row) {
+  return {
+    id: row.id,
+    sku: row.sku,
+    name: row.name,
+    description: row.description,
+    categoryId: row.category_id,
+    unit: row.unit,
+    priceRetail: Number(row.price_retail),
+    priceWholesale: Number(row.price_wholesale),
+    discountPercent: Number(row.discount_percent),
+    stock: Number(row.stock),
+    minStock: Number(row.min_stock),
+    isHighDemand: row.is_high_demand,
+    isOnPromo: row.is_on_promo,
+    imageUrl: row.image_url,
+  };
 }
 
-function getById(id) {
-  return getAll().find((product) => product.id === id) || null;
+function toRow(data) {
+  return {
+    sku: data.sku.trim(),
+    name: data.name.trim(),
+    description: data.description.trim(),
+    category_id: data.categoryId,
+    unit: data.unit,
+    price_retail: Number(data.priceRetail),
+    price_wholesale: Number(data.priceWholesale),
+    discount_percent: Number(data.discountPercent) || 0,
+    stock: Number(data.stock),
+    min_stock: Number(data.minStock),
+    is_high_demand: Boolean(data.isHighDemand),
+    is_on_promo: Boolean(data.isOnPromo),
+    image_url: (data.imageUrl || '').trim(),
+  };
 }
 
-function isSkuTaken(sku, excludeId = null) {
+async function getAll() {
+  const rows = await selectAll('products', { order: 'name.asc' });
+  return rows.map(fromRow);
+}
+
+async function getById(id) {
+  const rows = await selectAll('products', { filters: { id } });
+  return rows[0] ? fromRow(rows[0]) : null;
+}
+
+async function isSkuTaken(sku, excludeId = null) {
   const normalized = sku.trim().toLowerCase();
-  return getAll().some(
+  const products = await getAll();
+  return products.some(
     (product) => product.sku.trim().toLowerCase() === normalized && product.id !== excludeId
   );
 }
 
-function create(data) {
-  if (isSkuTaken(data.sku)) {
+async function create(data) {
+  if (await isSkuTaken(data.sku)) {
     return { success: false, message: `El SKU "${data.sku}" ya existe en otro producto.` };
   }
 
-  const products = getAll();
-  const newProduct = {
-    id: generateId('prod'),
-    sku: data.sku.trim(),
-    name: data.name.trim(),
-    description: data.description.trim(),
-    categoryId: data.categoryId,
-    unit: data.unit,
-    priceRetail: Number(data.priceRetail),
-    priceWholesale: Number(data.priceWholesale),
-    discountPercent: Number(data.discountPercent) || 0,
-    stock: Number(data.stock),
-    minStock: Number(data.minStock),
-    isHighDemand: Boolean(data.isHighDemand),
-    isOnPromo: Boolean(data.isOnPromo),
-    imageUrl: (data.imageUrl || '').trim(),
-  };
-  products.push(newProduct);
-  writeList(KEYS.PRODUCTS, products);
-  return { success: true, product: newProduct };
+  const row = await insertRow('products', { id: generateId('prod'), ...toRow(data) });
+  return { success: true, product: fromRow(row) };
 }
 
-function update(id, data) {
-  if (isSkuTaken(data.sku, id)) {
+async function update(id, data) {
+  if (await isSkuTaken(data.sku, id)) {
     return { success: false, message: `El SKU "${data.sku}" ya existe en otro producto.` };
   }
 
-  const products = getAll();
-  const index = products.findIndex((product) => product.id === id);
-  if (index === -1) {
+  const [row] = await updateRows('products', { id }, toRow(data));
+  if (!row) {
     return { success: false, message: 'Producto no encontrado.' };
   }
-
-  products[index] = {
-    ...products[index],
-    sku: data.sku.trim(),
-    name: data.name.trim(),
-    description: data.description.trim(),
-    categoryId: data.categoryId,
-    unit: data.unit,
-    priceRetail: Number(data.priceRetail),
-    priceWholesale: Number(data.priceWholesale),
-    discountPercent: Number(data.discountPercent) || 0,
-    stock: Number(data.stock),
-    minStock: Number(data.minStock),
-    isHighDemand: Boolean(data.isHighDemand),
-    isOnPromo: Boolean(data.isOnPromo),
-    imageUrl: (data.imageUrl || '').trim(),
-  };
-  writeList(KEYS.PRODUCTS, products);
-  return { success: true, product: products[index] };
+  return { success: true, product: fromRow(row) };
 }
 
-function remove(id) {
-  const products = getAll().filter((product) => product.id !== id);
-  writeList(KEYS.PRODUCTS, products);
+async function remove(id) {
+  await deleteRows('products', { id });
 }
 
 function getStockLevel(product) {

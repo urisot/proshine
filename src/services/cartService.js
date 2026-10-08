@@ -1,41 +1,38 @@
-import { KEYS, readObject, writeObject } from './storage.js';
+import { selectAll, insertRow, updateRows } from './supabaseClient.js';
 
-// Los carritos se guardan por usuario: { "<userId>": [items], "invitado": [items] }.
+// Los carritos se guardan por usuario en Supabase: owner_key = userId o "invitado".
 // Así, al cerrar sesión el carrito no se pierde y se recupera al volver a entrar.
 const GUEST_KEY = 'invitado';
-
-function readAllCarts() {
-  const stored = readObject(KEYS.CARTS);
-  return stored && typeof stored === 'object' ? stored : {};
-}
 
 function getOwnerKey(userId) {
   return userId || GUEST_KEY;
 }
 
-function getCart(userId) {
-  const cart = readAllCarts()[getOwnerKey(userId)];
-  return Array.isArray(cart) ? cart : [];
+async function getCart(userId) {
+  const rows = await selectAll('carts', { filters: { owner_key: getOwnerKey(userId) } });
+  return rows[0]?.items || [];
 }
 
-function saveCart(userId, items) {
-  const carts = readAllCarts();
-  carts[getOwnerKey(userId)] = items;
-  writeObject(KEYS.CARTS, carts);
+async function saveCart(userId, items) {
+  const ownerKey = getOwnerKey(userId);
+  const [updated] = await updateRows('carts', { owner_key: ownerKey }, { items, updated_at: new Date().toISOString() });
+  if (!updated) {
+    await insertRow('carts', { owner_key: ownerKey, items });
+  }
 }
 
-function clearCart(userId) {
-  saveCart(userId, []);
+async function clearCart(userId) {
+  await saveCart(userId, []);
 }
 
 // Al iniciar sesión, lo que el visitante juntó sin cuenta se suma a su carrito guardado.
-function mergeGuestCartInto(userId) {
-  const guestItems = getCart(null);
+async function mergeGuestCartInto(userId) {
+  const guestItems = await getCart(null);
   if (guestItems.length === 0) {
     return getCart(userId);
   }
 
-  const merged = [...getCart(userId)];
+  const merged = [...(await getCart(userId))];
   guestItems.forEach((guestItem) => {
     const existingIndex = merged.findIndex(
       (item) => item.productId === guestItem.productId && item.unit === guestItem.unit
@@ -50,8 +47,8 @@ function mergeGuestCartInto(userId) {
     };
   });
 
-  saveCart(userId, merged);
-  clearCart(null);
+  await saveCart(userId, merged);
+  await clearCart(null);
   return merged;
 }
 

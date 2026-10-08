@@ -21,7 +21,7 @@ function AdminHeader({ onToggleSidebar }) {
         </span>
         <div className="hidden sm:flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-low">
           <span className="w-2 h-2 rounded-full bg-secondary-container animate-pulse" />
-          <span className="font-label-sm text-label-sm text-on-surface-variant uppercase">LocalStorage: Sincronizado</span>
+          <span className="font-label-sm text-label-sm text-on-surface-variant uppercase">Supabase: Sincronizado</span>
         </div>
       </div>
 

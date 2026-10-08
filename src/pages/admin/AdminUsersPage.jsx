@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import * as userService from '../../services/userService.js';
 import { useToast } from '../../context/ToastContext.jsx';
@@ -13,32 +13,42 @@ import * as bulkDataService from '../../services/bulkDataService.js';
 import { formatAddress } from '../../services/addressService.js';
 
 function AdminUsersPage() {
-  const [users, setUsers] = useState(() => userService.getAll());
+  const [users, setUsers] = useState([]);
   const [modal, setModal] = useState({ isOpen: false, data: null });
   const [userToDelete, setUserToDelete] = useState(null);
   const [roleFilter, setRoleFilter] = useState('all');
   const { showToast } = useToast();
   const { session } = useAuth();
 
-  function handleSubmit(formData) {
-    const result = modal.data ? userService.update(modal.data.id, formData) : userService.create(formData);
+  function refreshUsers() {
+    return userService.getAll().then(setUsers);
+  }
+
+  useEffect(() => {
+    refreshUsers();
+  }, []);
+
+  async function handleSubmit(formData) {
+    const result = modal.data
+      ? await userService.update(modal.data.id, formData)
+      : await userService.create(formData);
 
     if (!result.success) {
       showToast(result.message, 'error');
       return;
     }
 
-    setUsers(userService.getAll());
+    await refreshUsers();
     setModal({ isOpen: false, data: null });
     showToast('Usuario guardado con éxito.');
   }
 
-  function handleDelete() {
-    const result = userService.remove(userToDelete.id);
+  async function handleDelete() {
+    const result = await userService.remove(userToDelete.id);
     if (!result.success) {
       showToast(result.message, 'error');
     } else {
-      setUsers(userService.getAll());
+      await refreshUsers();
       showToast('Usuario eliminado.');
     }
     setUserToDelete(null);
@@ -87,7 +97,7 @@ function AdminUsersPage() {
               onExport={() => bulkDataService.exportUsers(users)}
               onDownloadTemplate={bulkDataService.downloadUsersTemplate}
               onImport={bulkDataService.importUsers}
-              onImported={() => setUsers(userService.getAll())}
+              onImported={refreshUsers}
             />
             <button
               type="button"

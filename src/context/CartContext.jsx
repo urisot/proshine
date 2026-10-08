@@ -7,23 +7,33 @@ const CartContext = createContext(null);
 function CartProvider({ children }) {
   const { session } = useAuth();
   const userId = session?.id || null;
-  const [items, setItems] = useState(() => cartService.getCart(userId));
-  const previousUserId = useRef(userId);
+  const [items, setItems] = useState([]);
+  const previousUserId = useRef(undefined);
+  const isLoading = useRef(true);
 
   // Al cambiar de usuario (entrar o salir) se carga el carrito guardado de ese usuario.
   useEffect(() => {
-    if (previousUserId.current === userId) {
-      return;
-    }
+    let isCurrent = true;
+    isLoading.current = true;
 
-    const restored = userId ? cartService.mergeGuestCartInto(userId) : cartService.getCart(null);
-    previousUserId.current = userId;
-    setItems(restored);
+    const load = userId ? cartService.mergeGuestCartInto(userId) : cartService.getCart(null);
+    load.then((restored) => {
+      if (!isCurrent) {
+        return;
+      }
+      previousUserId.current = userId;
+      isLoading.current = false;
+      setItems(restored);
+    });
+
+    return () => {
+      isCurrent = false;
+    };
   }, [userId]);
 
   // Cada cambio del carrito se persiste para el dueño actual.
   useEffect(() => {
-    if (previousUserId.current !== userId) {
+    if (isLoading.current || previousUserId.current !== userId) {
       return;
     }
     cartService.saveCart(userId, items);

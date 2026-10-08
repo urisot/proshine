@@ -1,33 +1,8 @@
-const KEYS = {
-  USERS: 'proshine_users',
-  SESSION: 'proshine_session',
-  CATEGORIES: 'proshine_categories',
-  PRODUCTS: 'proshine_products',
-  ORDERS: 'proshine_orders',
-  SETTINGS: 'proshine_settings',
-  SEED_VERSION: 'proshine_seed_version',
-  CARTS: 'proshine_carts',
-};
+// La sesión del usuario autenticado vive en el navegador; el resto de los datos están en Supabase.
+const SESSION_KEY = 'proshine_session';
 
-function readList(key) {
-  const raw = localStorage.getItem(key);
-  if (!raw) {
-    return [];
-  }
-  try {
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch (error) {
-    return [];
-  }
-}
-
-function writeList(key, list) {
-  localStorage.setItem(key, JSON.stringify(list));
-}
-
-function readObject(key) {
-  const raw = localStorage.getItem(key);
+function readSession() {
+  const raw = localStorage.getItem(SESSION_KEY);
   if (!raw) {
     return null;
   }
@@ -38,17 +13,12 @@ function readObject(key) {
   }
 }
 
-function writeObject(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
+function writeSession(session) {
+  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
 }
 
-function removeKey(key) {
-  localStorage.removeItem(key);
+function clearSession() {
+  localStorage.removeItem(SESSION_KEY);
 }
 
-function generateId(prefix) {
-  const random = Math.random().toString(36).slice(2, 8);
-  return `${prefix}-${Date.now()}-${random}`;
-}
-
-export { KEYS, readList, writeList, readObject, writeObject, removeKey, generateId };
+export { readSession, writeSession, clearSession };

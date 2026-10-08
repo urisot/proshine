@@ -1,40 +1,35 @@
-import { KEYS, readList, writeList, generateId } from './storage.js';
+import { selectAll, insertRow, updateRows, deleteRows } from './supabaseClient.js';
+import { generateId } from './idService.js';
 
-function getAll() {
-  return readList(KEYS.CATEGORIES);
+async function getAll() {
+  return selectAll('categories', { order: 'name.asc' });
 }
 
-function getById(id) {
-  return getAll().find((category) => category.id === id) || null;
+async function getById(id) {
+  const [category] = await selectAll('categories', { filters: { id } });
+  return category || null;
 }
 
-function create({ name, sector, description }) {
-  const categories = getAll();
-  const newCategory = {
+async function create({ name, sector, description }) {
+  return insertRow('categories', {
     id: generateId('cat'),
     name: name.trim(),
     sector,
     description: description.trim(),
-  };
-  categories.push(newCategory);
-  writeList(KEYS.CATEGORIES, categories);
-  return newCategory;
+  });
 }
 
-function update(id, { name, sector, description }) {
-  const categories = getAll();
-  const index = categories.findIndex((category) => category.id === id);
-  if (index === -1) {
-    return null;
-  }
-  categories[index] = { ...categories[index], name: name.trim(), sector, description: description.trim() };
-  writeList(KEYS.CATEGORIES, categories);
-  return categories[index];
+async function update(id, { name, sector, description }) {
+  const [updated] = await updateRows(
+    'categories',
+    { id },
+    { name: name.trim(), sector, description: description.trim() }
+  );
+  return updated || null;
 }
 
-function remove(id) {
-  const categories = getAll().filter((category) => category.id !== id);
-  writeList(KEYS.CATEGORIES, categories);
+async function remove(id) {
+  await deleteRows('categories', { id });
 }
 
 export { getAll, getById, create, update, remove };

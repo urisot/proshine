@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as orderService from '../../services/orderService.js';
+import * as settingsService from '../../services/settingsService.js';
 import { printRemision, downloadOrdersReport, getFolio } from '../../services/remisionService.js';
 import { formatAddress } from '../../services/addressService.js';
 import { useToast } from '../../context/ToastContext.jsx';
@@ -16,27 +17,32 @@ const STATUS_LABELS = {
 };
 
 function AdminOrdersPage() {
-  const [orders, setOrders] = useState(() => orderService.getAll());
+  const [orders, setOrders] = useState([]);
+  const [taxRate, setTaxRate] = useState(16);
   const [statusFilter, setStatusFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [detailOrder, setDetailOrder] = useState(null);
   const { showToast } = useToast();
 
+  useEffect(() => {
+    orderService.getAll().then(setOrders);
+    settingsService.get().then((settings) => setTaxRate(settings.taxRate));
+  }, []);
 
-  function handleStatusChange(orderId, newStatus) {
-    orderService.updateStatus(orderId, newStatus);
-    setOrders(orderService.getAll());
+  async function handleStatusChange(orderId, newStatus) {
+    await orderService.updateStatus(orderId, newStatus);
+    setOrders(await orderService.getAll());
     showToast(`Pedido ${orderId} actualizado a "${STATUS_LABELS[newStatus]}".`);
   }
 
-  function handleDownloadRemision(order) {
-    printRemision(order);
+  async function handleDownloadRemision(order) {
+    await printRemision(order);
     showToast(`Nota de venta ${getFolio(order)} lista. Imprímela o elige "Guardar como PDF".`);
   }
 
-  function handleExportAll(event) {
+  async function handleExportAll(event) {
     event.preventDefault();
-    downloadOrdersReport(filteredOrders);
+    await downloadOrdersReport(filteredOrders);
     showToast('Reporte de pedidos descargado en formato CSV.');
   }
 
@@ -48,7 +54,7 @@ function AdminOrdersPage() {
     return matchesStatus && matchesSearch;
   });
 
-  const detailTotals = detailOrder ? orderService.getTotals(detailOrder) : null;
+  const detailTotals = detailOrder ? orderService.getTotals(detailOrder, taxRate) : null;
 
   return (
     <main className="lg:pl-72 pt-20 bg-surface min-h-screen px-space-md lg:px-space-lg py-space-md pb-space-xl">
@@ -101,6 +107,7 @@ function AdminOrdersPage() {
 
         <OrdersTable
           orders={filteredOrders}
+          taxRate={taxRate}
           onStatusChange={handleStatusChange}
           onViewDetail={setDetailOrder}
           onDownloadRemision={handleDownloadRemision}

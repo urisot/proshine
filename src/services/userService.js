@@ -1,5 +1,20 @@
-import { KEYS, readList, writeList, generateId } from './storage.js';
+import { selectAll, insertRow, updateRows, deleteRows } from './supabaseClient.js';
+import { generateId } from './idService.js';
 import { normalizeAddress } from './addressService.js';
+
+function fromRow(row) {
+  return {
+    id: row.id,
+    name: row.name,
+    email: row.email,
+    phone: row.phone,
+    address: row.address,
+    rfc: row.rfc,
+    password: row.password,
+    role: row.role,
+    createdAt: row.created_at,
+  };
+}
 
 function normalizeEmail(email) {
   return email.trim().toLowerCase();
@@ -9,22 +24,23 @@ function normalizeRfc(rfc) {
   return (rfc || '').trim().toUpperCase();
 }
 
-function getAll() {
-  return readList(KEYS.USERS);
+async function getAll() {
+  const rows = await selectAll('users', { order: 'created_at.asc' });
+  return rows.map(fromRow);
 }
 
-function isEmailTaken(email, excludeId = null) {
+async function isEmailTaken(email, excludeId = null) {
   const normalized = normalizeEmail(email);
-  return getAll().some((user) => normalizeEmail(user.email) === normalized && user.id !== excludeId);
+  const users = await getAll();
+  return users.some((user) => normalizeEmail(user.email) === normalized && user.id !== excludeId);
 }
 
-function create(data) {
-  if (isEmailTaken(data.email)) {
+async function create(data) {
+  if (await isEmailTaken(data.email)) {
     return { success: false, message: `El correo "${data.email}" ya está registrado.` };
   }
 
-  const users = getAll();
-  const newUser = {
+  const row = await insertRow('users', {
     id: generateId('user'),
     name: data.name.trim(),
     email: normalizeEmail(data.email),
@@ -33,40 +49,36 @@ function create(data) {
     rfc: normalizeRfc(data.rfc),
     password: data.password,
     role: data.role,
-    createdAt: new Date().toISOString(),
-  };
-  users.push(newUser);
-  writeList(KEYS.USERS, users);
-  return { success: true, user: newUser };
+  });
+  return { success: true, user: fromRow(row) };
 }
 
-function update(id, data) {
-  if (isEmailTaken(data.email, id)) {
+async function update(id, data) {
+  if (await isEmailTaken(data.email, id)) {
     return { success: false, message: `El correo "${data.email}" ya está registrado en otra cuenta.` };
   }
 
-  const users = getAll();
-  const index = users.findIndex((user) => user.id === id);
-  if (index === -1) {
-    return { success: false, message: 'Usuario no encontrado.' };
-  }
-
-  users[index] = {
-    ...users[index],
+  const patch = {
     name: data.name.trim(),
     email: normalizeEmail(data.email),
     phone: data.phone.trim(),
     address: normalizeAddress(data.address),
     rfc: normalizeRfc(data.rfc),
     role: data.role,
-    password: data.password ? data.password : users[index].password,
   };
-  writeList(KEYS.USERS, users);
-  return { success: true, user: users[index] };
+  if (data.password) {
+    patch.password = data.password;
+  }
+
+  const [row] = await updateRows('users', { id }, patch);
+  if (!row) {
+    return { success: false, message: 'Usuario no encontrado.' };
+  }
+  return { success: true, user: fromRow(row) };
 }
 
-function remove(id) {
-  const users = getAll();
+async function remove(id) {
+  const users = await getAll();
   const target = users.find((user) => user.id === id);
 
   if (target?.role === 'admin') {
@@ -76,7 +88,7 @@ function remove(id) {
     }
   }
 
-  writeList(KEYS.USERS, users.filter((user) => user.id !== id));
+  await deleteRows('users', { id });
   return { success: true };
 }
 

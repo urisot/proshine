@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
@@ -12,6 +12,8 @@ import IconButton from '../common/IconButton.jsx';
 import EmptyState from '../common/EmptyState.jsx';
 import Modal from '../common/Modal.jsx';
 
+const EMPTY_SETTINGS = { taxRate: 16, freeShippingThreshold: 1500 };
+
 function CartDrawer({ isOpen, onClose }) {
   const { items, updateQuantity, removeItem, clearCart, total } = useCart();
   const { session, isAuthenticated } = useAuth();
@@ -19,8 +21,12 @@ function CartDrawer({ isOpen, onClose }) {
   const navigate = useNavigate();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [notes, setNotes] = useState('');
+  const [settings, setSettings] = useState(EMPTY_SETTINGS);
 
-  const settings = getSettings();
+  useEffect(() => {
+    getSettings().then(setSettings);
+  }, []);
+
   const tax = total * (settings.taxRate / 100);
   const hasFreeShipping = total >= settings.freeShippingThreshold;
 
@@ -39,11 +45,12 @@ function CartDrawer({ isOpen, onClose }) {
     setIsConfirmOpen(true);
   }
 
-  function handleConfirmOrder(event) {
+  async function handleConfirmOrder(event) {
     event.preventDefault();
 
-    const currentUser = getAllUsers().find((user) => user.id === session.id);
-    const order = orderService.create({
+    const users = await getAllUsers();
+    const currentUser = users.find((user) => user.id === session.id);
+    const order = await orderService.create({
       userId: session.id,
       customerName: session.name,
       customerPhone: currentUser?.phone || '',
@@ -53,7 +60,7 @@ function CartDrawer({ isOpen, onClose }) {
       notes,
     });
 
-    window.open(orderService.getWhatsappLink(order), '_blank', 'noopener');
+    window.open(await orderService.getWhatsappLink(order), '_blank', 'noopener');
 
     clearCart();
     setNotes('');

@@ -6,16 +6,16 @@ const AuthContext = createContext(null);
 function AuthProvider({ children }) {
   const [session, setSession] = useState(() => authService.getSession());
 
-  function handleRegister(data) {
-    const result = authService.register(data);
+  async function handleRegister(data) {
+    const result = await authService.register(data);
     if (result.success) {
       setSession(authService.getSession());
     }
     return result;
   }
 
-  function handleLogin(data) {
-    const result = authService.login(data);
+  async function handleLogin(data) {
+    const result = await authService.login(data);
     if (result.success) {
       setSession(authService.getSession());
     }
