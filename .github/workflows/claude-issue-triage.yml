@@ -36,7 +36,7 @@ jobs:
             ISSUE: #${{ github.event.issue.number }}
             ACCIÓN: ${{ github.event.action }}
 
-            Eres el encargado de triage del proyecto ProShine (React + Vite + Tailwind, datos en localStorage).
+            Eres el encargado de triage del proyecto ProShine (React + Vite + Tailwind, datos en Supabase).
             Lee CLAUDE.md para conocer los requisitos y reglas del proyecto.
 
             Pasos:
