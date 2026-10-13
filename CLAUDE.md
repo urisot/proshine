@@ -29,15 +29,20 @@ Funcionalidades de la aplicación:
 	- CRUD del catalogo de Categorias (Quimicos, Jarcieria, Envaces, etc)
         - CRUD del catalogo de productos cada producto ira asignado a una categoria
         - Gestionar los pedidos poder cambiarlos de estatus 
+        - Cada cambio de estatus queda registrado en la bitácora `order_log` (quién, rol, estatus anterior/nuevo y fecha) mediante la función RPC `change_order_status` (cambio + registro en una sola transacción)
+        - Después de cambiar un estatus (excepto "cancelado") se muestra un modal para avisar al cliente por WhatsApp (enlace `wa.me` al teléfono del cliente con el nuevo estatus y la fecha del cambio; números de 10 dígitos se prefijan con 52). El envío lo hace el administrador manualmente, no es automático
+        - Ver el historial (bitácora) de cada pedido en un modal (`OrderLogModal`)
 
 
 
 - En la parte publica:
     - Para hacer compras nesesitamos estar registrados y logeados en la aplicacion:
         - Seleccionar productos
-        - agregar al carrito de compras
+        - agregar al carrito de compras (al agregar un producto NO se abre el carrito; solo se muestra un toast de confirmación y se actualiza el contador del ícono del carrito)
         - ventana (modal) de confirmacion del pedido, al realizar el pedido se enviara por Watsapp al administrador o jefactura d eventas
-        - Cancelar pedido siempre y cuando no se ecnuentre en estatus de En transito
+        - Al crear el pedido se registra el primer movimiento en la bitácora (`pendiente`, rol "cliente")
+        - Cancelar pedido siempre y cuando no se ecnuentre en estatus de En transito, Terminado o Cancelado (la cancelación también queda registrada en la bitácora)
+        - En "Mis pedidos" el cliente puede consultar el historial de estatus de cada pedido
     - Sin necesidad de estar identificado:
         - Visualizar el catalogo de productos 
 
@@ -55,6 +60,18 @@ Stack de tecnologia:
 - JavaScript
 - React
 - Base de datos Supabase (Postgres), accedida desde el cliente vía la API REST de Supabase (fetch nativo, sin SDK externo). RLS habilitado en todas las tablas con políticas abiertas temporales (sin Supabase Auth todavía); ver nota de seguridad en la migración `proshine_initial_schema`.
+
+
+Base de datos (Supabase):
+
+- Tablas: `categories`, `products`, `users`, `orders`, `carts`, `settings`, `order_log`.
+- Funciones RPC: `change_order_status(p_order_id, p_new_status, p_user_id, p_user_name, p_user_role)`.
+- Scripts SQL versionados en la carpeta `supabase/` (ej. `supabase/order_log.sql`), se ejecutan en Supabase → SQL Editor.
+- Todo acceso a datos pasa por `src/services/supabaseClient.js` (`selectAll`, `insertRow`, `updateRows`, `deleteRows`, `callRpc`). Los servicios convierten filas snake_case a objetos camelCase (`fromRow`).
+- Los servicios son asíncronos; los componentes deben usar `await` / `.then` y manejar errores con toast.
+- Los cambios de estatus de pedidos siempre se hacen con `orderService.updateStatus(id, status, session)` (nunca actualizando `orders` directo) para que quede registro en la bitácora.
+- Variables de entorno (ver `.env.template`): `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` (cliente). `SUPABASE_SECRET_KEY` y `SUPABASE_DB_PASSWORD` nunca deben usarse en el frontend.
+- Estatus válidos de pedido: `pendiente`, `confirmado`, `en_transito`, `terminado`, `cancelado` (etiquetas en `orderService.STATUS_LABELS`).
 
 
 Preferencias generales:
@@ -96,4 +113,12 @@ Estructura de archivos:
 - carpeta (design)
 - CLAUDE.md
 - estructura de ficheros más adecuada para proyectos de react (lo elige el agente de ia)
+- Estructura actual (Vite + React):
+    - `src/components/` (admin, cart, catalog, common, layout)
+    - `src/context/` (AuthContext, CartContext, ToastContext)
+    - `src/pages/` (públicas) y `src/pages/admin/` (panel)
+    - `src/router/AppRouter.jsx` (rutas y protección con `ProtectedRoute`)
+    - `src/services/` (lógica de negocio y acceso a Supabase; `storage.js` solo maneja la sesión en localStorage)
+    - `supabase/` (scripts SQL)
+    - `.github/workflows/` (Claude Code y triage automático de issues con Claude)
 
