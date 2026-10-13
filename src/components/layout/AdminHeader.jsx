@@ -4,7 +4,7 @@ import Icon from '../common/Icon.jsx';
 import IconButton from '../common/IconButton.jsx';
 import ConfirmDialog from '../common/ConfirmDialog.jsx';
 
-function AdminHeader({ onToggleSidebar }) {
+function AdminHeader({ isSidebarCollapsed, onToggleSidebar }) {
   const { session, logout } = useAuth();
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
 
@@ -14,7 +14,7 @@ function AdminHeader({ onToggleSidebar }) {
   }
 
   return (
-    <header className="fixed top-0 left-0 lg:left-72 right-0 h-20 z-40 glass-panel border-x-0 border-t-0 flex items-center justify-between px-space-md lg:px-space-lg">
+    <header className={`fixed top-0 left-0 ${isSidebarCollapsed ? 'lg:left-[7.2rem]' : 'lg:left-[28rem]'} right-0 h-20 z-40 transition-all duration-300 glass-panel border-x-0 border-t-0 flex items-center justify-between px-space-md lg:px-space-lg`}>
       <div className="flex items-center gap-space-sm">
         <span className="lg:hidden">
           <IconButton icon="menu" label="Abrir menú" onClick={onToggleSidebar} />

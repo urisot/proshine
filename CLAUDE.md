@@ -32,6 +32,10 @@ Funcionalidades de la aplicación:
         - Cada cambio de estatus queda registrado en la bitácora `order_log` (quién, rol, estatus anterior/nuevo y fecha) mediante la función RPC `change_order_status` (cambio + registro en una sola transacción)
         - Después de cambiar un estatus (excepto "cancelado") se muestra un modal para avisar al cliente por WhatsApp (enlace `wa.me` al teléfono del cliente con el nuevo estatus y la fecha del cambio; números de 10 dígitos se prefijan con 52). El envío lo hace el administrador manualmente, no es automático
         - Ver el historial (bitácora) de cada pedido en un modal (`OrderLogModal`)
+        - Filtros de pedidos: folio/cliente, teléfono de contacto y estatus
+        - Cambio masivo de estatus: checkbox por pedido y combo superior. Regla: todos los seleccionados deben estar en el mismo estatus y solo pueden pasar al siguiente del flujo (pendiente → confirmado → en tránsito → terminado) o a cancelado (solo desde pendiente o confirmado) (`orderService.getBulkTargets`). Al terminar se muestra un modal (`StatusNotificationModal`) con el enlace de WhatsApp de cada cliente
+        - Al pasar un pedido a "Terminado" (individual o masivo) se pregunta la forma de pago (por defecto efectivo, una para todos) y se registra la venta en `sales` con `order_id`, descontando stock, mediante `orderService.complete` (RPC `complete_order`). Si no hay stock, el pedido no cambia de estatus
+        - Punto de Venta (`/admin/ventas`, diseño `design/proshine_ventas/ventas.html`): ventas de mostrador capturadas por SKU o con el buscador de productos en modal (F2). El cliente se elige con un buscador de clientes en modal (opcional, por defecto "Público en General"). No hay selector de tarifa: se usa el precio de menudeo con el descuento del producto. Métodos de pago: efectivo (con cálculo de cambio), tarjeta, SPEI y crédito. Atajos F2/F12/ESC. Al cobrar se imprime la nota de venta. Cada venta se guarda en `sales` y descuenta stock
 
 
 
@@ -64,12 +68,14 @@ Stack de tecnologia:
 
 Base de datos (Supabase):
 
-- Tablas: `categories`, `products`, `users`, `orders`, `carts`, `settings`, `order_log`.
-- Funciones RPC: `change_order_status(p_order_id, p_new_status, p_user_id, p_user_name, p_user_role)`.
-- Scripts SQL versionados en la carpeta `supabase/` (ej. `supabase/order_log.sql`), se ejecutan en Supabase → SQL Editor.
+- Tablas: `categories`, `products`, `users`, `orders`, `carts`, `settings`, `order_log`, `sales`.
+- `sales.order_id` (único, nullable): liga la venta con el pedido que la originó; `null` = venta de mostrador. En la venta de un pedido, `subtotal` = `orders.total`, descuento 0 e IVA de `settings`; si es efectivo, `cash_received` = total y `change_given` = 0.
+- Funciones RPC: `change_order_status(p_order_id, p_new_status, p_user_id, p_user_name, p_user_role)`, `register_sale(p_sale jsonb)` (descuenta stock y registra la venta con folio `V-00001` en una sola transacción; falla si no hay stock suficiente), `complete_order(p_order_id, p_sale_id, p_payment_method, p_tax_rate, p_user_id, p_user_name, p_user_role)` (registra la venta del pedido y lo pasa a terminado con bitácora en una sola transacción).
+- Scripts SQL versionados en la carpeta `supabase/` (ej. `supabase/order_log.sql`, `supabase/sales.sql`, `supabase/order_sales.sql`), se ejecutan en Supabase → SQL Editor.
 - Todo acceso a datos pasa por `src/services/supabaseClient.js` (`selectAll`, `insertRow`, `updateRows`, `deleteRows`, `callRpc`). Los servicios convierten filas snake_case a objetos camelCase (`fromRow`).
 - Los servicios son asíncronos; los componentes deben usar `await` / `.then` y manejar errores con toast.
-- Los cambios de estatus de pedidos siempre se hacen con `orderService.updateStatus(id, status, session)` (nunca actualizando `orders` directo) para que quede registro en la bitácora.
+- Los cambios de estatus de pedidos siempre se hacen con `orderService.updateStatus(id, status, session)` (nunca actualizando `orders` directo) para que quede registro en la bitácora. Para "terminado" se usa `orderService.complete(id, paymentMethod, session)` (`updateStatus` lo rechaza).
+- Las ventas de mostrador siempre se registran con `saleService.register(...)` (RPC `register_sale`), nunca insertando en `sales` directo, para que el stock se descuente en la misma transacción.
 - Variables de entorno (ver `.env.template`): `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` (cliente). `SUPABASE_SECRET_KEY` y `SUPABASE_DB_PASSWORD` nunca deben usarse en el frontend.
 - Estatus válidos de pedido: `pendiente`, `confirmado`, `en_transito`, `terminado`, `cancelado` (etiquetas en `orderService.STATUS_LABELS`).
 
@@ -121,4 +127,14 @@ Estructura de archivos:
     - `src/services/` (lógica de negocio y acceso a Supabase; `storage.js` solo maneja la sesión en localStorage)
     - `supabase/` (scripts SQL)
     - `.github/workflows/` (Claude Code y triage automático de issues con Claude)
+    - Componentes de pedidos en `src/components/admin/`: `OrdersTable` (checkbox de selección), `OrderPaymentModal` (forma de pago al terminar), `StatusNotificationModal` (avisos de WhatsApp a uno o varios clientes)
+
+
+Pendientes / notas (rama `01-punto-venta`, actualizado 2026-10-12):
+
+- Los cambios de pedidos (filtro por teléfono, cambio masivo, venta al terminar) están implementados y compilan, pero falta probarlos en el navegador.
+- Por decidir: el combo de estatus de cada fila aún permite regresar un pedido desde "Terminado"; la venta y el stock descontado no se revierten. Opción: bloquear el cambio desde "Terminado".
+- Algunos pedidos antiguos referencian productos que ya no existen; no pueden pasar a "Terminado" ("Producto no encontrado: ...").
+- El folio de ventas puede tener huecos (la secuencia `sales_folio_seq` no se revierte si la transacción falla); el folio V-00002 se consumió en una prueba.
+- Los cambios de esta rama aún no están en commit.
 

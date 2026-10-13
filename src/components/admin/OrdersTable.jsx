@@ -1,4 +1,4 @@
-import { STATUSES, getTotals } from '../../services/orderService.js';
+import { STATUSES, getTotals, getBulkTargets } from '../../services/orderService.js';
 import Icon from '../common/Icon.jsx';
 import IconButton from '../common/IconButton.jsx';
 import EmptyState from '../common/EmptyState.jsx';
@@ -19,7 +19,22 @@ const STATUS_COLORS = {
   cancelado: 'bg-[#450a0a] text-[#fca5a5]',
 };
 
-function OrdersTable({ orders, taxRate, onStatusChange, onViewDetail, onViewLog, onDownloadRemision }) {
+// Solo se pueden seleccionar pedidos que todavía tienen un estatus al cual avanzar.
+function isSelectable(order) {
+  return getBulkTargets(order.status).length > 0;
+}
+
+function OrdersTable({
+  orders,
+  taxRate,
+  selectedIds,
+  onToggleSelect,
+  onToggleAll,
+  onStatusChange,
+  onViewDetail,
+  onViewLog,
+  onDownloadRemision,
+}) {
   if (orders.length === 0) {
     return (
       <div className="glass-panel rounded-xl">
@@ -32,11 +47,25 @@ function OrdersTable({ orders, taxRate, onStatusChange, onViewDetail, onViewLog,
     );
   }
 
+  const selectableOrders = orders.filter(isSelectable);
+  const allSelected =
+    selectableOrders.length > 0 && selectableOrders.every((order) => selectedIds.includes(order.id));
+
   return (
     <div className="w-full overflow-x-auto glass-panel rounded-xl shadow-md">
       <table className="w-full text-left border-collapse">
         <thead>
           <tr className="bg-surface-container-high/60 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+            <th className="py-space-sm pl-space-md w-px">
+              <input
+                type="checkbox"
+                checked={allSelected}
+                onChange={() => onToggleAll(selectableOrders.map((order) => order.id), !allSelected)}
+                disabled={selectableOrders.length === 0}
+                aria-label="Seleccionar todos los pedidos"
+                className="w-4 h-4 cursor-pointer accent-secondary disabled:cursor-not-allowed"
+              />
+            </th>
             <th className="py-space-sm px-space-md">Folio</th>
             <th className="py-space-sm px-space-md">Cliente / Empresa</th>
             <th className="py-space-sm px-space-md">Contacto</th>
@@ -48,7 +77,22 @@ function OrdersTable({ orders, taxRate, onStatusChange, onViewDetail, onViewLog,
         </thead>
         <tbody className="font-body-md text-body-md">
           {orders.map((order) => (
-            <tr key={order.id} className="hover:bg-surface-container/50 transition-colors border-t border-surface-container-highest/20">
+            <tr
+              key={order.id}
+              className={`transition-colors border-t border-surface-container-highest/20 ${
+                selectedIds.includes(order.id) ? 'bg-secondary-container/10' : 'hover:bg-surface-container/50'
+              }`}
+            >
+              <td className="py-space-md pl-space-md">
+                <input
+                  type="checkbox"
+                  checked={selectedIds.includes(order.id)}
+                  onChange={() => onToggleSelect(order.id)}
+                  disabled={!isSelectable(order)}
+                  aria-label={`Seleccionar pedido ${order.id}`}
+                  className="w-4 h-4 cursor-pointer accent-secondary disabled:cursor-not-allowed disabled:opacity-40"
+                />
+              </td>
               <td className="py-space-md px-space-md font-label-lg text-label-lg text-secondary font-bold whitespace-nowrap">
                 {order.id}
               </td>

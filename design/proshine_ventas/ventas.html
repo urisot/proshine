@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-secondary":"#003642","secondary-fixed":"#b4ebff","on-primary-fixed-variant":"#004397","primary-fixed":"#d8e2ff","secondary":"#a2e7ff","tertiary-container":"#007fac","on-background":"#dae2fd","on-primary-container":"#ffffff","inverse-surface":"#dae2fd","surface-container":"#171f33","on-secondary-fixed":"#001f27","error-container":"#93000a","outline-variant":"#414754","tertiary-fixed":"#c4e7ff","on-secondary-container":"#005669","surface":"#0b1326","error":"#ffb4ab","inverse-primary":"#0059c5","outline":"#8b90a0","surface-container-highest":"#2d3449","inverse-on-surface":"#283044","primary-container":"#0070f3","on-tertiary-fixed":"#001e2c","surface-dim":"#0b1326","on-tertiary-container":"#ffffff","on-primary-fixed":"#001a43","tertiary-fixed-dim":"#7bd0ff","on-error":"#690005","tertiary":"#7bd0ff","on-surface":"#dae2fd","on-surface-variant":"#c1c6d7","on-tertiary-fixed-variant":"#004c69","surface-bright":"#31394d","on-tertiary":"#00354a","on-primary":"#002e6b","surface-container-high":"#222a3d","background":"#0b1326","on-secondary-fixed-variant":"#004e5f","primary-fixed-dim":"#aec6ff","surface-variant":"#2d3449","secondary-container":"#00d2fd","surface-container-lowest":"#060e20","primary":"#aec6ff","on-error-container":"#ffdad6","surface-tint":"#aec6ff","surface-container-low":"#131b2e","secondary-fixed-dim":"#3cd7ff"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"2rem","margin-mobile":"1rem","space-md":"1rem","space-lg":"1.5rem","gutter-mobile":"1rem","gutter":"1.5rem","space-xl":"2.5rem","space-xs":"0.25rem","space-sm":"0.5rem"},"fontFamily":{"headline-sm":["Space Grotesk"],"body-md":["Plus Jakarta Sans"],"label-sm":["Space Grotesk"],"label-lg":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"title-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Space Grotesk"],"headline-xl":["Space Grotesk"],"headline-lg":["Space Grotesk"],"headline-xl-mobile":["Space Grotesk"],"label-md":["Plus Jakarta Sans"],"headline-md":["Space Grotesk"],"body-lg":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"]},"fontSize":{"headline-sm":["20px",{"lineHeight":"28px","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"22px","fontWeight":"400"}],"label-sm":["10px",{"lineHeight":"14px","letterSpacing":"0.08em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"title-lg":["18px",{"lineHeight":"26px","fontWeight":"600"}],"headline-lg-mobile":["26px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-xl":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-xl-mobile":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.03em","fontWeight":"600"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"26px","fontWeight":"400"}],"title-md":["16px",{"lineHeight":"24px","fontWeight":"600"}]}}}};</script><meta content="web_dashboard" name="shell-type"/></head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen overflow-x-auto"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between p-space-md overflow-x-auto"><div class="flex flex-col gap-space-lg"><div class="flex items-center gap-space-sm px-space-sm pt-space-xs"><div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]"><span class="material-symbols-outlined text-secondary">biotech</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight uppercase leading-none">ProShine</span><span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase">Admin Suite</span></div></div><div class="px-space-sm py-space-xs rounded-lg bg-surface-container-low flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Entorno</span><span class="px-space-sm py-0.5 rounded-full bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm font-bold uppercase">Planta Central</span></div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary-container font-label-lg text-label-lg rounded-xl shadow-[0_0_16px_rgba(0,212,255,0.3)]"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="panel-admin" href="#"><span class="material-symbols-outlined text-title-lg">analytics</span>Panel General</a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="gestion-inventario" href="#"><span class="material-symbols-outlined text-title-lg">inventory_2</span>Lotes &amp; Tambos</a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="gestion-pedidos" href="#"><span class="material-symbols-outlined text-title-lg">local_shipping</span>Despachos &amp; Rutas</a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="formulacion-quimica" href="#"><span class="material-symbols-outlined text-title-lg">water_drop</span>Formulaciones &amp; pH</a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="usuarios-roles" href="#"><span class="material-symbols-outlined text-title-lg">manage_accounts</span>Control de Acceso</a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all mt-space-md" data-path="catalogo-tienda" href="#"><span class="material-symbols-outlined text-title-lg">storefront</span>Ver Tienda Pública</a></nav></div><div class="flex flex-col gap-space-sm p-space-sm rounded-xl bg-surface-container-low"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-surface-variant">Soporte Operativo</span><span class="material-symbols-outlined text-secondary text-title-md">support_agent</span></div><a class="flex items-center justify-center gap-space-xs py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-secondary text-label-sm font-label-sm transition-colors" href="https://wa.me/" rel="noopener" target="_blank">WhatsApp Operaciones</a></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.35)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-sm"><div class="flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-low"><span class="w-2 h-2 rounded-full bg-secondary-container animate-ping"></span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Telemetría de Tanques: Activa</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-high"><span class="font-label-sm text-label-sm text-primary uppercase">Rol:</span><select class="bg-transparent text-secondary font-label-sm text-label-sm focus:outline-none cursor-pointer pr-1"><option class="bg-surface-container-high text-on-surface" value="admin">Admin</option><option class="bg-surface-container-high text-on-surface" value="operador">Operador</option><option class="bg-surface-container-high text-on-surface" value="cliente">Cliente</option></select></div><div class="flex items-center gap-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VI1AK_V7VFNvJIcndTzdDF8zmElT4H2aQbKEwVRYGjTGM7mXL7ysHcKAQ_RV2qLBALdoqCJTgpbdX737J1l6fvn0Bw7m4b_0JT6UfwnxrnSjJgOZnihWFWhwtAuRXZIxKDO7w8d57tAhPoVTA8vhoxuJfPRrIRA1G_a34rMa2hFJH9YZRXb0fR7VCMwiFvFc4lfF8Z-ZaeQHYuejida0UHv6leGOsvl8kpQ9falZqJVARiilDBAD5Qt8ducpHkdP9CuGPs3wSG-s0"/><a class="px-space-sm py-1 rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="login-auth" href="#">Salir</a></div></div></header><main class="relative pt-20 bg-surface w-full min-h-screen px-space-lg py-space-md pb-20"><div class="flex flex-col w-full gap-space-lg font-body-md text-on-surface">
+<!-- TOP CONSOLE / BARCODE SCANNER HUD -->
+<div class="w-full rounded-xl bg-surface-container-low p-space-md shadow-md flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-space-md">
+<!-- Scanner Connectivity Status & Mode -->
+<div class="flex items-center gap-space-md min-w-0">
+<div class="flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-high shrink-0">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container animate-ping"></span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest font-bold">Lector Láser Barcode: SINCRONIZADO [USB/BT]</span>
+</div>
+<div class="hidden sm:flex items-center gap-space-xs text-on-surface-variant text-label-sm font-label-sm uppercase">
+<span class="material-symbols-outlined text-secondary text-base">qr_code_scanner</span>
+<span>Puerto Com 04 • 9600 Baud</span>
+</div>
+</div>
+<!-- Commercial Tier & Client Receiver Config -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center gap-space-xs px-space-sm py-1 rounded-lg bg-surface-container">
+<span class="material-symbols-outlined text-on-surface-variant text-base">corporate_fare</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Cliente:</span>
+<select class="bg-transparent text-secondary font-label-md text-label-md focus:outline-none cursor-pointer">
+<option class="bg-surface-container-high text-on-surface" value="c1">Grupo Hotelero Sol &amp; Costa (B2B)</option>
+<option class="bg-surface-container-high text-on-surface" value="c2">Hospital Ángeles Metropolitano</option>
+<option class="bg-surface-container-high text-on-surface" value="c3">Consorcio Educativo del Valle</option>
+<option class="bg-surface-container-high text-on-surface" value="c4">Cliente Mostrador General (Sin Registro)</option>
+</select>
+</div>
+<div class="flex items-center gap-space-xs px-space-sm py-1 rounded-lg bg-surface-container">
+<span class="material-symbols-outlined text-primary text-base">price_change</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Tarifa:</span>
+<select class="bg-transparent text-primary font-label-md text-label-md focus:outline-none cursor-pointer">
+<option class="bg-surface-container-high text-on-surface" value="t1">B2B Institucional (-15%)</option>
+<option class="bg-surface-container-high text-on-surface" value="t2">Mayoreo Tambos (-22%)</option>
+<option class="bg-surface-container-high text-on-surface" value="t3">Mostrador General (PVP)</option>
+</select>
+</div>
+<button class="px-space-md py-space-xs rounded-lg bg-surface-container-highest hover:bg-surface-bright text-secondary font-label-md text-label-md flex items-center gap-space-xs transition-colors shadow-sm" id="btnOpenModal">
+<span class="material-symbols-outlined text-base">manage_search</span>
+<span>Búsqueda Avanzada [F2]</span>
+</button>
+</div>
+</div>
+<!-- SKU FAST ENTRY & BARCODE PRIMARY CAPTURE -->
+<div class="w-full rounded-xl bg-surface-container p-space-md shadow-md">
+<form class="flex flex-col md:flex-row items-stretch gap-space-sm" id="barcodeForm" onsubmit="event.preventDefault(); handleScanSubmit();">
+<div class="relative flex-1">
+<span class="absolute inset-y-0 left-0 pl-space-md flex items-center pointer-events-none text-secondary">
+<span class="material-symbols-outlined text-title-lg">barcode_scanner</span>
+</span>
+<input autofocus="" class="w-full pl-12 pr-space-md py-space-sm rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-outline font-headline-sm text-headline-sm focus:outline-none focus:ring-1 focus:ring-secondary-container transition-all" id="skuInput" placeholder="Escanear Código de Barras o teclear SKU químico (ej. PRO-CL13, DES-CIT20, AMQ-5G)..." type="text"/>
+<span class="absolute inset-y-0 right-0 pr-space-md flex items-center text-label-sm font-label-sm text-on-surface-variant uppercase hidden sm:flex">
+          Auto-Foco Activo
+        </span>
+</div>
+<button class="px-space-lg py-space-sm rounded-lg bg-primary-container text-on-primary-container font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-md hover:bg-secondary-container hover:text-on-secondary transition-all" type="submit">
+<span class="material-symbols-outlined text-base">input</span>
+<span>[ENTER] CAPTURAR</span>
+</button>
+<button class="md:hidden px-space-md py-space-sm rounded-lg bg-surface-container-high text-secondary font-label-md text-label-md flex items-center justify-center gap-space-xs" onclick="toggleModal(true)" type="button">
+<span class="material-symbols-outlined text-base">tune</span>
+<span>Filtros Químicos</span>
+</button>
+</form>
+</div>
+<!-- MAIN WORKSPACE: ACTIVE ORDER & PAYMENT TERMINAL -->
+<div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- DISPATCH & ACTIVE CHEMICAL ORDER (COL 1 to 8) -->
+<div class="lg:col-span-8 flex flex-col gap-space-md">
+<!-- Order Batch Header -->
+<div class="rounded-xl bg-surface-container-low p-space-md flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-title-md">receipt_long</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm tracking-tight text-on-surface leading-tight">Mesa de Despacho &amp; Carrito Activo</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Lote Operativo: <span class="text-secondary font-semibold font-label-sm text-label-sm">LOT-2024-Q3-09</span> • Terminal POS-02</p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="px-space-sm py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-bold">4 ÍTEMS</span>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-error hover:bg-surface-container-highest transition-colors" onclick="clearCart()" title="Vaciar Venta">
+<span class="material-symbols-outlined text-title-md">delete_sweep</span>
+</button>
+</div>
+</div>
+<!-- Chemical Dispatch Grid / Table Wrapper -->
+<div class="rounded-xl bg-surface-container-low overflow-hidden shadow-sm flex flex-col">
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse min-w-[700px]">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-space-sm px-space-md">Producto / Principio Activo</th>
+<th class="py-space-sm px-space-sm">Presentación &amp; Tanque</th>
+<th class="py-space-sm px-space-sm text-center">Cantidad</th>
+<th class="py-space-sm px-space-sm text-right">P. Unitario</th>
+<th class="py-space-sm px-space-sm text-center">Desc %</th>
+<th class="py-space-sm px-space-md text-right">Subtotal</th>
+<th class="py-space-sm px-space-xs text-center"></th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-body-sm text-body-sm" id="cartTableBody">
+<!-- Item 1 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="py-space-md px-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">science</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface leading-snug">Cloro Concentrado 13% Grado Químico</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">SKU: PRO-CL13 • Hipoclorito de Sodio Puro</span>
+<div class="flex items-center gap-space-xs mt-1 text-label-sm font-label-sm text-on-surface-variant">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-secondary-fixed">HDS Vinculada</span>
+<span>•</span>
+<span>Lote: LT-88401</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-sm align-top">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Porrón 20 Litros</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">propane_tank</span> Tanque TK-04
+                    </span>
+</div>
+</td>
+<td class="py-space-md px-space-sm align-top text-center">
+<div class="inline-flex items-center rounded-lg bg-surface-container-highest p-0.5">
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-bright text-xs" onclick="updateQty(1, -1)">-</button>
+<span class="w-8 text-center font-title-md text-title-md text-secondary" id="qty-1">2</span>
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-bright text-xs" onclick="updateQty(1, 1)">+</button>
+</div>
+</td>
+<td class="py-space-md px-space-sm align-top text-right">
+<span class="font-body-md text-body-md text-on-surface">$280.00</span>
+</td>
+<td class="py-space-md px-space-sm align-top text-center">
+<span class="px-1.5 py-0.5 rounded-full bg-surface-container-high font-label-sm text-label-sm text-secondary">10%</span>
+</td>
+<td class="py-space-md px-space-md align-top text-right font-headline-sm text-headline-sm text-on-surface">
+<span id="sub-1">$504.00</span>
+</td>
+<td class="py-space-md px-space-xs align-top text-center">
+<button class="p-1 rounded text-on-surface-variant hover:text-error hover:bg-surface-container-high transition-colors" onclick="removeItem(1)">
+<span class="material-symbols-outlined text-base">close</span>
+</button>
+</td>
+</tr>
+<!-- Item 2 -->
+<tr class="bg-surface-container hover:bg-surface-container-high transition-colors">
+<td class="py-space-md px-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary-container shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">water_drop</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface leading-snug">Desengrasante Cítrico Industrial Pesado</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">SKU: DES-CIT20 • D-Limoneno + Surfactante No Iónico</span>
+<div class="flex items-center gap-space-xs mt-1 text-label-sm font-label-sm text-on-surface-variant">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-secondary-fixed">HDS Vinculada</span>
+<span>•</span>
+<span>Lote: LT-90312</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-sm align-top">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Galón 4 Litros</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">propane_tank</span> Tanque TK-02
+                    </span>
+</div>
+</td>
+<td class="py-space-md px-space-sm align-top text-center">
+<div class="inline-flex items-center rounded-lg bg-surface-container-highest p-0.5">
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-bright text-xs" onclick="updateQty(2, -1)">-</button>
+<span class="w-8 text-center font-title-md text-title-md text-secondary" id="qty-2">1</span>
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-bright text-xs" onclick="updateQty(2, 1)">+</button>
+</div>
+</td>
+<td class="py-space-md px-space-sm align-top text-right">
+<span class="font-body-md text-body-md text-on-surface">$340.00</span>
+</td>
+<td class="py-space-md px-space-sm align-top text-center">
+<span class="px-1.5 py-0.5 rounded-full bg-surface-container-high font-label-sm text-label-sm text-secondary">0%</span>
+</td>
+<td class="py-space-md px-space-md align-top text-right font-headline-sm text-headline-sm text-on-surface">
+<span id="sub-2">$340.00</span>
+</td>
+<td class="py-space-md px-space-xs align-top text-center">
+<button class="p-1 rounded text-on-surface-variant hover:text-error hover:bg-surface-container-high transition-colors" onclick="removeItem(2)">
+<span class="material-symbols-outlined text-base">close</span>
+</button>
+</td>
+</tr>
+<!-- Item 3 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="py-space-md px-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">sanitizer</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface leading-snug">Sanitizante Amonio 5ta Gen Quirúrgico</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">SKU: AMQ-5G20 • Cloruro de Benzalconio Dual</span>
+<div class="flex items-center gap-space-xs mt-1 text-label-sm font-label-sm text-on-surface-variant">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-secondary-fixed">HDS Vinculada</span>
+<span>•</span>
+<span>Lote: LT-91044</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-sm align-top">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Porrón 20 Litros</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">propane_tank</span> Tanque TK-07
+                    </span>
+</div>
+</td>
+<td class="py-space-md px-space-sm align-top text-center">
+<div class="inline-flex items-center rounded-lg bg-surface-container-highest p-0.5">
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-bright text-xs" onclick="updateQty(3, -1)">-</button>
+<span class="w-8 text-center font-title-md text-title-md text-secondary" id="qty-3">1</span>
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-bright text-xs" onclick="updateQty(3, 1)">+</button>
+</div>
+</td>
+<td class="py-space-md px-space-sm align-top text-right">
+<span class="font-body-md text-body-md text-on-surface">$590.00</span>
+</td>
+<td class="py-space-md px-space-sm align-top text-center">
+<span class="px-1.5 py-0.5 rounded-full bg-surface-container-high font-label-sm text-label-sm text-secondary">5%</span>
+</td>
+<td class="py-space-md px-space-md align-top text-right font-headline-sm text-headline-sm text-on-surface">
+<span id="sub-3">$560.50</span>
+</td>
+<td class="py-space-md px-space-xs align-top text-center">
+<button class="p-1 rounded text-on-surface-variant hover:text-error hover:bg-surface-container-high transition-colors" onclick="removeItem(3)">
+<span class="material-symbols-outlined text-base">close</span>
+</button>
+</td>
+</tr>
+<!-- Item 4 -->
+<tr class="bg-surface-container hover:bg-surface-container-high transition-colors">
+<td class="py-space-md px-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">mop</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface leading-snug">Mopa Microfibra Industrial Antimicrobiana 60cm</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">SKU: JAR-MOP60 • Hilado de Densidad Clínica</span>
+<div class="flex items-center gap-space-xs mt-1 text-label-sm font-label-sm text-on-surface-variant">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-outline">Jarciería</span>
+<span>•</span>
+<span>Rack B-14</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-sm align-top">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Pieza Armada</span>
+<span class="font-label-sm text-label-sm text-outline">Almacén Central</span>
+</div>
+</td>
+<td class="py-space-md px-space-sm align-top text-center">
+<div class="inline-flex items-center rounded-lg bg-surface-container-highest p-0.5">
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-bright text-xs" onclick="updateQty(4, -1)">-</button>
+<span class="w-8 text-center font-title-md text-title-md text-secondary" id="qty-4">1</span>
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-bright text-xs" onclick="updateQty(4, 1)">+</button>
+</div>
+</td>
+<td class="py-space-md px-space-sm align-top text-right">
+<span class="font-body-md text-body-md text-on-surface">$105.00</span>
+</td>
+<td class="py-space-md px-space-sm align-top text-center">
+<span class="px-1.5 py-0.5 rounded-full bg-surface-container-high font-label-sm text-label-sm text-secondary">0%</span>
+</td>
+<td class="py-space-md px-space-md align-top text-right font-headline-sm text-headline-sm text-on-surface">
+<span id="sub-4">$105.00</span>
+</td>
+<td class="py-space-md px-space-xs align-top text-center">
+<button class="p-1 rounded text-on-surface-variant hover:text-error hover:bg-surface-container-high transition-colors" onclick="removeItem(4)">
+<span class="material-symbols-outlined text-base">close</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Inline Chemical Safety & Batch Traceability Card -->
+<div class="p-space-md bg-surface-container-highest flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-title-lg">verified_user</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Certificación de Densidad &amp; Concentración Activa</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Lotes verificados por Espectrometría UV-Vis en Planta Central ProShine.</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-space-sm py-1 rounded bg-surface-container font-label-sm text-label-sm text-secondary uppercase font-semibold">COFEPRIS REG. 082-Q</span>
+<span class="px-space-sm py-1 rounded bg-surface-container font-label-sm text-label-sm text-primary uppercase font-semibold">ISO 9001:2015</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SETTLEMENT & CHECKOUT TERMINAL (COL 9 to 12) -->
+<div class="lg:col-span-4 flex flex-col gap-space-md">
+<div class="rounded-xl bg-surface-container-low p-space-lg shadow-md flex flex-col gap-space-md">
+<!-- Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-title-md">point_of_sale</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Liquidación &amp; Cobro</h3>
+</div>
+<span class="px-space-sm py-0.5 rounded-full bg-surface-container-highest font-label-sm text-label-sm text-secondary uppercase font-bold">Ticket #2409</span>
+</div>
+<!-- Financial Breakdown -->
+<div class="flex flex-col gap-space-xs p-space-md rounded-xl bg-surface-container">
+<div class="flex justify-between items-center text-body-md text-body-md">
+<span class="text-on-surface-variant">Subtotal Bruto:</span>
+<span class="text-on-surface font-semibold">$1,605.00 MXN</span>
+</div>
+<div class="flex justify-between items-center text-body-md text-body-md">
+<span class="text-on-surface-variant">Descuentos Aplicados:</span>
+<span class="text-secondary font-semibold">-$95.50 MXN</span>
+</div>
+<div class="flex justify-between items-center text-body-md text-body-md">
+<span class="text-on-surface-variant">IVA Trasladado (16%):</span>
+<span class="text-on-surface font-semibold">$240.50 MXN</span>
+</div>
+<div class="h-px bg-surface-container-highest my-1"></div>
+<div class="flex justify-between items-end pt-1">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Total Neto a Cobrar</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Moneda Nacional</span>
+</div>
+<div class="font-headline-xl text-headline-xl text-on-surface text-right font-bold text-secondary leading-none">
+              $1,750.00
+            </div>
+</div>
+</div>
+<!-- Payment Method Tabs -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Método de Pago:</label>
+<div class="grid grid-cols-2 gap-space-xs" id="paymentMethods">
+<button class="px-space-sm py-space-sm rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md flex items-center justify-center gap-space-xs shadow-sm transition-all" id="pm-efectivo" onclick="selectPayment('efectivo')" type="button">
+<span class="material-symbols-outlined text-base">payments</span>
+<span>Efectivo</span>
+</button>
+<button class="px-space-sm py-space-sm rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface font-label-md text-label-md flex items-center justify-center gap-space-xs transition-all" id="pm-tarjeta" onclick="selectPayment('tarjeta')" type="button">
+<span class="material-symbols-outlined text-base">credit_card</span>
+<span>TPV Tarjeta</span>
+</button>
+<button class="px-space-sm py-space-sm rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface font-label-md text-label-md flex items-center justify-center gap-space-xs transition-all" id="pm-spei" onclick="selectPayment('spei')" type="button">
+<span class="material-symbols-outlined text-base">account_balance</span>
+<span>SPEI / Transf.</span>
+</button>
+<button class="px-space-sm py-space-sm rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface font-label-md text-label-md flex items-center justify-center gap-space-xs transition-all" id="pm-credito" onclick="selectPayment('credito')" type="button">
+<span class="material-symbols-outlined text-base">receipt</span>
+<span>Crédito B2B</span>
+</button>
+</div>
+</div>
+<!-- Cash Calculation Field -->
+<div class="flex flex-col gap-space-sm p-space-md rounded-xl bg-surface-container-lowest" id="cashCalcArea">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between">
+<span>Efectivo Recibido ($):</span>
+<span class="text-secondary cursor-pointer hover:underline" onclick="setExactCash()">[Exacto $1,750]</span>
+</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-space-sm flex items-center text-secondary font-headline-sm text-headline-sm">$</span>
+<input class="w-full pl-8 pr-space-md py-space-xs rounded-lg bg-surface-container text-on-surface font-headline-sm text-headline-sm focus:outline-none focus:ring-1 focus:ring-secondary-container" id="cashReceived" oninput="calcChange()" step="50" type="number" value="2000"/>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-body-md text-body-md text-on-surface-variant">Cambio a Entregar:</span>
+<span class="font-headline-md text-headline-md text-secondary font-bold" id="cashChange">$250.00 MXN</span>
+</div>
+</div>
+<!-- Master Trigger Actions -->
+<div class="flex flex-col gap-space-sm pt-2">
+<button class="w-full py-space-md rounded-xl bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-headline-sm text-headline-sm flex items-center justify-center gap-space-sm shadow-xl hover:opacity-95 transition-all" onclick="completeSale()">
+<span class="material-symbols-outlined text-title-lg">receipt</span>
+<span>COBRAR &amp; EMITIR [F12]</span>
+</button>
+<div class="grid grid-cols-2 gap-space-sm">
+<button class="py-space-sm rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface-variant hover:text-on-surface font-label-md text-label-md flex items-center justify-center gap-space-xs transition-colors" onclick="pauseSale()">
+<span class="material-symbols-outlined text-base">pause_circle</span>
+<span>Pausar [F4]</span>
+</button>
+<button class="py-space-sm rounded-lg bg-surface-container-high hover:bg-surface-bright text-error font-label-md text-label-md flex items-center justify-center gap-space-xs transition-colors" onclick="cancelSale()">
+<span class="material-symbols-outlined text-base">cancel</span>
+<span>Cancelar [ESC]</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Quick Delivery Dispatch Notice -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-center gap-space-sm shadow-sm">
+<span class="material-symbols-outlined text-secondary text-title-md">local_shipping</span>
+<div class="flex flex-col text-body-sm text-body-sm">
+<span class="text-on-surface font-semibold">Envío Programado en Ruta Norte</span>
+<span class="text-on-surface-variant">Flete Químico Protegido con Manifiesto Ambiental.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- ADVANCED SEARCH MODAL (INTERACTIVE OVERLAY) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-space-md bg-surface-container-lowest/80 backdrop-blur-md hidden" id="advancedSearchModal">
+<div class="relative w-full max-w-5xl max-h-[90vh] flex flex-col rounded-xl bg-surface-container-low shadow-2xl overflow-hidden">
+<!-- Modal Header -->
+<div class="p-space-lg bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-title-lg">filter_alt</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Búsqueda Avanzada de Fórmulas &amp; Productos [F2]</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Filtrado multicriterio por aplicación industrial, química activa y volumen de empaque.</span>
+</div>
+</div>
+<button class="p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" onclick="toggleModal(false)">
+<span class="material-symbols-outlined text-title-lg">close</span>
+</button>
+</div>
+<!-- Modal Filter Bar: Sector & Chemical Family & Presentation -->
+<div class="p-space-lg bg-surface-container-low flex flex-col gap-space-md overflow-y-auto">
+<!-- Search Text & Sector Pills -->
+<div class="flex flex-col gap-space-sm">
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-space-md flex items-center pointer-events-none text-secondary">
+<span class="material-symbols-outlined text-title-md">search</span>
+</span>
+<input class="w-full pl-12 pr-space-md py-space-sm rounded-lg bg-surface-container text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-secondary-container" id="modalSearchKeyword" oninput="filterModalGrid()" placeholder="Buscar por nombre comercial, CAS o molécula (ej. Enzimático, Limoneno, Cloruro)..." type="text"/>
+</div>
+<!-- Sector Buttons -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase mr-1">Rubro:</span>
+<button class="sector-pill px-space-md py-1 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-semibold transition-all" onclick="setSectorFilter('todos', this)">Todos</button>
+<button class="sector-pill px-space-md py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold transition-all" onclick="setSectorFilter('hospitalario', this)">Hospitalario</button>
+<button class="sector-pill px-space-md py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold transition-all" onclick="setSectorFilter('institucional', this)">Institucional</button>
+<button class="sector-pill px-space-md py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold transition-all" onclick="setSectorFilter('hoteleria', this)">Hotelería</button>
+<button class="sector-pill px-space-md py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold transition-all" onclick="setSectorFilter('industria', this)">Industria Pesada</button>
+<button class="sector-pill px-space-md py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold transition-all" onclick="setSectorFilter('hogar', this)">Hogar &amp; PyME</button>
+</div>
+</div>
+<!-- Filter Selectors Row: Chemistry + Packaging + Stock -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Familia Química:</label>
+<select class="w-full px-space-md py-space-xs rounded-lg bg-surface-container text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-secondary-container" id="filterFamily" onchange="filterModalGrid()">
+<option value="todas">Todas las Familias</option>
+<option value="cloros">Cloros &amp; Halógenos</option>
+<option value="citricos">Desengrasantes Cítricos &amp; Alcalinos</option>
+<option value="amonios">Amonios Cuaternarios 5ta Gen</option>
+<option value="enzimaticos">Detergentes Enzimáticos</option>
+<option value="jarcieria">Jarciería Técnica &amp; Microfibra</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Envase / Presentación:</label>
+<select class="w-full px-space-md py-space-xs rounded-lg bg-surface-container text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-secondary-container" id="filterPack" onchange="filterModalGrid()">
+<option value="todas">Cualquier Volumen</option>
+<option value="1l">Botella 1 Litro</option>
+<option value="4l">Galón 4 Litros</option>
+<option value="20l">Porrón 20 Litros</option>
+<option value="200l">Tambo 200 Litros</option>
+<option value="pipa">Granel / Pipa</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Disponibilidad en Planta:</label>
+<select class="w-full px-space-md py-space-xs rounded-lg bg-surface-container text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-secondary-container" id="filterStock" onchange="filterModalGrid()">
+<option value="todos">Todo inventario</option>
+<option value="inmediato">Entrega Inmediata (&gt; 50 uds)</option>
+<option value="bajo">Stock Crítico (&lt; 20 uds)</option>
+</select>
+</div>
+</div>
+<!-- Quick Results Data Grid inside Modal -->
+<div class="rounded-lg bg-surface-container-lowest overflow-hidden flex flex-col">
+<div class="overflow-x-auto w-full max-h-72">
+<table class="w-full text-left border-collapse min-w-[650px]">
+<thead class="sticky top-0 bg-surface-container text-on-surface-variant font-label-sm text-label-sm uppercase">
+<tr>
+<th class="py-space-xs px-space-md">SKU / Clave</th>
+<th class="py-space-xs px-space-md">Nombre Comercial &amp; Principio</th>
+<th class="py-space-xs px-space-sm">Presentación</th>
+<th class="py-space-xs px-space-sm text-right">Stock</th>
+<th class="py-space-xs px-space-md text-right">Precio</th>
+<th class="py-space-xs px-space-md text-center">Acción</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-body-sm text-body-sm" id="modalResultsBody">
+<!-- Row 1 -->
+<tr class="modal-product-row hover:bg-surface-container transition-colors" data-family="amonios" data-pack="20l" data-sector="hospitalario">
+<td class="py-space-sm px-space-md font-label-sm text-label-sm text-secondary font-bold">AMQ-5G20</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold">Sanitizante Amonio 5ta Gen Quirúrgico</span>
+<span class="text-on-surface-variant text-label-sm font-label-sm">Cloruro de Didecildimetilamonio</span>
+</div>
+</td>
+<td class="py-space-sm px-space-sm text-on-surface">Porrón 20L</td>
+<td class="py-space-sm px-space-sm text-right text-secondary font-semibold">142 Uds</td>
+<td class="py-space-sm px-space-md text-right text-on-surface font-bold">$590.00</td>
+<td class="py-space-sm px-space-md text-center">
+<button class="px-space-sm py-1 rounded bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold hover:bg-secondary-container hover:text-on-secondary transition-all" onclick="quickAddModalItem('AMQ-5G20', 'Sanitizante Amonio 5ta Gen Quirúrgico', 'Porrón 20L', 590)">
+                      + Agregar
+                    </button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="modal-product-row hover:bg-surface-container transition-colors" data-family="citricos" data-pack="200l" data-sector="industria">
+<td class="py-space-sm px-space-md font-label-sm text-label-sm text-secondary font-bold">DES-CIT200</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold">Desengrasante Cítrico Tambo Industrial</span>
+<span class="text-on-surface-variant text-label-sm font-label-sm">D-Limoneno 40% Concentrado</span>
+</div>
+</td>
+<td class="py-space-sm px-space-sm text-on-surface">Tambo 200L</td>
+<td class="py-space-sm px-space-sm text-right text-secondary font-semibold">18 Uds</td>
+<td class="py-space-sm px-space-md text-right text-on-surface font-bold">$9,850.00</td>
+<td class="py-space-sm px-space-md text-center">
+<button class="px-space-sm py-1 rounded bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold hover:bg-secondary-container hover:text-on-secondary transition-all" onclick="quickAddModalItem('DES-CIT200', 'Desengrasante Cítrico Tambo Industrial', 'Tambo 200L', 9850)">
+                      + Agregar
+                    </button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="modal-product-row hover:bg-surface-container transition-colors" data-family="cloros" data-pack="4l" data-sector="institucional">
+<td class="py-space-sm px-space-md font-label-sm text-label-sm text-secondary font-bold">PRO-CL04</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold">Cloro Concentrado 13% Galón</span>
+<span class="text-on-surface-variant text-label-sm font-label-sm">Hipoclorito de Sodio Industrial</span>
+</div>
+</td>
+<td class="py-space-sm px-space-sm text-on-surface">Galón 4L</td>
+<td class="py-space-sm px-space-sm text-right text-secondary font-semibold">320 Uds</td>
+<td class="py-space-sm px-space-md text-right text-on-surface font-bold">$65.00</td>
+<td class="py-space-sm px-space-md text-center">
+<button class="px-space-sm py-1 rounded bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold hover:bg-secondary-container hover:text-on-secondary transition-all" onclick="quickAddModalItem('PRO-CL04', 'Cloro Concentrado 13% Galón', 'Galón 4L', 65)">
+                      + Agregar
+                    </button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="modal-product-row hover:bg-surface-container transition-colors" data-family="enzimaticos" data-pack="1l" data-sector="hospitalario">
+<td class="py-space-sm px-space-md font-label-sm text-label-sm text-secondary font-bold">DET-ENZ01</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold">Detergente Multienzimático Trío-Activo</span>
+<span class="text-on-surface-variant text-label-sm font-label-sm">Proteasa, Lipasa &amp; Amilasa Quirúrgica</span>
+</div>
+</td>
+<td class="py-space-sm px-space-sm text-on-surface">Botella 1L</td>
+<td class="py-space-sm px-space-sm text-right text-secondary font-semibold">85 Uds</td>
+<td class="py-space-sm px-space-md text-right text-on-surface font-bold">$420.00</td>
+<td class="py-space-sm px-space-md text-center">
+<button class="px-space-sm py-1 rounded bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold hover:bg-secondary-container hover:text-on-secondary transition-all" onclick="quickAddModalItem('DET-ENZ01', 'Detergente Multienzimático Trío-Activo', 'Botella 1L', 420)">
+                      + Agregar
+                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="p-space-md bg-surface-container flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Presione [ESC] para cerrar la búsqueda avanzada.</span>
+<button class="px-space-md py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md transition-colors" onclick="toggleModal(false)">
+          Cerrar Ventana
+        </button>
+</div>
+</div>
+</div>
+<!-- KEYBOARD SHORTCUTS DOCK / COUNTER REFERENCE FOOTER -->
+<div class="w-full rounded-xl bg-surface-container-low p-space-md shadow-sm flex flex-wrap items-center justify-between gap-space-md text-label-sm font-label-sm">
+<div class="flex flex-wrap items-center gap-space-md text-on-surface-variant">
+<div class="flex items-center gap-1">
+<kbd class="px-2 py-0.5 rounded bg-surface-container text-secondary font-mono">ENTER</kbd>
+<span>Escanear / Agregar</span>
+</div>
+<div class="flex items-center gap-1">
+<kbd class="px-2 py-0.5 rounded bg-surface-container text-secondary font-mono">F2</kbd>
+<span>Búsqueda Química</span>
+</div>
+<div class="flex items-center gap-1">
+<kbd class="px-2 py-0.5 rounded bg-surface-container text-secondary font-mono">F4</kbd>
+<span>Pausar Mesa</span>
+</div>
+<div class="flex items-center gap-1">
+<kbd class="px-2 py-0.5 rounded bg-surface-container text-secondary font-mono">F12</kbd>
+<span>Cobrar Venta</span>
+</div>
+<div class="flex items-center gap-1">
+<kbd class="px-2 py-0.5 rounded bg-surface-container text-secondary font-mono">ESC</kbd>
+<span>Cancelar</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-base">print</span>
+<span>Impresora de Tickets Térmica: LISTA [80mm EPSON]</span>
+</div>
+</div>
+</div>
+<!-- JAVASCRIPT: POS BEHAVIORS, MODAL & QUANTITIES -->
+<script>
+  let activeSector = 'todos';
+
+  function toggleModal(show) {
+    const modal = document.getElementById('advancedSearchModal');
+    if (show) {
+      modal.classList.remove('hidden');
+      document.getElementById('modalSearchKeyword').focus();
+    } else {
+      modal.classList.add('hidden');
+      document.getElementById('skuInput').focus();
+    }
+  }
+
+  document.getElementById('btnOpenModal').addEventListener('click', () => toggleModal(true));
+
+  // Global Keyboard Shortcuts
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'F2') {
+      e.preventDefault();
+      toggleModal(true);
+    } else if (e.key === 'Escape') {
+      const modal = document.getElementById('advancedSearchModal');
+      if (!modal.classList.contains('hidden')) {
+        toggleModal(false);
+      }
+    } else if (e.key === 'F12') {
+      e.preventDefault();
+      completeSale();
+    } else if (e.key === 'F4') {
+      e.preventDefault();
+      pauseSale();
+    }
+  });
+
+  // Barcode / SKU scan submit simulation
+  function handleScanSubmit() {
+    const input = document.getElementById('skuInput');
+    const val = input.value.trim().toUpperCase();
+    if (!val) return;
+
+    alert('Código escaneado: ' + val + '\nProducto verificado en tanque activo y agregado a la orden.');
+    input.value = '';
+    input.focus();
+  }
+
+  // Adjust item quantities
+  function updateQty(id, delta) {
+    const el = document.getElementById(`qty-${id}`);
+    if (!el) return;
+    let current = parseInt(el.textContent, 10);
+    current = Math.max(1, current + delta);
+    el.textContent = current;
+
+    // Recalculate dummy subtotal
+    const subEl = document.getElementById(`sub-${id}`);
+    if (subEl) {
+      const prices = { 1: 252, 2: 340, 3: 560.5, 4: 105 };
+      const newTotal = (prices[id] * current).toFixed(2);
+      subEl.textContent = `$${newTotal}`;
+    }
+  }
+
+  function removeItem(id) {
+    const row = document.getElementById(`qty-${id}`)?.closest('tr');
+    if (row) {
+      row.remove();
+    }
+  }
+
+  function clearCart() {
+    if (confirm('¿Desea limpiar toda la orden de despacho actual?')) {
+      const tbody = document.getElementById('cartTableBody');
+      tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-on-surface-variant font-label-md">No hay productos en despacho activo. Escanee un código o use F2.</td></tr>`;
+    }
+  }
+
+  // Payment Selection
+  function selectPayment(method) {
+    const methods = ['efectivo', 'tarjeta', 'spei', 'credito'];
+    methods.forEach(m => {
+      const btn = document.getElementById(`pm-${m}`);
+      if (m === method) {
+        btn.className = "px-space-sm py-space-sm rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md flex items-center justify-center gap-space-xs shadow-sm transition-all";
+      } else {
+        btn.className = "px-space-sm py-space-sm rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface font-label-md text-label-md flex items-center justify-center gap-space-xs transition-all";
+      }
+    });
+
+    const cashCalc = document.getElementById('cashCalcArea');
+    if (method === 'efectivo') {
+      cashCalc.classList.remove('hidden');
+    } else {
+      cashCalc.classList.add('hidden');
+    }
+  }
+
+  // Cash calculation
+  function calcChange() {
+    const input = document.getElementById('cashReceived');
+    const changeLabel = document.getElementById('cashChange');
+    const received = parseFloat(input.value) || 0;
+    const total = 1750.00;
+    const change = received - total;
+    if (change >= 0) {
+      changeLabel.textContent = `$${change.toFixed(2)} MXN`;
+      changeLabel.classList.remove('text-error');
+      changeLabel.classList.add('text-secondary');
+    } else {
+      changeLabel.textContent = `Faltan $${Math.abs(change).toFixed(2)}`;
+      changeLabel.classList.remove('text-secondary');
+      changeLabel.classList.add('text-error');
+    }
+  }
+
+  function setExactCash() {
+    const input = document.getElementById('cashReceived');
+    input.value = 1750;
+    calcChange();
+  }
+
+  function completeSale() {
+    alert('Operación procesada con éxito.\nTicket impreso. Envío y lote químico asignados.');
+  }
+
+  function pauseSale() {
+    alert('Venta pausada y guardada en cola de terminal POS.');
+  }
+
+  function cancelSale() {
+    if (confirm('¿Seguro que desea cancelar la venta activa?')) {
+      location.reload();
+    }
+  }
+
+  // Modal Sector Filter Pills
+  function setSectorFilter(sector, btn) {
+    activeSector = sector;
+    document.querySelectorAll('.sector-pill').forEach(b => {
+      b.className = "sector-pill px-space-md py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold transition-all";
+    });
+    btn.className = "sector-pill px-space-md py-1 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-semibold transition-all";
+    filterModalGrid();
+  }
+
+  // Modal Filtering Logic
+  function filterModalGrid() {
+    const text = document.getElementById('modalSearchKeyword').value.toLowerCase();
+    const fam = document.getElementById('filterFamily').value;
+    const pack = document.getElementById('filterPack').value;
+    const rows = document.querySelectorAll('.modal-product-row');
+
+    rows.forEach(r => {
+      const matchSector = (activeSector === 'todos' || r.dataset.sector === activeSector);
+      const matchFam = (fam === 'todas' || r.dataset.family === fam);
+      const matchPack = (pack === 'todas' || r.dataset.pack === pack);
+      const matchText = r.textContent.toLowerCase().includes(text);
+
+      if (matchSector && matchFam && matchPack && matchText) {
+        r.classList.remove('hidden');
+      } else {
+        r.classList.add('hidden');
+      }
+    });
+  }
+
+  function quickAddModalItem(sku, name, pack, price) {
+    alert(`Producto ${sku} (${name} - ${pack}) agregado al carrito.`);
+    toggleModal(false);
+  }
+</script></main></div>
+</body></html>
