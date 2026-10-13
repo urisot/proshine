@@ -19,7 +19,7 @@ const STATUS_COLORS = {
   cancelado: 'bg-[#450a0a] text-[#fca5a5]',
 };
 
-function OrdersTable({ orders, taxRate, onStatusChange, onViewDetail, onDownloadRemision }) {
+function OrdersTable({ orders, taxRate, onStatusChange, onViewDetail, onViewLog, onDownloadRemision }) {
   if (orders.length === 0) {
     return (
       <div className="glass-panel rounded-xl">
@@ -105,6 +105,7 @@ function OrdersTable({ orders, taxRate, onStatusChange, onViewDetail, onDownload
               <td className="py-space-md px-space-md text-right">
                 <div className="inline-flex items-center gap-space-xs">
                   <IconButton icon="eye" label={`Ver detalle del pedido ${order.id}`} onClick={() => onViewDetail(order)} />
+                  <IconButton icon="history" label={`Ver historial del pedido ${order.id}`} onClick={() => onViewLog(order)} />
                   <IconButton
                     icon="download"
                     label={`Imprimir nota de venta ${order.id}`}

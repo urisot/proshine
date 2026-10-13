@@ -70,4 +70,9 @@ function deleteRows(table, filters) {
   return request(table, { method: 'DELETE', query: buildQuery(filters) });
 }
 
-export { selectAll, insertRow, updateRows, deleteRows };
+// Llama a una función de Postgres (RPC) con parámetros con nombre.
+function callRpc(name, params) {
+  return request(`rpc/${name}`, { method: 'POST', body: params });
+}
+
+export { selectAll, insertRow, updateRows, deleteRows, callRpc };

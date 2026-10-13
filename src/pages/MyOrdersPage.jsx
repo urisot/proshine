@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useToast } from '../context/ToastContext.jsx';
 import ConfirmDialog from '../components/common/ConfirmDialog.jsx';
+import OrderLogModal from '../components/common/OrderLogModal.jsx';
 import EmptyState from '../components/common/EmptyState.jsx';
 import Icon from '../components/common/Icon.jsx';
 import * as orderService from '../services/orderService.js';
@@ -27,6 +28,7 @@ function MyOrdersPage() {
   const [taxRate, setTaxRate] = useState(16);
   const [orderToCancel, setOrderToCancel] = useState(null);
   const [statusFilter, setStatusFilter] = useState('all');
+  const [logOrder, setLogOrder] = useState(null);
 
   useEffect(() => {
     orderService.getByUser(session.id).then(setOrders);
@@ -39,7 +41,7 @@ function MyOrdersPage() {
   }
 
   async function handleCancelConfirm() {
-    const result = await orderService.cancel(orderToCancel.id);
+    const result = await orderService.cancel(orderToCancel.id, session);
     if (!result.success) {
       showToast(result.message, 'error');
     } else {
@@ -195,6 +197,14 @@ function MyOrdersPage() {
                       <Icon name="download" className="w-4 h-4" />
                       Nota de Venta
                     </button>
+                    <button
+                      type="button"
+                      onClick={() => setLogOrder(order)}
+                      className="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-secondary font-label-md text-label-md transition-colors"
+                    >
+                      <Icon name="history" className="w-4 h-4" />
+                      Historial
+                    </button>
                     {orderService.canCancel(order) && (
                       <button
                         type="button"
@@ -212,6 +222,8 @@ function MyOrdersPage() {
           })}
         </div>
       </div>
+
+      <OrderLogModal order={logOrder} onClose={() => setLogOrder(null)} />
 
       <ConfirmDialog
         isOpen={Boolean(orderToCancel)}
