@@ -4,6 +4,8 @@ import * as settingsService from '../../services/settingsService.js';
 import { printRemision, downloadOrdersReport, getFolio } from '../../services/remisionService.js';
 import { formatAddress } from '../../services/addressService.js';
 import { useToast } from '../../context/ToastContext.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
+import OrderLogModal from '../../components/common/OrderLogModal.jsx';
 import OrdersTable from '../../components/admin/OrdersTable.jsx';
 import Modal from '../../components/common/Modal.jsx';
 import Icon from '../../components/common/Icon.jsx';
@@ -22,7 +24,10 @@ function AdminOrdersPage() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [detailOrder, setDetailOrder] = useState(null);
+  const [logOrder, setLogOrder] = useState(null);
+  const [notification, setNotification] = useState(null);
   const { showToast } = useToast();
+  const { session } = useAuth();
 
   useEffect(() => {
     orderService.getAll().then(setOrders);
@@ -30,9 +35,20 @@ function AdminOrdersPage() {
   }, []);
 
   async function handleStatusChange(orderId, newStatus) {
-    await orderService.updateStatus(orderId, newStatus);
+    let result;
+    try {
+      result = await orderService.updateStatus(orderId, newStatus, session);
+    } catch (error) {
+      showToast(`No se pudo actualizar el pedido ${orderId}. Intenta de nuevo.`, 'error');
+      return;
+    }
     setOrders(await orderService.getAll());
     showToast(`Pedido ${orderId} actualizado a "${STATUS_LABELS[newStatus]}".`);
+
+    // El aviso al cliente lo envía el administrador desde el enlace de WhatsApp (sin envío automático).
+    if (result && orderService.shouldNotifyCustomer(newStatus)) {
+      setNotification({ order: result.order, log: result.log });
+    }
   }
 
   async function handleDownloadRemision(order) {
@@ -110,9 +126,52 @@ function AdminOrdersPage() {
           taxRate={taxRate}
           onStatusChange={handleStatusChange}
           onViewDetail={setDetailOrder}
+          onViewLog={setLogOrder}
           onDownloadRemision={handleDownloadRemision}
         />
       </div>
+
+      <OrderLogModal order={logOrder} onClose={() => setLogOrder(null)} />
+
+      <Modal
+        isOpen={Boolean(notification)}
+        title="Notificar al cliente"
+        subtitle={notification?.order.customerName}
+        icon="chat"
+        onClose={() => setNotification(null)}
+        maxWidthClass="max-w-md"
+        footer={
+          notification && (
+            <div className="flex flex-col sm:flex-row items-center justify-end gap-space-sm">
+              <button
+                type="button"
+                onClick={() => setNotification(null)}
+                className="w-full sm:w-auto px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-md text-label-md transition-colors"
+              >
+                Ahora no
+              </button>
+              <a
+                href={orderService.getCustomerStatusLink(notification.order, notification.log)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setNotification(null)}
+                className="w-full sm:w-auto flex items-center justify-center gap-space-xs px-space-lg py-space-sm rounded-lg bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-label-lg text-label-lg shadow-lg bevel-top"
+              >
+                <Icon name="chat" className="w-4 h-4" />
+                Notificar por WhatsApp
+              </a>
+            </div>
+          )
+        }
+      >
+        {notification && (
+          <p className="font-body-md text-body-md text-on-surface-variant">
+            Pedido {notification.order.folio || notification.order.id} actualizado a{' '}
+            {STATUS_LABELS[notification.log.newStatus]}. ¿Quieres avisar al cliente por WhatsApp? El mensaje incluye el
+            nuevo estatus y la fecha del cambio ({orderService.formatStatusDate(notification.log.changedAt)}).
+          </p>
+        )}
+      </Modal>
 
       <Modal
         isOpen={Boolean(detailOrder)}

@@ -38,6 +38,7 @@ const PATHS = {
   sparkle: 'M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z',
   arrowRight: 'M5 12h14m0 0-5-5m5 5-5 5',
   arrowLeft: 'M19 12H5m0 0 5 5m-5-5 5-5',
+  history: 'M3 12a9 9 0 1 0 3-6.7M3 4v5h5M12 7v5l3 2',
   inbox: 'M3 13h5l1 3h6l1-3h5M3 13l2.4-7.4A1 1 0 0 1 6.3 5h11.4a1 1 0 0 1 .9.6L21 13v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-5Z',
 };
 
