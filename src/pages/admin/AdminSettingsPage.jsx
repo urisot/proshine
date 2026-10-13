@@ -37,7 +37,7 @@ function AdminSettingsPage() {
   }
 
   return (
-    <main className="lg:pl-72 pt-20 bg-surface min-h-screen px-space-md lg:px-space-lg py-space-md">
+    <main className="pt-20 bg-surface min-h-screen px-space-md lg:px-space-lg py-space-md">
       <div className="flex flex-col gap-space-lg max-w-4xl">
         <div>
           <span className="font-label-sm text-label-sm uppercase tracking-widest text-secondary">Configuración General</span>

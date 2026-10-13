@@ -101,6 +101,9 @@ async function updateStatus(id, newStatus, actor) {
   if (!STATUSES.includes(newStatus)) {
     return null;
   }
+  if (newStatus === 'terminado') {
+    throw new Error('Para terminar un pedido usa complete(): registra la venta.');
+  }
   const logRow = await callRpc('change_order_status', {
     p_order_id: id,
     p_new_status: newStatus,
@@ -109,6 +112,40 @@ async function updateStatus(id, newStatus, actor) {
     p_user_role: actor.role,
   });
   return { order: await getById(id), log: orderLogService.fromRow(logRow) };
+}
+
+// Terminar un pedido registra su venta (descuenta stock) y cambia el estatus en una
+// sola transacción (RPC complete_order). Falla si no hay stock suficiente.
+// Devuelve { order, log }.
+async function complete(id, paymentMethod, actor) {
+  const { taxRate } = await settingsService.get();
+  const result = await callRpc('complete_order', {
+    p_order_id: id,
+    p_sale_id: generateId('VTA'),
+    p_payment_method: paymentMethod,
+    p_tax_rate: taxRate,
+    p_user_id: actor.id,
+    p_user_name: actor.name,
+    p_user_role: actor.role,
+  });
+  return { order: await getById(id), log: orderLogService.fromRow(result.log) };
+}
+
+// Flujo logístico; cancelado queda fuera porque no es un "siguiente" estatus.
+const STATUS_FLOW = ['pendiente', 'confirmado', 'en_transito', 'terminado'];
+
+// Estatus a los que puede pasar un grupo de pedidos que comparten "status":
+// el siguiente del flujo y, si aún se puede, cancelado.
+function getBulkTargets(status) {
+  const targets = [];
+  const index = STATUS_FLOW.indexOf(status);
+  if (index !== -1 && index < STATUS_FLOW.length - 1) {
+    targets.push(STATUS_FLOW[index + 1]);
+  }
+  if (canCancel({ status })) {
+    targets.push('cancelado');
+  }
+  return targets;
 }
 
 function canCancel(order) {
@@ -209,6 +246,8 @@ export {
   getTotals,
   create,
   updateStatus,
+  complete,
+  getBulkTargets,
   canCancel,
   cancel,
   buildWhatsappMessage,

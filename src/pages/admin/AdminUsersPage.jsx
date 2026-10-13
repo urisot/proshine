@@ -58,7 +58,7 @@ function AdminUsersPage() {
   const adminCount = users.filter((user) => user.role === 'admin').length;
 
   return (
-    <main className="lg:pl-72 pt-20 bg-surface min-h-screen px-space-md lg:px-space-lg py-space-md">
+    <main className="pt-20 bg-surface min-h-screen px-space-md lg:px-space-lg py-space-md">
       <div className="flex flex-col gap-space-lg">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
           <div>

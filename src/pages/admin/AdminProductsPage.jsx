@@ -97,7 +97,7 @@ function AdminProductsPage() {
   }
 
   return (
-    <main className="lg:pl-72 pt-20 bg-surface min-h-screen px-space-md lg:px-space-lg py-space-md pb-space-xl">
+    <main className="pt-20 bg-surface min-h-screen px-space-md lg:px-space-lg py-space-md pb-space-xl">
       <div className="flex flex-col gap-space-lg">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
           <div>

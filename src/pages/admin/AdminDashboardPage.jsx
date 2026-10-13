@@ -117,7 +117,7 @@ function AdminDashboardPage() {
   }
 
   return (
-    <main className="lg:pl-72 pt-20 bg-surface min-h-screen px-space-md lg:px-space-lg py-space-md pb-space-xl">
+    <main className="pt-20 bg-surface min-h-screen px-space-md lg:px-space-lg py-space-md pb-space-xl">
       <div className="flex flex-col gap-space-lg">
         <section className="relative overflow-hidden rounded-xl glass-panel-strong p-space-lg shadow-xl animate-fade-up">
           <div className="absolute -right-20 -top-20 w-80 h-80 bg-secondary/10 rounded-full blur-3xl pointer-events-none" />

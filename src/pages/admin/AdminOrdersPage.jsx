@@ -7,6 +7,8 @@ import { useToast } from '../../context/ToastContext.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import OrderLogModal from '../../components/common/OrderLogModal.jsx';
 import OrdersTable from '../../components/admin/OrdersTable.jsx';
+import OrderPaymentModal from '../../components/admin/OrderPaymentModal.jsx';
+import StatusNotificationModal from '../../components/admin/StatusNotificationModal.jsx';
 import Modal from '../../components/common/Modal.jsx';
 import Icon from '../../components/common/Icon.jsx';
 
@@ -23,9 +25,14 @@ function AdminOrdersPage() {
   const [taxRate, setTaxRate] = useState(16);
   const [statusFilter, setStatusFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [phoneTerm, setPhoneTerm] = useState('');
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [bulkStatus, setBulkStatus] = useState('');
   const [detailOrder, setDetailOrder] = useState(null);
   const [logOrder, setLogOrder] = useState(null);
-  const [notification, setNotification] = useState(null);
+  const [notifications, setNotifications] = useState([]);
+  const [ordersToComplete, setOrdersToComplete] = useState([]);
+  const [isSaving, setIsSaving] = useState(false);
   const { showToast } = useToast();
   const { session } = useAuth();
 
@@ -34,21 +41,85 @@ function AdminOrdersPage() {
     settingsService.get().then((settings) => setTaxRate(settings.taxRate));
   }, []);
 
-  async function handleStatusChange(orderId, newStatus) {
-    let result;
-    try {
-      result = await orderService.updateStatus(orderId, newStatus, session);
-    } catch (error) {
-      showToast(`No se pudo actualizar el pedido ${orderId}. Intenta de nuevo.`, 'error');
+  // Cambia el estatus de uno o varios pedidos, uno por uno, para que cada cambio quede en la bitácora.
+  // "terminado" usa orderService.complete para registrar la venta con la forma de pago elegida.
+  async function applyStatusChange(targetOrders, newStatus, paymentMethod) {
+    const results = [];
+    const errors = [];
+
+    for (const order of targetOrders) {
+      try {
+        const result =
+          newStatus === 'terminado'
+            ? await orderService.complete(order.id, paymentMethod, session)
+            : await orderService.updateStatus(order.id, newStatus, session);
+        results.push(result);
+      } catch (error) {
+        errors.push(`${order.id}: ${error.message}`);
+      }
+    }
+
+    setOrders(await orderService.getAll());
+    setSelectedIds([]);
+    setBulkStatus('');
+
+    if (results.length > 0) {
+      const label = STATUS_LABELS[newStatus];
+      showToast(
+        results.length === 1
+          ? `Pedido ${results[0].order.id} actualizado a "${label}".`
+          : `${results.length} pedidos actualizados a "${label}".`
+      );
+    }
+    if (errors.length > 0) {
+      showToast(`No se pudo actualizar: ${errors.join(' • ')}`, 'error');
+    }
+
+    // El aviso a los clientes lo envía el administrador desde los enlaces de WhatsApp (sin envío automático).
+    if (orderService.shouldNotifyCustomer(newStatus)) {
+      setNotifications(results.map(({ order, log }) => ({ order, log })));
+    }
+  }
+
+  function handleStatusChange(orderId, newStatus) {
+    const order = orders.find((item) => item.id === orderId);
+    if (newStatus === 'terminado') {
+      setOrdersToComplete([order]);
       return;
     }
-    setOrders(await orderService.getAll());
-    showToast(`Pedido ${orderId} actualizado a "${STATUS_LABELS[newStatus]}".`);
+    applyStatusChange([order], newStatus);
+  }
 
-    // El aviso al cliente lo envía el administrador desde el enlace de WhatsApp (sin envío automático).
-    if (result && orderService.shouldNotifyCustomer(newStatus)) {
-      setNotification({ order: result.order, log: result.log });
+  function handleBulkSubmit(event) {
+    event.preventDefault();
+    if (!selectedStatus || !bulkTargets.includes(bulkStatus)) {
+      return;
     }
+    if (bulkStatus === 'terminado') {
+      setOrdersToComplete(selectedOrders);
+      return;
+    }
+    applyStatusChange(selectedOrders, bulkStatus);
+  }
+
+  async function handleConfirmPayment(paymentMethod) {
+    setIsSaving(true);
+    await applyStatusChange(ordersToComplete, 'terminado', paymentMethod);
+    setIsSaving(false);
+    setOrdersToComplete([]);
+  }
+
+  function handleToggleSelect(orderId) {
+    setSelectedIds((current) =>
+      current.includes(orderId) ? current.filter((id) => id !== orderId) : [...current, orderId]
+    );
+  }
+
+  function handleToggleAll(orderIds, shouldSelect) {
+    setSelectedIds((current) => {
+      const withoutPage = current.filter((id) => !orderIds.includes(id));
+      return shouldSelect ? [...withoutPage, ...orderIds] : withoutPage;
+    });
   }
 
   async function handleDownloadRemision(order) {
@@ -62,18 +133,36 @@ function AdminOrdersPage() {
     showToast('Reporte de pedidos descargado en formato CSV.');
   }
 
+  const phoneDigits = phoneTerm.replace(/\D/g, '');
+
   const filteredOrders = orders.filter((order) => {
     const matchesStatus = statusFilter === 'all' || order.status === statusFilter;
     const matchesSearch =
       order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
       order.customerName.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesStatus && matchesSearch;
+    const matchesPhone = !phoneDigits || (order.customerPhone || '').replace(/\D/g, '').includes(phoneDigits);
+    return matchesStatus && matchesSearch && matchesPhone;
   });
+
+  // Solo cuentan los pedidos seleccionados que siguen visibles con los filtros actuales.
+  const selectedOrders = filteredOrders.filter((order) => selectedIds.includes(order.id));
+  // Regla del cambio masivo: todos los pedidos deben estar en el mismo estatus.
+  const selectedStatus =
+    selectedOrders.length > 0 && selectedOrders.every((order) => order.status === selectedOrders[0].status)
+      ? selectedOrders[0].status
+      : null;
+  const hasMixedStatus = selectedOrders.length > 0 && !selectedStatus;
+  const bulkTargets = selectedStatus ? orderService.getBulkTargets(selectedStatus) : [];
+
+  const completionTotal = ordersToComplete.reduce(
+    (sum, order) => sum + orderService.getTotals(order, taxRate).total,
+    0
+  );
 
   const detailTotals = detailOrder ? orderService.getTotals(detailOrder, taxRate) : null;
 
   return (
-    <main className="lg:pl-72 pt-20 bg-surface min-h-screen px-space-md lg:px-space-lg py-space-md pb-space-xl">
+    <main className="pt-20 bg-surface min-h-screen px-space-md lg:px-space-lg py-space-md pb-space-xl">
       <div className="flex flex-col gap-space-lg">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-space-md animate-fade-up">
           <div>
@@ -104,6 +193,17 @@ function AdminOrdersPage() {
               className="w-full pl-10 pr-space-md py-space-sm rounded-lg bg-surface text-on-surface focus:outline-none focus:bg-surface-container-high transition"
             />
           </div>
+          <div className="relative w-full sm:w-56 flex items-center">
+            <Icon name="phone" className="absolute left-3 w-4 h-4 text-outline pointer-events-none" />
+            <input
+              type="tel"
+              value={phoneTerm}
+              onChange={(event) => setPhoneTerm(event.target.value)}
+              placeholder="Filtrar por teléfono..."
+              aria-label="Filtrar por número de contacto"
+              className="w-full pl-10 pr-space-md py-space-sm rounded-lg bg-surface text-on-surface focus:outline-none focus:bg-surface-container-high transition"
+            />
+          </div>
           <select
             value={statusFilter}
             onChange={(event) => setStatusFilter(event.target.value)}
@@ -121,9 +221,61 @@ function AdminOrdersPage() {
           </span>
         </div>
 
+        <form
+          onSubmit={handleBulkSubmit}
+          className="flex flex-col md:flex-row md:items-center gap-space-md glass-panel p-space-md rounded-xl shadow-md"
+        >
+          <div className="flex flex-col">
+            <span className="font-label-sm text-label-sm uppercase tracking-widest text-secondary">Cambio masivo</span>
+            <span className="font-body-sm text-body-sm text-on-surface-variant">
+              {selectedOrders.length === 0 && 'Selecciona pedidos con el mismo estatus.'}
+              {selectedStatus &&
+                `${selectedOrders.length} seleccionado${selectedOrders.length === 1 ? '' : 's'} • ${STATUS_LABELS[selectedStatus]}`}
+              {hasMixedStatus && (
+                <span className="text-error">Los pedidos seleccionados deben estar en el mismo estatus.</span>
+              )}
+            </span>
+          </div>
+          <select
+            value={bulkTargets.includes(bulkStatus) ? bulkStatus : ''}
+            onChange={(event) => setBulkStatus(event.target.value)}
+            disabled={bulkTargets.length === 0}
+            aria-label="Nuevo estatus para los pedidos seleccionados"
+            className="w-full md:w-56 md:ml-auto px-space-md py-space-sm rounded-lg bg-surface text-on-surface focus:outline-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <option value="">Cambiar estatus a...</option>
+            {bulkTargets.map((status) => (
+              <option key={status} value={status}>
+                {STATUS_LABELS[status]}
+              </option>
+            ))}
+          </select>
+          <div className="flex gap-space-sm">
+            <button
+              type="button"
+              onClick={() => setSelectedIds([])}
+              disabled={selectedIds.length === 0}
+              className="flex-1 md:flex-none px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-md text-label-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Limpiar selección
+            </button>
+            <button
+              type="submit"
+              disabled={!bulkTargets.includes(bulkStatus)}
+              className="flex-1 md:flex-none flex items-center justify-center gap-space-xs px-space-lg py-space-sm rounded-lg bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-label-lg text-label-lg shadow-lg bevel-top disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <Icon name="check" className="w-4 h-4" />
+              Aplicar
+            </button>
+          </div>
+        </form>
+
         <OrdersTable
           orders={filteredOrders}
           taxRate={taxRate}
+          selectedIds={selectedIds}
+          onToggleSelect={handleToggleSelect}
+          onToggleAll={handleToggleAll}
           onStatusChange={handleStatusChange}
           onViewDetail={setDetailOrder}
           onViewLog={setLogOrder}
@@ -133,45 +285,15 @@ function AdminOrdersPage() {
 
       <OrderLogModal order={logOrder} onClose={() => setLogOrder(null)} />
 
-      <Modal
-        isOpen={Boolean(notification)}
-        title="Notificar al cliente"
-        subtitle={notification?.order.customerName}
-        icon="chat"
-        onClose={() => setNotification(null)}
-        maxWidthClass="max-w-md"
-        footer={
-          notification && (
-            <div className="flex flex-col sm:flex-row items-center justify-end gap-space-sm">
-              <button
-                type="button"
-                onClick={() => setNotification(null)}
-                className="w-full sm:w-auto px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-md text-label-md transition-colors"
-              >
-                Ahora no
-              </button>
-              <a
-                href={orderService.getCustomerStatusLink(notification.order, notification.log)}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setNotification(null)}
-                className="w-full sm:w-auto flex items-center justify-center gap-space-xs px-space-lg py-space-sm rounded-lg bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-label-lg text-label-lg shadow-lg bevel-top"
-              >
-                <Icon name="chat" className="w-4 h-4" />
-                Notificar por WhatsApp
-              </a>
-            </div>
-          )
-        }
-      >
-        {notification && (
-          <p className="font-body-md text-body-md text-on-surface-variant">
-            Pedido {notification.order.folio || notification.order.id} actualizado a{' '}
-            {STATUS_LABELS[notification.log.newStatus]}. ¿Quieres avisar al cliente por WhatsApp? El mensaje incluye el
-            nuevo estatus y la fecha del cambio ({orderService.formatStatusDate(notification.log.changedAt)}).
-          </p>
-        )}
-      </Modal>
+      <OrderPaymentModal
+        orders={ordersToComplete}
+        total={completionTotal}
+        isSaving={isSaving}
+        onConfirm={handleConfirmPayment}
+        onClose={() => setOrdersToComplete([])}
+      />
+
+      <StatusNotificationModal notifications={notifications} onClose={() => setNotifications([])} />
 
       <Modal
         isOpen={Boolean(detailOrder)}

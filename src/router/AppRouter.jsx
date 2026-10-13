@@ -8,6 +8,7 @@ import MyOrdersPage from '../pages/MyOrdersPage.jsx';
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage.jsx';
 import AdminProductsPage from '../pages/admin/AdminProductsPage.jsx';
 import AdminOrdersPage from '../pages/admin/AdminOrdersPage.jsx';
+import AdminSalesPage from '../pages/admin/AdminSalesPage.jsx';
 import AdminUsersPage from '../pages/admin/AdminUsersPage.jsx';
 import AdminSettingsPage from '../pages/admin/AdminSettingsPage.jsx';
 
@@ -39,6 +40,7 @@ function AppRouter() {
           <Route path="/admin" element={<AdminDashboardPage />} />
           <Route path="/admin/productos" element={<AdminProductsPage />} />
           <Route path="/admin/pedidos" element={<AdminOrdersPage />} />
+          <Route path="/admin/ventas" element={<AdminSalesPage />} />
           <Route path="/admin/usuarios" element={<AdminUsersPage />} />
           <Route path="/admin/preferencias" element={<AdminSettingsPage />} />
         </Route>
