@@ -9,6 +9,7 @@ const PRODUCT_COLUMNS = [
   { key: 'name', header: 'Nombre', required: true, example: 'Desengrasante Industrial' },
   { key: 'description', header: 'Descripcion', required: false, example: 'Fórmula alcalina pH 13' },
   { key: 'categoryName', header: 'Categoria', required: true, example: 'Químicos y Desengrasantes' },
+  { key: 'sectors', header: 'Sectores', required: true, example: 'Hogar|Empresas|Industria' },
   { key: 'unit', header: 'Presentacion', required: true, example: 'Porrón 20 L' },
   { key: 'priceRetail', header: 'PrecioMenudeo', required: true, example: '680.00' },
   { key: 'priceWholesale', header: 'PrecioMayoreo', required: true, example: '520.00' },
@@ -43,6 +44,7 @@ const USER_COLUMNS = [
 ];
 
 const VALID_SECTORS = ['Hogar', 'Hoteles', 'Escuelas', 'Empresas', 'Industria'];
+const SECTOR_SEPARATOR = '|';
 const VALID_UNITS = ['Porrón 20 L', 'Galón 3.78 L', 'Litro 1 L', 'Tambo 200 L', 'Pieza Unitaria'];
 
 function timestamp() {
@@ -71,6 +73,7 @@ function exportProducts(products, categoryNameById) {
     product.name,
     product.description,
     categoryNameById[product.categoryId] || '',
+    product.sectors.join(SECTOR_SEPARATOR),
     product.unit,
     product.priceRetail.toFixed(2),
     product.priceWholesale.toFixed(2),
@@ -154,6 +157,19 @@ async function importProducts(file) {
       continue;
     }
 
+    const sectors = record.sectors
+      .split(SECTOR_SEPARATOR)
+      .map((sector) => sector.trim())
+      .filter(Boolean);
+    const invalidSector = sectors.find((sector) => !VALID_SECTORS.includes(sector));
+    if (sectors.length === 0 || invalidSector) {
+      const problem = invalidSector ? `sector "${invalidSector}" no válido` : 'falta el sector';
+      errors.push(
+        `Fila ${line}: ${problem}. Use uno o varios separados por "${SECTOR_SEPARATOR}": ${VALID_SECTORS.join(', ')}.`
+      );
+      continue;
+    }
+
     if (!VALID_UNITS.includes(record.unit)) {
       errors.push(`Fila ${line}: presentación "${record.unit}" no válida.`);
       continue;
@@ -169,6 +185,7 @@ async function importProducts(file) {
       name: record.name,
       description: record.description,
       categoryId: category.id,
+      sectors: [...new Set(sectors)],
       unit: record.unit,
       priceRetail: record.priceRetail,
       priceWholesale: record.priceWholesale,

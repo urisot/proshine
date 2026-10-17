@@ -8,6 +8,7 @@ function fromRow(row) {
     name: row.name,
     description: row.description,
     categoryId: row.category_id,
+    sectors: row.sectors || [],
     unit: row.unit,
     priceRetail: Number(row.price_retail),
     priceWholesale: Number(row.price_wholesale),
@@ -26,6 +27,7 @@ function toRow(data) {
     name: data.name.trim(),
     description: data.description.trim(),
     category_id: data.categoryId,
+    sectors: data.sectors,
     unit: data.unit,
     price_retail: Number(data.priceRetail),
     price_wholesale: Number(data.priceWholesale),
@@ -56,7 +58,13 @@ async function isSkuTaken(sku, excludeId = null) {
   );
 }
 
+const SECTORS_REQUIRED_MESSAGE = 'Selecciona al menos un sector para el producto.';
+
 async function create(data) {
+  if (!data.sectors || data.sectors.length === 0) {
+    return { success: false, message: SECTORS_REQUIRED_MESSAGE };
+  }
+
   if (await isSkuTaken(data.sku)) {
     return { success: false, message: `El SKU "${data.sku}" ya existe en otro producto.` };
   }
@@ -66,6 +74,10 @@ async function create(data) {
 }
 
 async function update(id, data) {
+  if (!data.sectors || data.sectors.length === 0) {
+    return { success: false, message: SECTORS_REQUIRED_MESSAGE };
+  }
+
   if (await isSkuTaken(data.sku, id)) {
     return { success: false, message: `El SKU "${data.sku}" ya existe en otro producto.` };
   }
