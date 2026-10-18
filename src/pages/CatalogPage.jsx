@@ -64,13 +64,12 @@ function CatalogPage() {
     const term = searchTerm.toLowerCase();
 
     let result = products.filter((product) => {
-      const category = categoryById[product.categoryId];
       const matchesSearch =
         product.name.toLowerCase().includes(term) ||
         product.description.toLowerCase().includes(term) ||
         product.sku.toLowerCase().includes(term);
       const matchesCategory = !categoryFilter || product.categoryId === categoryFilter;
-      const matchesSector = !sectorFilter || category?.sector === sectorFilter;
+      const matchesSector = !sectorFilter || product.sectors.includes(sectorFilter);
       const matchesStock = !onlyInStock || product.stock > 0;
       const matchesPromo = !onlyPromo || product.isOnPromo;
       return matchesSearch && matchesCategory && matchesSector && matchesStock && matchesPromo;
@@ -87,7 +86,7 @@ function CatalogPage() {
     }
 
     return result;
-  }, [products, categoryById, searchTerm, categoryFilter, sectorFilter, sortBy, onlyInStock, onlyPromo]);
+  }, [products, searchTerm, categoryFilter, sectorFilter, sortBy, onlyInStock, onlyPromo]);
 
   const hasActiveFilters = Boolean(searchTerm || categoryFilter || sectorFilter || onlyInStock || onlyPromo);
 

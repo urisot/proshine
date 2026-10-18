@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Modal from '../common/Modal.jsx';
 import Icon from '../common/Icon.jsx';
 
+const SECTORS = ['Hogar', 'Hoteles', 'Escuelas', 'Empresas', 'Industria'];
 const UNITS = ['Porrón 20 L', 'Galón 3.78 L', 'Litro 1 L', 'Tambo 200 L', 'Pieza Unitaria'];
 
 const EMPTY_FORM = {
@@ -9,6 +10,7 @@ const EMPTY_FORM = {
   name: '',
   description: '',
   categoryId: '',
+  sectors: [],
   unit: UNITS[0],
   priceRetail: '',
   priceWholesale: '',
@@ -22,13 +24,19 @@ const EMPTY_FORM = {
 
 function ProductForm({ isOpen, initialData, categories, onClose, onSubmit }) {
   const [form, setForm] = useState(EMPTY_FORM);
+  const [sectorError, setSectorError] = useState(false);
 
   useEffect(() => {
     if (initialData) {
       setForm({ ...initialData });
     } else {
-      setForm({ ...EMPTY_FORM, categoryId: categories[0]?.id || '' });
+      setForm({
+        ...EMPTY_FORM,
+        categoryId: categories[0]?.id || '',
+        sectors: categories[0]?.sector ? [categories[0].sector] : [],
+      });
     }
+    setSectorError(false);
   }, [initialData, isOpen, categories]);
 
   function handleChange(event) {
@@ -36,8 +44,32 @@ function ProductForm({ isOpen, initialData, categories, onClose, onSubmit }) {
     setForm((current) => ({ ...current, [name]: type === 'checkbox' ? checked : value }));
   }
 
+  function handleCategoryChange(event) {
+    const category = categories.find((item) => item.id === event.target.value);
+    // En un producto nuevo se sugiere el sector de la categoría elegida.
+    setForm((current) => ({
+      ...current,
+      categoryId: event.target.value,
+      sectors: !initialData && category?.sector ? [category.sector] : current.sectors,
+    }));
+  }
+
+  function handleSectorToggle(sector) {
+    setSectorError(false);
+    setForm((current) => ({
+      ...current,
+      sectors: current.sectors.includes(sector)
+        ? current.sectors.filter((item) => item !== sector)
+        : [...current.sectors, sector],
+    }));
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
+    if (form.sectors.length === 0) {
+      setSectorError(true);
+      return;
+    }
     onSubmit(form);
   }
 
@@ -134,7 +166,7 @@ function ProductForm({ isOpen, initialData, categories, onClose, onSubmit }) {
               name="categoryId"
               required
               value={form.categoryId}
-              onChange={handleChange}
+              onChange={handleCategoryChange}
               className="w-full px-space-md py-space-sm rounded-lg bg-surface text-on-surface focus:outline-none focus:bg-surface-container-high cursor-pointer"
             >
               {categories.map((category) => (
@@ -163,6 +195,30 @@ function ProductForm({ isOpen, initialData, categories, onClose, onSubmit }) {
             </select>
           </div>
         </div>
+
+        <fieldset className="flex flex-col gap-space-xs">
+          <legend className="font-label-sm text-label-sm text-on-surface-variant uppercase">
+            Sectores de Aplicación
+          </legend>
+          <div className="flex flex-wrap gap-space-md">
+            {SECTORS.map((sector) => (
+              <label key={sector} className="flex items-center gap-space-xs cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={form.sectors.includes(sector)}
+                  onChange={() => handleSectorToggle(sector)}
+                  className="w-4 h-4 rounded"
+                />
+                <span className="font-body-md text-body-md text-on-surface">{sector}</span>
+              </label>
+            ))}
+          </div>
+          {sectorError && (
+            <span role="alert" className="font-body-sm text-body-sm text-error">
+              Selecciona al menos un sector.
+            </span>
+          )}
+        </fieldset>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-space-md bg-surface-container-low p-space-md rounded-lg">
           <div className="flex flex-col gap-1">

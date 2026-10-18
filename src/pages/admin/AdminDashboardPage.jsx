@@ -86,27 +86,32 @@ function AdminDashboardPage() {
   const bestDay = weeklySales.reduce((best, bucket) => (bucket.total > best.total ? bucket : best), weeklySales[0]);
 
   const salesBySector = useMemo(() => {
-    const productSector = {};
+    const productSectors = {};
     products.forEach((product) => {
-      const category = categories.find((item) => item.id === product.categoryId);
-      productSector[product.id] = category?.sector || 'Otros';
+      productSectors[product.id] = product.sectors.length > 0 ? product.sectors : ['Otros'];
     });
 
+    // Un producto en varios sectores suma la venta completa a cada uno;
+    // el porcentaje se calcula sobre la venta real.
     const totals = {};
+    let realTotal = 0;
     orders
       .filter((order) => order.status !== 'cancelado')
       .forEach((order) => {
         order.items.forEach((item) => {
-          const sector = productSector[item.productId] || 'Otros';
-          totals[sector] = (totals[sector] || 0) + item.unitPrice * item.quantity;
+          const amount = item.unitPrice * item.quantity;
+          realTotal += amount;
+          (productSectors[item.productId] || ['Otros']).forEach((sector) => {
+            totals[sector] = (totals[sector] || 0) + amount;
+          });
         });
       });
 
-    const grandTotal = Object.values(totals).reduce((sum, value) => sum + value, 0) || 1;
+    const grandTotal = realTotal || 1;
     return Object.entries(totals)
       .map(([sector, total]) => ({ sector, total, percent: Math.round((total / grandTotal) * 100) }))
       .sort((a, b) => b.total - a.total);
-  }, [orders, products, categories]);
+  }, [orders, products]);
 
   const maxStatusCount = Math.max(...Object.values(summary.byStatus), 1);
 
