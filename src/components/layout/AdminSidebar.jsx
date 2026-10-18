@@ -2,54 +2,25 @@ import { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import Logo from '../common/Logo.jsx';
 import Icon from '../common/Icon.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
+import { MENU, hasPermission } from '../../services/menuCatalog.js';
 
-// Menú del panel. Las opciones sin "to" están por implementar y se muestran deshabilitadas.
-const MENU = [
-  { id: 'panel', label: 'Panel General', icon: 'dashboard', to: '/admin', end: true },
-  {
-    id: 'pedidos',
-    label: 'Gestión de Pedidos',
-    icon: 'truck',
-    children: [{ label: 'Pedidos y Remisiones', to: '/admin/pedidos' }],
-  },
-  {
-    id: 'ventas',
-    label: 'Ventas',
-    icon: 'money',
-    children: [{ label: 'Generar Venta', to: '/admin/ventas' }],
-  },
-  {
-    id: 'inventario',
-    label: 'Gestión de Inventario',
-    icon: 'warehouse',
-    children: [{ label: 'Administración de Inventario' }],
-  },
-  {
-    id: 'catalogos',
-    label: 'Catálogos',
-    icon: 'box',
-    children: [{ label: 'Productos y Categorías', to: '/admin/productos' }],
-  },
-  {
-    id: 'reportes',
-    label: 'Reportes',
-    icon: 'chart',
-    children: [
-      { label: 'Pedidos por Surtir' },
-      { label: 'Reporte General de Ventas' },
-      { label: 'Reporte de Stock Crítico' },
-    ],
-  },
-  {
-    id: 'configuraciones',
-    label: 'Configuraciones',
-    icon: 'settings',
-    children: [
-      { label: 'Control de Accesos', to: '/admin/usuarios' },
-      { label: 'Preferencias Generales', to: '/admin/preferencias' },
-    ],
-  },
-];
+// Menú filtrado por los permisos del rol: se ocultan los hijos no permitidos y los padres sin hijos.
+function getAllowedMenu(session) {
+  return MENU.reduce((result, group) => {
+    if (!group.children) {
+      if (hasPermission(session, group.key)) {
+        result.push(group);
+      }
+      return result;
+    }
+    const children = group.children.filter((child) => hasPermission(session, child.key));
+    if (children.length > 0) {
+      result.push({ ...group, children });
+    }
+    return result;
+  }, []);
+}
 
 const ITEM_BASE = 'flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-label-lg text-label-lg transition-all';
 const ITEM_IDLE = 'text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface';
@@ -69,11 +40,11 @@ function normalizeText(text) {
 }
 
 // Si el padre coincide se muestran todos sus hijos; si no, solo los hijos que coinciden.
-function filterMenu(term) {
+function filterMenu(menu, term) {
   if (!term) {
-    return MENU;
+    return menu;
   }
-  return MENU.reduce((result, group) => {
+  return menu.reduce((result, group) => {
     if (normalizeText(group.label).includes(term)) {
       result.push(group);
       return result;
@@ -89,13 +60,15 @@ function filterMenu(term) {
 // isCollapsed solo aplica en escritorio (lg); en móvil el menú siempre se muestra completo.
 function AdminSidebar({ isOpen, isCollapsed, onToggleCollapse, onNavigate }) {
   const { pathname } = useLocation();
+  const { session } = useAuth();
   const [openGroups, setOpenGroups] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const searchInputRef = useRef(null);
 
+  const allowedMenu = getAllowedMenu(session);
   const normalizedTerm = normalizeText(searchTerm);
   const isSearching = normalizedTerm !== '';
-  const visibleMenu = filterMenu(normalizedTerm);
+  const visibleMenu = filterMenu(allowedMenu, normalizedTerm);
 
   // Con el menú colapsado, la lupa expande el menú y deja el cursor en el buscador.
   function handleSearchIconClick() {
@@ -118,7 +91,7 @@ function AdminSidebar({ isOpen, isCollapsed, onToggleCollapse, onNavigate }) {
   useEffect(() => {
     const activeGroup = MENU.find((group) => groupHasPath(group, pathname));
     if (activeGroup) {
-      setOpenGroups((current) => (current.includes(activeGroup.id) ? current : [...current, activeGroup.id]));
+      setOpenGroups((current) => (current.includes(activeGroup.key) ? current : [...current, activeGroup.key]));
     }
   }, [pathname]);
 
@@ -213,7 +186,7 @@ function AdminSidebar({ isOpen, isCollapsed, onToggleCollapse, onNavigate }) {
             {visibleMenu.map((group) => {
               if (!group.children) {
                 return (
-                  <li key={group.id}>
+                  <li key={group.key}>
                     <NavLink
                       to={group.to}
                       end={group.end}
@@ -230,15 +203,15 @@ function AdminSidebar({ isOpen, isCollapsed, onToggleCollapse, onNavigate }) {
                 );
               }
 
-              const isGroupOpen = isSearching || openGroups.includes(group.id);
+              const isGroupOpen = isSearching || openGroups.includes(group.key);
               const isGroupActive = groupHasPath(group, pathname);
-              const submenuId = `submenu-${group.id}`;
+              const submenuId = `submenu-${group.key}`;
 
               return (
-                <li key={group.id}>
+                <li key={group.key}>
                   <button
                     type="button"
-                    onClick={() => toggleGroup(group.id)}
+                    onClick={() => toggleGroup(group.key)}
                     title={group.label}
                     aria-expanded={isGroupOpen}
                     aria-controls={submenuId}

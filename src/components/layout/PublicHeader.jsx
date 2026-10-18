@@ -8,7 +8,7 @@ import IconButton from '../common/IconButton.jsx';
 import ConfirmDialog from '../common/ConfirmDialog.jsx';
 
 function PublicHeader({ onOpenCart }) {
-  const { isAuthenticated, isAdmin, session, logout } = useAuth();
+  const { isAuthenticated, isAdmin, hasPanelAccess, session, logout } = useAuth();
   const { itemCount } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
@@ -22,7 +22,7 @@ function PublicHeader({ onOpenCart }) {
   const navLinks = [
     { to: '/', label: 'Catálogo y Tienda', end: true },
     ...(isAuthenticated && !isAdmin ? [{ to: '/mis-pedidos', label: 'Mis Pedidos' }] : []),
-    ...(isAdmin ? [{ to: '/admin', label: 'Panel Admin' }] : []),
+    ...(hasPanelAccess ? [{ to: '/admin', label: 'Panel Admin' }] : []),
   ];
 
   const linkClass = ({ isActive }) =>

@@ -6,6 +6,7 @@ import Logo from '../components/common/Logo.jsx';
 import Icon from '../components/common/Icon.jsx';
 import AddressFields from '../components/common/AddressFields.jsx';
 import { EMPTY_ADDRESS, getMissingRequired } from '../services/addressService.js';
+import { getFirstAllowedPath } from '../services/menuCatalog.js';
 
 const SECTORS = [
   { icon: 'home', label: 'Hogar' },
@@ -71,7 +72,7 @@ function AuthPage() {
       return;
     }
     showToast(`Bienvenido/a ${result.user.name}.`);
-    navigate(result.user.role === 'admin' ? '/admin' : '/');
+    navigate(getFirstAllowedPath(result.session) || '/');
   }
 
   function handleAddressChange(address) {

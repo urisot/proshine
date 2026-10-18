@@ -2,9 +2,16 @@ import { selectAll, insertRow } from './supabaseClient.js';
 import { readSession, writeSession, clearSession } from './storage.js';
 import { generateId } from './idService.js';
 import { normalizeAddress } from './addressService.js';
+import * as roleService from './roleService.js';
 
 function normalizeEmail(email) {
   return email.trim().toLowerCase();
+}
+
+// La sesión incluye las opciones de menú del rol para proteger rutas sin consultar cada vez.
+async function buildSession(user) {
+  const permissions = await roleService.getPermissions(user.role);
+  return { id: user.id, name: user.name, email: user.email, role: user.role, permissions };
 }
 
 async function findUserByEmail(email) {
@@ -29,10 +36,10 @@ async function register({ name, phone, email, address, rfc, password }) {
     role: 'cliente',
   });
 
-  const session = { id: row.id, name: row.name, email: row.email, role: row.role };
+  const session = await buildSession(row);
   writeSession(session);
 
-  return { success: true, user: row };
+  return { success: true, user: row, session };
 }
 
 async function login({ email, password }) {
@@ -41,10 +48,26 @@ async function login({ email, password }) {
     return { success: false, message: 'Correo o contraseña incorrectos.' };
   }
 
-  const session = { id: user.id, name: user.name, email: user.email, role: user.role };
+  const session = await buildSession(user);
   writeSession(session);
 
-  return { success: true, user };
+  return { success: true, user, session };
+}
+
+// Vuelve a leer rol y permisos del usuario, por si un administrador los cambió con la sesión abierta.
+async function refreshSession() {
+  const current = readSession();
+  if (!current) {
+    return null;
+  }
+  const rows = await selectAll('users', { filters: { id: current.id } });
+  if (!rows[0]) {
+    clearSession();
+    return null;
+  }
+  const session = await buildSession(rows[0]);
+  writeSession(session);
+  return session;
 }
 
 function logout() {
@@ -55,4 +78,4 @@ function getSession() {
   return readSession();
 }
 
-export { register, login, logout, getSession };
+export { register, login, logout, getSession, refreshSession };

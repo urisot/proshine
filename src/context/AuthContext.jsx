@@ -1,10 +1,18 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import * as authService from '../services/authService.js';
+import { hasPanelAccess } from '../services/menuCatalog.js';
 
 const AuthContext = createContext(null);
 
 function AuthProvider({ children }) {
   const [session, setSession] = useState(() => authService.getSession());
+
+  // Al abrir la app se actualizan los permisos de la sesión guardada.
+  useEffect(() => {
+    if (authService.getSession()) {
+      authService.refreshSession().then(setSession).catch(() => {});
+    }
+  }, []);
 
   async function handleRegister(data) {
     const result = await authService.register(data);
@@ -22,6 +30,11 @@ function AuthProvider({ children }) {
     return result;
   }
 
+  async function handleRefreshSession() {
+    const refreshed = await authService.refreshSession();
+    setSession(refreshed);
+  }
+
   function handleLogout() {
     authService.logout();
     setSession(null);
@@ -31,9 +44,11 @@ function AuthProvider({ children }) {
     session,
     isAuthenticated: Boolean(session),
     isAdmin: session?.role === 'admin',
+    hasPanelAccess: hasPanelAccess(session),
     register: handleRegister,
     login: handleLogin,
     logout: handleLogout,
+    refreshSession: handleRefreshSession,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -11,6 +11,18 @@ import AdminOrdersPage from '../pages/admin/AdminOrdersPage.jsx';
 import AdminSalesPage from '../pages/admin/AdminSalesPage.jsx';
 import AdminUsersPage from '../pages/admin/AdminUsersPage.jsx';
 import AdminSettingsPage from '../pages/admin/AdminSettingsPage.jsx';
+import AdminRolesPage from '../pages/admin/AdminRolesPage.jsx';
+
+// Cada ruta del panel exige la clave de permiso de su opción de menú (ver menuCatalog.js).
+const ADMIN_ROUTES = [
+  { path: '/admin', permission: 'panel', Page: AdminDashboardPage },
+  { path: '/admin/productos', permission: 'catalogos.productos', Page: AdminProductsPage },
+  { path: '/admin/pedidos', permission: 'pedidos.remisiones', Page: AdminOrdersPage },
+  { path: '/admin/ventas', permission: 'ventas.generar', Page: AdminSalesPage },
+  { path: '/admin/usuarios', permission: 'configuraciones.usuarios', Page: AdminUsersPage },
+  { path: '/admin/roles', permission: 'configuraciones.roles', Page: AdminRolesPage },
+  { path: '/admin/preferencias', permission: 'configuraciones.preferencias', Page: AdminSettingsPage },
+];
 
 function AppRouter() {
   return (
@@ -32,17 +44,22 @@ function AppRouter() {
 
         <Route
           element={
-            <ProtectedRoute requiredRole="admin">
+            <ProtectedRoute panel>
               <AdminLayout />
             </ProtectedRoute>
           }
         >
-          <Route path="/admin" element={<AdminDashboardPage />} />
-          <Route path="/admin/productos" element={<AdminProductsPage />} />
-          <Route path="/admin/pedidos" element={<AdminOrdersPage />} />
-          <Route path="/admin/ventas" element={<AdminSalesPage />} />
-          <Route path="/admin/usuarios" element={<AdminUsersPage />} />
-          <Route path="/admin/preferencias" element={<AdminSettingsPage />} />
+          {ADMIN_ROUTES.map(({ path, permission, Page }) => (
+            <Route
+              key={path}
+              path={path}
+              element={
+                <ProtectedRoute permission={permission}>
+                  <Page />
+                </ProtectedRoute>
+              }
+            />
+          ))}
         </Route>
       </Routes>
     </BrowserRouter>
