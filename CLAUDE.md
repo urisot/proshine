@@ -24,6 +24,13 @@ Funcionalidades de la aplicación:
 - La información (categorías, productos, usuarios, pedidos, carritos y configuración de tienda) se guarda en Supabase (Postgres). Solo la sesión del usuario autenticado (quién está logeado ahora mismo en este navegador) se guarda en localStorage.
 
 
+- Roles y permisos (`/admin/roles`, "Roles del Sistema" en Configuraciones, solo `admin`):
+    - CRUD de roles (tablas `roles` y `role_permissions`, script `supabase/roles.sql`). `admin` y `cliente` son roles de sistema: se pueden editar (nombre y descripción) pero no eliminar. La clave (`roles.id`) es la que se guarda en `users.role` y no cambia al renombrar
+    - Los permisos son solo por opción de menú (padre e hijos), no por acción. El catálogo de opciones y sus claves está en `src/services/menuCatalog.js` (lo usan el sidebar, el router y la pantalla de permisos). "Panel General" es una opción más
+    - `admin` siempre tiene todo; "Control de Accesos" y "Roles del Sistema" son exclusivas del `admin` (`adminOnly`). Un rol con al menos una opción entra al panel; los permisos se guardan en la sesión (localStorage) y se refrescan al abrir la app
+    - Al eliminar un rol, sus usuarios pasan a `cliente`. El rol se asigna manualmente en Control de Accesos
+    - La restricción es solo del lado cliente (RLS abierto, sin Supabase Auth)
+
 - Panel de aministración privado
     - Dentro del panel se podrá:
 	- CRUD del catalogo de Categorias (Quimicos, Jarcieria, Envaces, etc)
@@ -68,7 +75,7 @@ Stack de tecnologia:
 
 Base de datos (Supabase):
 
-- Tablas: `categories`, `products`, `users`, `orders`, `carts`, `settings`, `order_log`, `sales`.
+- Tablas: `categories`, `products`, `users`, `orders`, `carts`, `settings`, `order_log`, `sales`, `roles`, `role_permissions`.
 - `sales.order_id` (único, nullable): liga la venta con el pedido que la originó; `null` = venta de mostrador. En la venta de un pedido, `subtotal` = `orders.total`, descuento 0 e IVA de `settings`; si es efectivo, `cash_received` = total y `change_given` = 0.
 - Funciones RPC: `change_order_status(p_order_id, p_new_status, p_user_id, p_user_name, p_user_role)`, `register_sale(p_sale jsonb)` (descuenta stock y registra la venta con folio `V-00001` en una sola transacción; falla si no hay stock suficiente), `complete_order(p_order_id, p_sale_id, p_payment_method, p_tax_rate, p_user_id, p_user_name, p_user_role)` (registra la venta del pedido y lo pasa a terminado con bitácora en una sola transacción).
 - Scripts SQL versionados en la carpeta `supabase/` (ej. `supabase/order_log.sql`, `supabase/sales.sql`, `supabase/order_sales.sql`), se ejecutan en Supabase → SQL Editor.

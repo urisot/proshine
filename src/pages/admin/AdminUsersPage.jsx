@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import * as userService from '../../services/userService.js';
+import * as roleService from '../../services/roleService.js';
 import { useToast } from '../../context/ToastContext.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import UserForm from '../../components/admin/UserForm.jsx';
@@ -14,6 +15,7 @@ import { formatAddress } from '../../services/addressService.js';
 
 function AdminUsersPage() {
   const [users, setUsers] = useState([]);
+  const [roles, setRoles] = useState([]);
   const [modal, setModal] = useState({ isOpen: false, data: null });
   const [userToDelete, setUserToDelete] = useState(null);
   const [roleFilter, setRoleFilter] = useState('all');
@@ -26,7 +28,12 @@ function AdminUsersPage() {
 
   useEffect(() => {
     refreshUsers();
+    roleService.getAll().then(setRoles);
   }, []);
+
+  function getRoleName(roleId) {
+    return roles.find((role) => role.id === roleId)?.name || roleId;
+  }
 
   async function handleSubmit(formData) {
     const result = modal.data
@@ -87,8 +94,11 @@ function AdminUsersPage() {
             className="w-full sm:w-56 px-space-md py-space-sm rounded-lg bg-surface text-on-surface focus:outline-none cursor-pointer"
           >
             <option value="all">Todos los roles</option>
-            <option value="admin">Solo Administradores</option>
-            <option value="cliente">Solo Clientes</option>
+            {roles.map((role) => (
+              <option key={role.id} value={role.id}>
+                Solo {role.name}
+              </option>
+            ))}
           </select>
           <div className="flex flex-wrap items-center gap-space-xs">
             <DataToolbar
@@ -165,7 +175,7 @@ function AdminUsersPage() {
                           : 'bg-surface-container-highest text-on-surface-variant'
                       }`}
                     >
-                      {user.role === 'admin' ? 'Administrador' : 'Cliente'}
+                      {getRoleName(user.role)}
                     </span>
                   </td>
                   <td className="py-space-md px-space-md text-on-surface-variant font-label-md text-label-md">
@@ -201,6 +211,7 @@ function AdminUsersPage() {
       <UserForm
         isOpen={modal.isOpen}
         initialData={modal.data}
+        roles={roles}
         onClose={() => setModal({ isOpen: false, data: null })}
         onSubmit={handleSubmit}
       />

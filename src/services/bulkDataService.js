@@ -2,6 +2,7 @@ import { downloadCsv, parseCsvToObjects, readFileAsText, parseBoolean } from './
 import * as productService from './productService.js';
 import * as categoryService from './categoryService.js';
 import * as userService from './userService.js';
+import * as roleService from './roleService.js';
 import { normalizeAddress, getMissingRequired } from './addressService.js';
 
 const PRODUCT_COLUMNS = [
@@ -269,6 +270,7 @@ async function importUsers(file) {
     return { success: false, message: parsed.message };
   }
 
+  const roles = await roleService.getAll();
   const errors = [];
   let created = 0;
   let updated = 0;
@@ -281,11 +283,14 @@ async function importUsers(file) {
       continue;
     }
 
-    const role = record.role.trim().toLowerCase();
-    if (role !== 'cliente' && role !== 'admin') {
-      errors.push(`Fila ${line}: rol "${record.role}" no válido. Use: cliente o admin.`);
+    // El rol puede venir como clave (ej. "admin") o como nombre (ej. "Administrador").
+    const roleText = record.role.trim().toLowerCase();
+    const matchedRole = roles.find((item) => item.id === roleText || item.name.toLowerCase() === roleText);
+    if (!matchedRole) {
+      errors.push(`Fila ${line}: rol "${record.role}" no válido. Use: ${roles.map((item) => item.id).join(', ')}.`);
       continue;
     }
+    const role = matchedRole.id;
 
     if (!record.password || record.password.length < 6) {
       errors.push(`Fila ${line}: la contraseña debe tener al menos 6 caracteres.`);

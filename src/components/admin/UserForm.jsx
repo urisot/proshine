@@ -15,7 +15,7 @@ const EMPTY_FORM = {
 
 const INPUT_CLASS = 'w-full px-space-md py-space-sm rounded-lg bg-surface text-on-surface focus:outline-none focus:bg-surface-container-high';
 
-function UserForm({ isOpen, initialData, onClose, onSubmit }) {
+function UserForm({ isOpen, initialData, roles, onClose, onSubmit }) {
   const [form, setForm] = useState(EMPTY_FORM);
 
   useEffect(() => {
@@ -85,8 +85,11 @@ function UserForm({ isOpen, initialData, onClose, onSubmit }) {
               Rol Asignado
             </label>
             <select id="user-role" name="role" value={form.role} onChange={handleChange} className={`${INPUT_CLASS} cursor-pointer`}>
-              <option value="cliente">Cliente</option>
-              <option value="admin">Administrador</option>
+              {roles.map((role) => (
+                <option key={role.id} value={role.id}>
+                  {role.name}
+                </option>
+              ))}
             </select>
           </div>
         </div>
